@@ -1,0 +1,733 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AE232E87FB61793C8B5E9DD7 /* libPods-JWChatTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69DAE01FC217C91E0E1C1615 /* libPods-JWChatTests.a */; };
+		B6A1C2424D4D5DBA4A9996C3 /* libPods-JWChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C61DF51CCA267BD3C47F968B /* libPods-JWChat.a */; };
+		C4F470FF1E8D43CB001ED39F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F470FE1E8D43CB001ED39F /* main.m */; };
+		C4F471021E8D43CB001ED39F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F471011E8D43CB001ED39F /* AppDelegate.m */; };
+		C4F4710A1E8D43CB001ED39F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4F471091E8D43CB001ED39F /* Assets.xcassets */; };
+		C4F4710D1E8D43CB001ED39F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4F4710B1E8D43CB001ED39F /* LaunchScreen.storyboard */; };
+		C4F471181E8D43CB001ED39F /* JWChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F471171E8D43CB001ED39F /* JWChatTests.m */; };
+		C4F471451E8D52DA001ED39F /* MainNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F471441E8D52DA001ED39F /* MainNavController.m */; };
+		C4F4714B1E8D531E001ED39F /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F4714A1E8D531E001ED39F /* MainTabBarController.m */; };
+		C4F4714E1E8D5488001ED39F /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F4714D1E8D5488001ED39F /* LoginViewController.m */; };
+		C4F471521E8EB8CB001ED39F /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F471511E8EB8CB001ED39F /* DataManager.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C4F471141E8D43CB001ED39F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4F470F21E8D43CB001ED39F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C4F470F91E8D43CB001ED39F;
+			remoteInfo = JWChat;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0143081FBF501D23F9F6EE33 /* Pods-JWChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JWChat/Pods-JWChat.debug.xcconfig"; sourceTree = "<group>"; };
+		69DAE01FC217C91E0E1C1615 /* libPods-JWChatTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JWChatTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A02832E3441BC6141CB054C /* Pods-JWChatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWChatTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JWChatTests/Pods-JWChatTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C4F470FA1E8D43CB001ED39F /* JWChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JWChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4F470FE1E8D43CB001ED39F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C4F471001E8D43CB001ED39F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C4F471011E8D43CB001ED39F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C4F471091E8D43CB001ED39F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C4F4710C1E8D43CB001ED39F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C4F4710E1E8D43CB001ED39F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4F471131E8D43CB001ED39F /* JWChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JWChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4F471171E8D43CB001ED39F /* JWChatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JWChatTests.m; sourceTree = "<group>"; };
+		C4F471191E8D43CB001ED39F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4F471431E8D52DA001ED39F /* MainNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainNavController.h; sourceTree = "<group>"; };
+		C4F471441E8D52DA001ED39F /* MainNavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainNavController.m; sourceTree = "<group>"; };
+		C4F471491E8D531E001ED39F /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBarController.h; sourceTree = "<group>"; };
+		C4F4714A1E8D531E001ED39F /* MainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarController.m; sourceTree = "<group>"; };
+		C4F4714C1E8D5488001ED39F /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		C4F4714D1E8D5488001ED39F /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		C4F4714F1E8D5A6B001ED39F /* JWChat-PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JWChat-PrefixHeader.pch"; sourceTree = "<group>"; };
+		C4F471501E8EB8CB001ED39F /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
+		C4F471511E8EB8CB001ED39F /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
+		C5C6A3DD919EA3F15AF9A129 /* Pods-JWChatTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWChatTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-JWChatTests/Pods-JWChatTests.release.xcconfig"; sourceTree = "<group>"; };
+		C61DF51CCA267BD3C47F968B /* libPods-JWChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JWChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBB20DBA8B13358EFFDD07B3 /* Pods-JWChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-JWChat/Pods-JWChat.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C4F470F71E8D43CB001ED39F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6A1C2424D4D5DBA4A9996C3 /* libPods-JWChat.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4F471101E8D43CB001ED39F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE232E87FB61793C8B5E9DD7 /* libPods-JWChatTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6508C520A8B2D52784A3FEA5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0143081FBF501D23F9F6EE33 /* Pods-JWChat.debug.xcconfig */,
+				FBB20DBA8B13358EFFDD07B3 /* Pods-JWChat.release.xcconfig */,
+				9A02832E3441BC6141CB054C /* Pods-JWChatTests.debug.xcconfig */,
+				C5C6A3DD919EA3F15AF9A129 /* Pods-JWChatTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		A78F5B49DF4A48BA6C92CF2E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C61DF51CCA267BD3C47F968B /* libPods-JWChat.a */,
+				69DAE01FC217C91E0E1C1615 /* libPods-JWChatTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C4F470F11E8D43CB001ED39F = {
+			isa = PBXGroup;
+			children = (
+				C4F470FC1E8D43CB001ED39F /* JWChat */,
+				C4F471161E8D43CB001ED39F /* JWChatTests */,
+				C4F470FB1E8D43CB001ED39F /* Products */,
+				6508C520A8B2D52784A3FEA5 /* Pods */,
+				A78F5B49DF4A48BA6C92CF2E /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		C4F470FB1E8D43CB001ED39F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C4F470FA1E8D43CB001ED39F /* JWChat.app */,
+				C4F471131E8D43CB001ED39F /* JWChatTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C4F470FC1E8D43CB001ED39F /* JWChat */ = {
+			isa = PBXGroup;
+			children = (
+				C4F471311E8D4BC9001ED39F /* Libs */,
+				C4F471331E8D4C59001ED39F /* Category */,
+				C4F471321E8D4C59001ED39F /* Classes */,
+				C4F471411E8D4CC1001ED39F /* Resources */,
+				C4F470FD1E8D43CB001ED39F /* Supporting Files */,
+			);
+			path = JWChat;
+			sourceTree = "<group>";
+		};
+		C4F470FD1E8D43CB001ED39F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C4F471091E8D43CB001ED39F /* Assets.xcassets */,
+				C4F471001E8D43CB001ED39F /* AppDelegate.h */,
+				C4F471011E8D43CB001ED39F /* AppDelegate.m */,
+				C4F4710B1E8D43CB001ED39F /* LaunchScreen.storyboard */,
+				C4F4710E1E8D43CB001ED39F /* Info.plist */,
+				C4F470FE1E8D43CB001ED39F /* main.m */,
+				C4F4714F1E8D5A6B001ED39F /* JWChat-PrefixHeader.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C4F471161E8D43CB001ED39F /* JWChatTests */ = {
+			isa = PBXGroup;
+			children = (
+				C4F471171E8D43CB001ED39F /* JWChatTests.m */,
+				C4F471191E8D43CB001ED39F /* Info.plist */,
+			);
+			path = JWChatTests;
+			sourceTree = "<group>";
+		};
+		C4F471311E8D4BC9001ED39F /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Libs;
+			sourceTree = "<group>";
+		};
+		C4F471321E8D4C59001ED39F /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C4F471421E8D52BA001ED39F /* MainControllers */,
+				C4F471531E8EB8E5001ED39F /* Helpers */,
+				C4F4713C1E8D4C59001ED39F /* Managers */,
+				C4F471381E8D4C59001ED39F /* Conversation */,
+				C4F471341E8D4C59001ED39F /* Contacts */,
+				C4F4713D1E8D4C59001ED39F /* Profile */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		C4F471331E8D4C59001ED39F /* Category */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Category;
+			path = Classes/Category;
+			sourceTree = "<group>";
+		};
+		C4F471341E8D4C59001ED39F /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				C4F471351E8D4C59001ED39F /* Controllers */,
+				C4F471361E8D4C59001ED39F /* Models */,
+				C4F471371E8D4C59001ED39F /* Views */,
+			);
+			path = Contacts;
+			sourceTree = "<group>";
+		};
+		C4F471351E8D4C59001ED39F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C4F471361E8D4C59001ED39F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C4F471371E8D4C59001ED39F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C4F471381E8D4C59001ED39F /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				C4F471391E8D4C59001ED39F /* Controllers */,
+				C4F4713A1E8D4C59001ED39F /* Models */,
+				C4F4713B1E8D4C59001ED39F /* Views */,
+			);
+			path = Conversation;
+			sourceTree = "<group>";
+		};
+		C4F471391E8D4C59001ED39F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C4F4713A1E8D4C59001ED39F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C4F4713B1E8D4C59001ED39F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C4F4713C1E8D4C59001ED39F /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				C4F471501E8EB8CB001ED39F /* DataManager.h */,
+				C4F471511E8EB8CB001ED39F /* DataManager.m */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		C4F4713D1E8D4C59001ED39F /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				C4F4713E1E8D4C59001ED39F /* Controllers */,
+				C4F4713F1E8D4C59001ED39F /* Models */,
+				C4F471401E8D4C59001ED39F /* Views */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		C4F4713E1E8D4C59001ED39F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C4F4713F1E8D4C59001ED39F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C4F471401E8D4C59001ED39F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C4F471411E8D4CC1001ED39F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		C4F471421E8D52BA001ED39F /* MainControllers */ = {
+			isa = PBXGroup;
+			children = (
+				C4F471431E8D52DA001ED39F /* MainNavController.h */,
+				C4F471441E8D52DA001ED39F /* MainNavController.m */,
+				C4F471491E8D531E001ED39F /* MainTabBarController.h */,
+				C4F4714A1E8D531E001ED39F /* MainTabBarController.m */,
+				C4F4714C1E8D5488001ED39F /* LoginViewController.h */,
+				C4F4714D1E8D5488001ED39F /* LoginViewController.m */,
+			);
+			path = MainControllers;
+			sourceTree = "<group>";
+		};
+		C4F471531E8EB8E5001ED39F /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C4F470F91E8D43CB001ED39F /* JWChat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C4F4711C1E8D43CB001ED39F /* Build configuration list for PBXNativeTarget "JWChat" */;
+			buildPhases = (
+				20664B8274DF8FD00B88220F /* [CP] Check Pods Manifest.lock */,
+				C4F470F61E8D43CB001ED39F /* Sources */,
+				C4F470F71E8D43CB001ED39F /* Frameworks */,
+				C4F470F81E8D43CB001ED39F /* Resources */,
+				B1804BFEDD06227892FAE794 /* [CP] Embed Pods Frameworks */,
+				F31D3E3E94CD8C0E0C265C78 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JWChat;
+			productName = JWChat;
+			productReference = C4F470FA1E8D43CB001ED39F /* JWChat.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C4F471121E8D43CB001ED39F /* JWChatTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C4F4711F1E8D43CB001ED39F /* Build configuration list for PBXNativeTarget "JWChatTests" */;
+			buildPhases = (
+				848EC5441E85846C54F4459F /* [CP] Check Pods Manifest.lock */,
+				C4F4710F1E8D43CB001ED39F /* Sources */,
+				C4F471101E8D43CB001ED39F /* Frameworks */,
+				C4F471111E8D43CB001ED39F /* Resources */,
+				C939FFB624D3D8D2D6EDEB03 /* [CP] Embed Pods Frameworks */,
+				9EF5EC5A6042685493EF9AA1 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C4F471151E8D43CB001ED39F /* PBXTargetDependency */,
+			);
+			name = JWChatTests;
+			productName = JWChatTests;
+			productReference = C4F471131E8D43CB001ED39F /* JWChatTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C4F470F21E8D43CB001ED39F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = JerryWang;
+				TargetAttributes = {
+					C4F470F91E8D43CB001ED39F = {
+						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = R5688PHUE9;
+						ProvisioningStyle = Automatic;
+					};
+					C4F471121E8D43CB001ED39F = {
+						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = R5688PHUE9;
+						ProvisioningStyle = Automatic;
+						TestTargetID = C4F470F91E8D43CB001ED39F;
+					};
+				};
+			};
+			buildConfigurationList = C4F470F51E8D43CB001ED39F /* Build configuration list for PBXProject "JWChat" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C4F470F11E8D43CB001ED39F;
+			productRefGroup = C4F470FB1E8D43CB001ED39F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C4F470F91E8D43CB001ED39F /* JWChat */,
+				C4F471121E8D43CB001ED39F /* JWChatTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C4F470F81E8D43CB001ED39F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4F4710D1E8D43CB001ED39F /* LaunchScreen.storyboard in Resources */,
+				C4F4710A1E8D43CB001ED39F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4F471111E8D43CB001ED39F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		20664B8274DF8FD00B88220F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		848EC5441E85846C54F4459F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9EF5EC5A6042685493EF9AA1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JWChatTests/Pods-JWChatTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B1804BFEDD06227892FAE794 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JWChat/Pods-JWChat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C939FFB624D3D8D2D6EDEB03 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JWChatTests/Pods-JWChatTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F31D3E3E94CD8C0E0C265C78 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JWChat/Pods-JWChat-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C4F470F61E8D43CB001ED39F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4F471021E8D43CB001ED39F /* AppDelegate.m in Sources */,
+				C4F471521E8EB8CB001ED39F /* DataManager.m in Sources */,
+				C4F471451E8D52DA001ED39F /* MainNavController.m in Sources */,
+				C4F4714B1E8D531E001ED39F /* MainTabBarController.m in Sources */,
+				C4F470FF1E8D43CB001ED39F /* main.m in Sources */,
+				C4F4714E1E8D5488001ED39F /* LoginViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4F4710F1E8D43CB001ED39F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4F471181E8D43CB001ED39F /* JWChatTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C4F471151E8D43CB001ED39F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C4F470F91E8D43CB001ED39F /* JWChat */;
+			targetProxy = C4F471141E8D43CB001ED39F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C4F4710B1E8D43CB001ED39F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C4F4710C1E8D43CB001ED39F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C4F4711A1E8D43CB001ED39F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C4F4711B1E8D43CB001ED39F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C4F4711D1E8D43CB001ED39F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0143081FBF501D23F9F6EE33 /* Pods-JWChat.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = R5688PHUE9;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/JWChat/JWChat-PrefixHeader.pch";
+				INFOPLIST_FILE = JWChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jerry.JWChat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C4F4711E1E8D43CB001ED39F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FBB20DBA8B13358EFFDD07B3 /* Pods-JWChat.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = R5688PHUE9;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/JWChat/JWChat-PrefixHeader.pch";
+				INFOPLIST_FILE = JWChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jerry.JWChat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		C4F471201E8D43CB001ED39F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A02832E3441BC6141CB054C /* Pods-JWChatTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = R5688PHUE9;
+				INFOPLIST_FILE = JWChatTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jerry.JWChatTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JWChat.app/JWChat";
+			};
+			name = Debug;
+		};
+		C4F471211E8D43CB001ED39F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C5C6A3DD919EA3F15AF9A129 /* Pods-JWChatTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = R5688PHUE9;
+				INFOPLIST_FILE = JWChatTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jerry.JWChatTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JWChat.app/JWChat";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C4F470F51E8D43CB001ED39F /* Build configuration list for PBXProject "JWChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C4F4711A1E8D43CB001ED39F /* Debug */,
+				C4F4711B1E8D43CB001ED39F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C4F4711C1E8D43CB001ED39F /* Build configuration list for PBXNativeTarget "JWChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C4F4711D1E8D43CB001ED39F /* Debug */,
+				C4F4711E1E8D43CB001ED39F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C4F4711F1E8D43CB001ED39F /* Build configuration list for PBXNativeTarget "JWChatTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C4F471201E8D43CB001ED39F /* Debug */,
+				C4F471211E8D43CB001ED39F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C4F470F21E8D43CB001ED39F /* Project object */;
+}
