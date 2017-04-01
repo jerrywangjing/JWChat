@@ -7,6 +7,7 @@
 //
 
 #import "LoginViewController.h"
+#import "MainTabBarController.h"
 
 @interface LoginViewController ()
 
@@ -181,7 +182,32 @@
 
 - (void)loginBtnDidClick:(UIButton *)btn{
 
-    NSLog(@"登录");
+    if (!(self.accountText.text.length > 0)) {
+        [MBProgressHUD showLabelWithText:@"账号不能为空"];
+        return;
+    }
+    if (!(self.passwordText.text.length > 0)) {
+        [MBProgressHUD showLabelWithText:@"密码不能为空"];
+        return;
+    }
+    
+    [DataManager loginWithUsername:self.accountText.text password:self.passwordText.text success:^(LoginState responseType) {
+
+        if (responseType == LoginStateSuccess) {
+            //直接跳转
+            MainTabBarController * tabBarVc = [[MainTabBarController alloc] init];
+            [self presentViewController:tabBarVc animated:NO completion:^{
+                [self removeFromParentViewController];
+            }];
+        }
+        
+        if (responseType == LoginStateFailure) {
+            [MBProgressHUD showLabelWithText:@"账号或密码错误"];
+        }
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showLabelWithText:@"登录失败"];
+    }];
 }
 
 - (void)loginIssusBtnDidClick:(UIButton *)btn{

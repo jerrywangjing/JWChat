@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		AE232E87FB61793C8B5E9DD7 /* libPods-JWChatTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69DAE01FC217C91E0E1C1615 /* libPods-JWChatTests.a */; };
 		B6A1C2424D4D5DBA4A9996C3 /* libPods-JWChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C61DF51CCA267BD3C47F968B /* libPods-JWChat.a */; };
+		C4C75F0D1E8F3AF90093F723 /* WJHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C75F0C1E8F3AF90093F723 /* WJHttpTool.m */; };
+		C4C75F101E8F3EEC0093F723 /* MBProgressHUD+WJ.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C75F0F1E8F3EEC0093F723 /* MBProgressHUD+WJ.m */; };
+		C4C75F131E8F44000093F723 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C75F121E8F44000093F723 /* ConversationViewController.m */; };
+		C4C75F161E8F440C0093F723 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C75F151E8F440C0093F723 /* ContactsViewController.m */; };
+		C4C75F191E8F44300093F723 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C75F181E8F44300093F723 /* ProfileViewController.m */; };
+		C4C75F1C1E8F880F0093F723 /* MBProgressHUD+CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C75F1B1E8F880F0093F723 /* MBProgressHUD+CustomView.m */; };
 		C4F470FF1E8D43CB001ED39F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F470FE1E8D43CB001ED39F /* main.m */; };
 		C4F471021E8D43CB001ED39F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F471011E8D43CB001ED39F /* AppDelegate.m */; };
 		C4F4710A1E8D43CB001ED39F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4F471091E8D43CB001ED39F /* Assets.xcassets */; };
@@ -34,10 +40,22 @@
 		0143081FBF501D23F9F6EE33 /* Pods-JWChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JWChat/Pods-JWChat.debug.xcconfig"; sourceTree = "<group>"; };
 		69DAE01FC217C91E0E1C1615 /* libPods-JWChatTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JWChatTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A02832E3441BC6141CB054C /* Pods-JWChatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWChatTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JWChatTests/Pods-JWChatTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C4C75F0B1E8F3AF90093F723 /* WJHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJHttpTool.h; sourceTree = "<group>"; };
+		C4C75F0C1E8F3AF90093F723 /* WJHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJHttpTool.m; sourceTree = "<group>"; };
+		C4C75F0E1E8F3EEC0093F723 /* MBProgressHUD+WJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+WJ.h"; sourceTree = "<group>"; };
+		C4C75F0F1E8F3EEC0093F723 /* MBProgressHUD+WJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+WJ.m"; sourceTree = "<group>"; };
+		C4C75F111E8F44000093F723 /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
+		C4C75F121E8F44000093F723 /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
+		C4C75F141E8F440C0093F723 /* ContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsViewController.h; sourceTree = "<group>"; };
+		C4C75F151E8F440C0093F723 /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsViewController.m; sourceTree = "<group>"; };
+		C4C75F171E8F44300093F723 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		C4C75F181E8F44300093F723 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		C4C75F1A1E8F880F0093F723 /* MBProgressHUD+CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+CustomView.h"; sourceTree = "<group>"; };
+		C4C75F1B1E8F880F0093F723 /* MBProgressHUD+CustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+CustomView.m"; sourceTree = "<group>"; };
 		C4F470FA1E8D43CB001ED39F /* JWChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JWChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4F470FE1E8D43CB001ED39F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C4F471001E8D43CB001ED39F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		C4F471011E8D43CB001ED39F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C4F471001E8D43CB001ED39F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../../AppDelegate.h; sourceTree = "<group>"; };
+		C4F471011E8D43CB001ED39F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../../AppDelegate.m; sourceTree = "<group>"; };
 		C4F471091E8D43CB001ED39F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4F4710C1E8D43CB001ED39F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4F4710E1E8D43CB001ED39F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -134,8 +152,6 @@
 			isa = PBXGroup;
 			children = (
 				C4F471091E8D43CB001ED39F /* Assets.xcassets */,
-				C4F471001E8D43CB001ED39F /* AppDelegate.h */,
-				C4F471011E8D43CB001ED39F /* AppDelegate.m */,
 				C4F4710B1E8D43CB001ED39F /* LaunchScreen.storyboard */,
 				C4F4710E1E8D43CB001ED39F /* Info.plist */,
 				C4F470FE1E8D43CB001ED39F /* main.m */,
@@ -163,9 +179,9 @@
 		C4F471321E8D4C59001ED39F /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				C4F471421E8D52BA001ED39F /* MainControllers */,
 				C4F471531E8EB8E5001ED39F /* Helpers */,
 				C4F4713C1E8D4C59001ED39F /* Managers */,
+				C4F471421E8D52BA001ED39F /* MainControllers */,
 				C4F471381E8D4C59001ED39F /* Conversation */,
 				C4F471341E8D4C59001ED39F /* Contacts */,
 				C4F4713D1E8D4C59001ED39F /* Profile */,
@@ -176,6 +192,10 @@
 		C4F471331E8D4C59001ED39F /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				C4C75F0E1E8F3EEC0093F723 /* MBProgressHUD+WJ.h */,
+				C4C75F0F1E8F3EEC0093F723 /* MBProgressHUD+WJ.m */,
+				C4C75F1A1E8F880F0093F723 /* MBProgressHUD+CustomView.h */,
+				C4C75F1B1E8F880F0093F723 /* MBProgressHUD+CustomView.m */,
 			);
 			name = Category;
 			path = Classes/Category;
@@ -194,6 +214,8 @@
 		C4F471351E8D4C59001ED39F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C4C75F141E8F440C0093F723 /* ContactsViewController.h */,
+				C4C75F151E8F440C0093F723 /* ContactsViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -225,6 +247,8 @@
 		C4F471391E8D4C59001ED39F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C4C75F111E8F44000093F723 /* ConversationViewController.h */,
+				C4C75F121E8F44000093F723 /* ConversationViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -265,6 +289,8 @@
 		C4F4713E1E8D4C59001ED39F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C4C75F171E8F44300093F723 /* ProfileViewController.h */,
+				C4C75F181E8F44300093F723 /* ProfileViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -293,6 +319,8 @@
 		C4F471421E8D52BA001ED39F /* MainControllers */ = {
 			isa = PBXGroup;
 			children = (
+				C4F471001E8D43CB001ED39F /* AppDelegate.h */,
+				C4F471011E8D43CB001ED39F /* AppDelegate.m */,
 				C4F471431E8D52DA001ED39F /* MainNavController.h */,
 				C4F471441E8D52DA001ED39F /* MainNavController.m */,
 				C4F471491E8D531E001ED39F /* MainTabBarController.h */,
@@ -306,6 +334,8 @@
 		C4F471531E8EB8E5001ED39F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				C4C75F0B1E8F3AF90093F723 /* WJHttpTool.h */,
+				C4C75F0C1E8F3AF90093F723 /* WJHttpTool.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -427,7 +457,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		848EC5441E85846C54F4459F /* [CP] Check Pods Manifest.lock */ = {
@@ -442,7 +472,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		9EF5EC5A6042685493EF9AA1 /* [CP] Copy Pods Resources */ = {
@@ -512,12 +542,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4C75F131E8F44000093F723 /* ConversationViewController.m in Sources */,
 				C4F471021E8D43CB001ED39F /* AppDelegate.m in Sources */,
 				C4F471521E8EB8CB001ED39F /* DataManager.m in Sources */,
 				C4F471451E8D52DA001ED39F /* MainNavController.m in Sources */,
 				C4F4714B1E8D531E001ED39F /* MainTabBarController.m in Sources */,
+				C4C75F0D1E8F3AF90093F723 /* WJHttpTool.m in Sources */,
 				C4F470FF1E8D43CB001ED39F /* main.m in Sources */,
+				C4C75F161E8F440C0093F723 /* ContactsViewController.m in Sources */,
+				C4C75F191E8F44300093F723 /* ProfileViewController.m in Sources */,
+				C4C75F101E8F3EEC0093F723 /* MBProgressHUD+WJ.m in Sources */,
 				C4F4714E1E8D5488001ED39F /* LoginViewController.m in Sources */,
+				C4C75F1C1E8F880F0093F723 /* MBProgressHUD+CustomView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

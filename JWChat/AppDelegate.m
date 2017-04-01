@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "MainNavController.h"
 #import "LoginViewController.h"
 
 @interface AppDelegate ()
@@ -23,6 +24,7 @@
     [_window makeKeyAndVisible];
     
     LoginViewController * loginVc = [[LoginViewController alloc] init];
+    
     _window.rootViewController = loginVc;
     
     return YES;

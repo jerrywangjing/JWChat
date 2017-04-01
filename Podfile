@@ -7,7 +7,10 @@ target 'JWChat' do
 
   # Pods for JWChat
   
-  pod ‘Masonry’
+  pod 'Masonry'
+  pod 'AFNetworking'
+  pod 'MBProgressHUD'
+  pod 'SDWebImage'
 
   target 'JWChatTests' do
     inherit! :search_paths

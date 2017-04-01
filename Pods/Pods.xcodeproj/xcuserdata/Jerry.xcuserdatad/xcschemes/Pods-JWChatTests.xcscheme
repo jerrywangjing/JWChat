@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'CCE0436E234D5E3D6353E91C565BDEB2'
+               BlueprintIdentifier = '424F0F76597B08797DA8EE314429CEFF'
                BlueprintName = 'Pods-JWChatTests'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libPods-JWChatTests.a'>

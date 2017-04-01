@@ -15,5 +15,9 @@
 #define WJRGBColor(R,G,B)  [UIColor colorWithRed:(R)/255.0f green:(G)/255.0f blue:(B)/255.0f alpha:1.0f]
 
 #import <Masonry.h>
+//#import "MBProgressHUD+WJ.h"
+#import "MBProgressHUD+CustomView.h"
+
+#import "DataManager.h"
 
 #endif /* JWChat_PrefixHeader_pch */
