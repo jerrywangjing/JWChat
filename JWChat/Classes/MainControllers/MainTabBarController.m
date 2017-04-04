@@ -9,7 +9,7 @@
 #import "MainTabBarController.h"
 #import "MainNavController.h"
 #import "ConversationViewController.h"
-#import "ContactsViewController.h"
+#import "ContactsListViewController.h"
 #import "ProfileViewController.h"
 
 @interface MainTabBarController ()
@@ -32,7 +32,7 @@
     // init rootViews
     [self setTabBarViewControllers:[ConversationViewController new] barItemTitle:@"会话" barItemImage:@"conversation_nor" selectedImage:@"conversation_select"];
     
-    [self setTabBarViewControllers:[ContactsViewController new] barItemTitle:@"联系人" barItemImage:@"contact_nor" selectedImage:@"contact_select"];
+    [self setTabBarViewControllers:[ContactsListViewController new] barItemTitle:@"联系人" barItemImage:@"contact_nor" selectedImage:@"contact_select"];
     
     [self setTabBarViewControllers:[ProfileViewController new] barItemTitle:@"我" barItemImage:@"profile_nor" selectedImage:@"profile_select"];
     

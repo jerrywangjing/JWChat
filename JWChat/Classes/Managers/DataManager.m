@@ -18,7 +18,7 @@
         [MBProgressHUD hideHUD];
         
         if (username && password) {
-            if ([username isEqualToString:@"Jerry"] && [password isEqualToString:@"1"]) {
+            if ([username isEqualToString:@"Jerry"] && [password isEqualToString:@"111111"]) {
                 success(LoginStateSuccess);
             }else{
                 success(LoginStateFailure);

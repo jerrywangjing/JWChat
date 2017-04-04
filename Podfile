@@ -10,7 +10,15 @@ target 'JWChat' do
   pod 'Masonry'
   pod 'AFNetworking'
   pod 'MBProgressHUD'
-  pod 'SDWebImage'
+  pod 'MJRefresh'
+  pod 'FMDB'
+  pod 'SAMKeychain'
+  pod 'IQKeyboardManager'
+  pod 'WZLBadge'  # 添加小红点工具
+  pod 'QBImagePickerController' # 照片选择工具
+  pod 'DateTools'
+  pod 'DACircularProgress'
+  pod 'SDWebImage', '~> 3.8.2'
 
   target 'JWChatTests' do
     inherit! :search_paths

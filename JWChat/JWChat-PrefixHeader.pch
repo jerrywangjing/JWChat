@@ -9,15 +9,119 @@
 #ifndef JWChat_PrefixHeader_pch
 #define JWChat_PrefixHeader_pch
 
+
+//屏幕尺寸
+
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+#define NavBarH 64
+#define TabBarH 44
+#define WIDTH_RATE (SCREEN_WIDTH/375)   // 屏幕宽度系数（以4.7英寸为基准）
+#define HEIGHT_RATE (SCREEN_HEIGHT/667)
+
+//三方类库
+
+#import "MBProgressHUD+WJ.h"
+#import "LiuqsTextAttachment.h"
+#import "MJRefresh.h"
+#import "Masonry.h"
+#import "NSDate+DateTools.h"
+#import <WZLBadge/WZLBadgeImport.h>
+
+// 类扩展（分类）
+#import "UIView+WJExtension.h"
+#import "NSString+WJExtension.h"
+#import "UIImageView+PlayGIF.h"
+#import "UIImage+Extension.h"
+#import "NSDate+FormatTime.h"
+#import "UIViewController+WJExtension.h"
+
+// 即时通讯相关头文件
+
+#import "DBManager.h"
+#import "WJMessageHelper.h"
+#import "NewConvertManager.h"
+#import "EMCDDeviceManager.h"
+#import "MessageReadManager.h"
+#import "ContactsManager.h"
+
+#import "Message.h"
+#import "MessageBody.h"
+#import "FileMessageBody.h"
+#import "TextMessageBody.h"
+#import "ImageMessageBody.h"
+#import "VoiceMessageBody.h"
+#import "Conversation.h"
+#import "ConversationModel.h"
+#import "EmotionImageFormateTool.h"
+#import "WJHttpTool.h"
+
+#import "MBProgressHUD+CustomView.h"
+#import "DataManager.h"
+
+#define kDatabaseName @"conversationDB.sqlite" // 数据库名
+#define kConversationListName @"t_conversation_list"  // 会话表名
+#define kContactsListName @"t_contacts_list" // 联系人表名
+#define kMessagesListName @"t_messages_list" // 好友消息表
+#define kImageRelativePath @"/Library/appdata/imagebuffer"  // 图片消息缓存路径
+#define kVoiceRelativePath @"/Library/appdata/chatbuffer"   // 语音数据缓存路径
+#define WJUserDefault [NSUserDefaults standardUserDefaults]
+#define MsgNoticeKey @"msgNoticeState"
+#define ContactsStateNoVerify @"等待验证" // 联系人状态
+#define ContactsStateIsFriend @"我的好友"
+
+#define kUserId @"validUserId" // 当前用户id
+#define kIMUserId @"imUserId" //即时通讯当前登录用户
+#define kCurrentUser @"当前联系人" // 当前用户资料键
+
+#define CurrentUserId [WJUserDefault valueForKey:kIMUserId] // 当前登录用户id
+#define DBTableName(tableName) [NSString stringWithFormat:@"%@_%@",tableName,CurrentUserId] // 消息表名
+#define DBConversationListName [NSString stringWithFormat:@"%@_%@",kConversationListName,CurrentUserId] // 会话表名
+#define DBContactsListName [NSString stringWithFormat:@"%@_%@",kContactsListName,CurrentUserId] // 联系人表名
+
+// 项目主题颜色
+
+#define IMBgColor [UIColor colorWithRed:226/255.0f green:237/255.0f blue:246/255.0f alpha:1.0f]
+#define ThemeColor [UIColor colorWithRed:34/255.0f green:151/255.0f blue:254/255.0f alpha:1.0f]
+#define bgColor [UIColor colorWithRed:235.0/255 green:235.0/255 blue:235.0/255 alpha:1.0]
+#define pinkColor [UIColor colorWithRed:255.0/255 green:114.0/255 blue:180.0/255 alpha:1.0]
+#define BACKGROUND_COLOR [UIColor colorWithRed:240/255.0 green:240/255.0 blue:244/255.0 alpha:1]
+#define COLOR_LINE [UIColor lightGrayColor]
+
+#define emotionBtnsBGColor [UIColor colorWithRed:195.0/255 green:195.0/255 blue:195.0/255 alpha:1.0]
 
 #define WJRGBColor(R,G,B)  [UIColor colorWithRed:(R)/255.0f green:(G)/255.0f blue:(B)/255.0f alpha:1.0f]
 
-#import <Masonry.h>
-//#import "MBProgressHUD+WJ.h"
-#import "MBProgressHUD+CustomView.h"
+#define WJRGBAColor(R,G,B,A)  [UIColor colorWithRed:(R)/255.0f green:(G)/255.0f blue:(B)/255.0f alpha:(A)]
+#define SelectedThemeColor WJRGBAColor(162,213,252,0.6)
+#define WJHexRGB(c,a)    [UIColor colorWithRed:((c>>16)&0xFF)/256.0  green:((c>>8)&0xFF)/256.0   blue:((c)&0xFF)/256.0   alpha:a]
 
-#import "DataManager.h"
+
+// 字体
+
+#define FontSize 15
+// 其他
+
+#define FragmentSize 2048
+
+//6.弱引用/强引用
+#define WeakSelf(type)  __weak typeof(type) weak##type = type;
+#define StrongSelf(type)  __strong typeof(type) type = weak##type;
+
+#define WJWeakSelf(weakSelf) __weak __typeof(&*self) weakSelf = self;
+#define WJStrongSelf(strongSelf) __strong typeof(&*self) strongSelf = weakSelf;
+
+/**
+ *  打印输出
+ */
+#ifdef DEBUG // 开发阶段
+#define NSLog(FORMAT, ...) fprintf(stderr,"Class:%s line:%d Msg:%s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+#else       // 发布阶段
+#define NSLog(FORMAT, ...) nil
+#endif
+
+// 获取bundle 资源 定义
+#define NSEaseLocalizedString(key, comment) [[NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"UIResource" withExtension:@"bundle"]] localizedStringForKey:(key) value:@"" table:nil]
+
 
 #endif /* JWChat_PrefixHeader_pch */

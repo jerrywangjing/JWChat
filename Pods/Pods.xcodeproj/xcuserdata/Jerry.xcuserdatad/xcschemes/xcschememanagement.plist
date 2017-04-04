@@ -9,7 +9,32 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DACircularProgress.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>DateTools.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FMDB.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>IQKeyboardManager.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MJRefresh.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -29,7 +54,27 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>QBImagePickerController-QBImagePicker.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>QBImagePickerController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SAMKeychain.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>WZLBadge.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -37,32 +82,77 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>424F0F76597B08797DA8EE314429CEFF</key>
+		<key>04CF549EBEEE7BC87AEAE35397184D94</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>53480ED0BE09FF49E34B1702D485CAAB</key>
+		<key>566F4ABBCBEDCEC37D69B25D045D2B71</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>755A8ADECEBCAF77B26C7BF19D3DA349</key>
+		<key>586F2DFA9BDCC6675C2546793A69E5CC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>928353533005A4198EBDA5B700D37B64</key>
+		<key>7994816B08F95690E4B8E6DAEC17CBBD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A2A86A6EFDC896A3F56AEBE1DA7F004C</key>
+		<key>80C78E3378F83B325C60D0AFC55A3157</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D058B89EB3B3DF45457A2DCD3971AFFE</key>
+		<key>8642CC820CE8C5B88C113D7F47AF4BC3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9650B5ADCE86F1A055FAFC635284BDB5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9DC8D9E02903E93BD0B2FEC9D846EA20</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9E033EDB5EC0819481B0546434FA577B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A1632B4373799388F238CD77AA47E9BC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AF4F9787610E172388BB6D9A7C62F61B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B36F6D48026E14827529F787D63D61B8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C791F0A928C1A8FE97074DFC9ACF4E75</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CCE0436E234D5E3D6353E91C565BDEB2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FA880864DA0D9E032782A171841A62D6</key>
 		<dict>
 			<key>primary</key>
 			<true/>

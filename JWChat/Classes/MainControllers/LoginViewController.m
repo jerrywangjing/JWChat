@@ -9,7 +9,11 @@
 #import "LoginViewController.h"
 #import "MainTabBarController.h"
 
-@interface LoginViewController ()
+
+static NSString * const kAccount = @"account";
+static NSString * const kPassword = @"password";
+
+@interface LoginViewController ()<UITextFieldDelegate>
 
 @property (nonatomic,strong) UIImageView * avatarView;
 @property (nonatomic,strong) UIView * accountContainerView;
@@ -41,19 +45,28 @@
     // init subViews
     [self configureSubviews];
     
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    // init data source
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldDidChanged:) name:UITextFieldTextDidChangeNotification object:nil];
+    // 是否已登录过
+    if ([WJUserDefault valueForKey:kAccount] && [WJUserDefault valueForKey:kPassword]) {
+        
+        self.accountText.text = [WJUserDefault valueForKey:kAccount];
+        self.passwordText.text = [WJUserDefault valueForKey:kPassword];
+    }
+//    NSString * path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
+//    NSLog(@"沙盒：%@",path);
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
 }
 
 -(void)viewWillLayoutSubviews{
@@ -78,7 +91,7 @@
     }];
     
     [_passwordContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_accountContainerView.mas_bottom).offset(20);
+        make.top.equalTo(_accountContainerView.mas_bottom).offset(15);
         make.left.right.equalTo(self.view);
         make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH, 50));
     }];
@@ -124,16 +137,19 @@
 
     _accountContainerView = [[UIView alloc] init];
     _accountText = [self creatTextInputFieldWith:@"账号" placeholder:@"请填写账号" containerView: _accountContainerView];
+    _accountText.delegate = self;
     
     _passwordContainerView = [[UIView alloc] init];
     _passwordText = [self creatTextInputFieldWith:@"密码" placeholder:@"请填写密码" containerView:_passwordContainerView];
+    _passwordText.delegate = self;
+    _passwordText.secureTextEntry = YES;
     
     [self.view addSubview:_accountContainerView];
     [self.view addSubview:_passwordContainerView];
     
     _loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_loginBtn setBackgroundImage:[UIImage imageNamed:@"login_nor"] forState:UIControlStateNormal];
-    [_loginBtn setBackgroundImage:[UIImage imageNamed:@"login_hlt"] forState:UIControlStateHighlighted];
+    [_loginBtn setBackgroundImage:[UIImage imageNamed:@"loginBtn_nor"] forState:UIControlStateNormal];
+    [_loginBtn setBackgroundImage:[UIImage imageNamed:@"loginBtn_hlt"] forState:UIControlStateHighlighted];
     [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     [_loginBtn addTarget:self action:@selector(loginBtnDidClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview: _loginBtn];
@@ -166,6 +182,7 @@
     textField.textColor = [UIColor blackColor];
     textField.font = [UIFont systemFontOfSize:16];
     textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    textField.returnKeyType = UIReturnKeyNext;
     
     UIView * line = [[UIView alloc] initWithFrame:CGRectMake(20, 50-0.5, SCREEN_WIDTH-20, 0.5)];
     line.backgroundColor = [UIColor lightGrayColor];
@@ -177,11 +194,55 @@
     return textField;
     
 }
+#pragma mark - testField delegate
 
+- (void)textFieldDidChanged:(UITextField *)textField{
+
+    if (_accountText.text.length > 0 && _passwordText.text.length > 0) {
+        _accountText.returnKeyType = UIReturnKeyDone;
+        _passwordText.returnKeyType = UIReturnKeyDone;
+        
+
+    }else{
+    
+        _accountText.returnKeyType = UIReturnKeyNext;
+        _passwordText.returnKeyType = UIReturnKeyNext;
+
+    }
+    
+}
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    if (_accountText.text.length > 0 && _passwordText.text.length > 0) {
+        [self.view endEditing:YES];
+        return NO;
+    }else {
+    
+        if ([_accountText isFirstResponder]) {
+            
+            [_accountText resignFirstResponder];
+            [_passwordText becomeFirstResponder];
+            return  YES;
+            
+        }else{
+            
+            [_passwordText resignFirstResponder];
+            [_accountText becomeFirstResponder];
+            return YES;
+        }
+    }
+    
+}
 #pragma mark - actions
 
 - (void)loginBtnDidClick:(UIButton *)btn{
 
+    [self.view endEditing:YES];
+    
     if (!(self.accountText.text.length > 0)) {
         [MBProgressHUD showLabelWithText:@"账号不能为空"];
         return;
@@ -196,7 +257,12 @@
         if (responseType == LoginStateSuccess) {
             //直接跳转
             MainTabBarController * tabBarVc = [[MainTabBarController alloc] init];
+            
+            
             [self presentViewController:tabBarVc animated:NO completion:^{
+                [WJUserDefault setObject:self.accountText.text forKey:kAccount];
+                [WJUserDefault setObject:self.passwordText.text forKey:kPassword];
+                [WJUserDefault synchronize];
                 [self removeFromParentViewController];
             }];
         }

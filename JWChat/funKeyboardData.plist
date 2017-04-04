@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>title</key>
+		<string>照片</string>
+		<key>image</key>
+		<string>pic_icon_nor</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>拍摄</string>
+		<key>image</key>
+		<string>photo_icon_nor</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>视频聊天</string>
+		<key>image</key>
+		<string>video_icon_nor</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>拨打电话</string>
+		<key>image</key>
+		<string>calling_nor</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>工作文件</string>
+		<key>image</key>
+		<string>file_icon_nor</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>本院病人</string>
+		<key>image</key>
+		<string>patient_icon_nor</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>我的咨询</string>
+		<key>image</key>
+		<string>myconsulter_nor</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>历史咨询</string>
+		<key>image</key>
+		<string>historyconsutl_nor</string>
+	</dict>
+</array>
+</plist>
