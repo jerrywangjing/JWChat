@@ -40,7 +40,6 @@
 
 #import "DBManager.h"
 #import "WJMessageHelper.h"
-#import "NewConvertManager.h"
 #import "EMCDDeviceManager.h"
 #import "MessageReadManager.h"
 #import "ContactsManager.h"

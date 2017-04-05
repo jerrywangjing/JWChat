@@ -17,7 +17,6 @@
 #import "MessageModel.h"
 #import "EMCDDeviceManager.h"
 #import "ContactsModel.h"
-#import "NewConvertManager.h"
 
 static NSInteger unreadCount = 0; //未读消息数
 static NSString * lastTime; // 用于设置是否隐藏cell时间
