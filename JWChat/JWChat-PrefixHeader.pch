@@ -80,8 +80,8 @@
 
 // 项目主题颜色
 
-#define IMBgColor [UIColor colorWithRed:226/255.0f green:237/255.0f blue:246/255.0f alpha:1.0f]
-#define ThemeColor [UIColor colorWithRed:34/255.0f green:151/255.0f blue:254/255.0f alpha:1.0f]
+#define IMBgColor [UIColor colorWithRed:235/255.0f green:235/255.0f blue:241/255.0f alpha:1.0f]
+#define ThemeColor [UIColor colorWithRed:30/255.0f green:161/255.0f blue:20/255.0f alpha:1.0f]
 #define bgColor [UIColor colorWithRed:235.0/255 green:235.0/255 blue:235.0/255 alpha:1.0]
 #define pinkColor [UIColor colorWithRed:255.0/255 green:114.0/255 blue:180.0/255 alpha:1.0]
 #define BACKGROUND_COLOR [UIColor colorWithRed:240/255.0 green:240/255.0 blue:244/255.0 alpha:1]

@@ -124,7 +124,7 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
 
         // 时间
         UILabel * timeViwe = [[UILabel alloc] init];
-        timeViwe.backgroundColor = WJRGBColor(194, 212, 225);
+        timeViwe.backgroundColor = WJRGBColor(195, 195, 195);
         timeViwe.layer.cornerRadius = 4;
         timeViwe.layer.masksToBounds = YES;
         timeViwe.adjustsFontSizeToFitWidth = YES;
@@ -186,16 +186,16 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     // 给时间赋值
     self.timeView.text = msg.timeStr;
 
-    // 给头像赋值方法二：(三目运算)
-    UIImage * iconImage = nil;
-    if (msg.direction == MessageDirectionSend) {
-        ContactsModel * currentUser = [[DBManager shareManager] getUserWithUserId:CurrentUserId];
-        iconImage = [UIImage getAvatarImageWithString:currentUser.avatarImageUrl];
-    }else{
-    
-        iconImage = [UIImage getAvatarImageWithString:self.contact.avatarImageUrl];
-    }
-    self.iconView.image = iconImage;
+//    // 给头像赋值方法二：(三目运算)
+//    UIImage * iconImage = nil;
+//    if (msg.direction == MessageDirectionSend) {
+//        ContactsModel * currentUser = [[DBManager shareManager] getUserWithUserId:CurrentUserId];
+//        iconImage = [UIImage getAvatarImageWithString:currentUser.avatarImageUrl];
+//    }else{
+//    
+//        iconImage = [UIImage getAvatarImageWithString:self.contact.avatarImageUrl];
+//    }
+    self.iconView.image = [UIImage imageNamed:self.contact.avatarImageUrl];
     // 消息背景图片
     if (msg.direction == MessageDirectionSend) {
         

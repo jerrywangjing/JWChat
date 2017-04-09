@@ -30,7 +30,7 @@
 
 -(void)setupSubviews{
 
-    UIView * bgView = [[UIView alloc] initWithFrame:CGRectMake(0, NavBarH + 15, SCREEN_WIDTH, 44)];
+    UIView * bgView = [[UIView alloc] initWithFrame:CGRectMake(0, NavBarH+15, SCREEN_WIDTH, 44)];
     bgView.backgroundColor = [UIColor whiteColor];
     UIView * topBorderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.5)];
     topBorderView.backgroundColor = [UIColor lightGrayColor];
@@ -66,7 +66,6 @@
         make.centerY.equalTo(bgView.mas_centerY);
         make.right.equalTo(bgView.mas_right);
     }];
-    
 }
 
 -(void)doneBtnClick{

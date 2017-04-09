@@ -19,9 +19,11 @@
     // Do any additional setup after loading the view.
     
     UINavigationBar * navBar = [UINavigationBar appearance];
-    [navBar setBackgroundImage:[UIImage imageNamed:@"navBar"] forBarMetrics:UIBarMetricsDefault];
+    //[navBar setBackgroundImage:[UIImage imageNamed:@"navBar"] forBarMetrics:UIBarMetricsDefault];
     navBar.titleTextAttributes = @{ NSForegroundColorAttributeName : [UIColor whiteColor]};
-    navBar.barTintColor = [UIColor whiteColor];
+    navBar.barTintColor = WJRGBColor(41, 40, 44); // 导航栏背景色
+    navBar.tintColor = [UIColor whiteColor];
+
 }
 
 // 设置状态栏样式

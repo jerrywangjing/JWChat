@@ -32,7 +32,7 @@
     // init rootViews
     [self setTabBarViewControllers:[ConversationViewController new] barItemTitle:@"会话" barItemImage:@"conversation_nor" selectedImage:@"conversation_select"];
     
-    [self setTabBarViewControllers:[ContactsListViewController new] barItemTitle:@"联系人" barItemImage:@"contact_nor" selectedImage:@"contact_select"];
+    [self setTabBarViewControllers:[ContactsListViewController new] barItemTitle:@"通讯录" barItemImage:@"contact_nor" selectedImage:@"contact_select"];
     
     [self setTabBarViewControllers:[ProfileViewController new] barItemTitle:@"我" barItemImage:@"profile_nor" selectedImage:@"profile_select"];
     
@@ -58,7 +58,7 @@
     viewController.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     NSDictionary * attsDic = @{NSForegroundColorAttributeName : WJRGBColor(120, 128, 144)};
-    NSDictionary * selectedAtts = @{ NSForegroundColorAttributeName : WJRGBColor(37, 170, 254)};
+    NSDictionary * selectedAtts = @{ NSForegroundColorAttributeName : ThemeColor};
     [viewController.tabBarItem setTitleTextAttributes:attsDic forState:UIControlStateNormal];
     [viewController.tabBarItem setTitleTextAttributes:selectedAtts forState:UIControlStateSelected];
 

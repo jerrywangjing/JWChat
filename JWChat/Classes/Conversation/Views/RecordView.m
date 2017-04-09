@@ -55,7 +55,7 @@
         _textLabel.backgroundColor = [UIColor clearColor];
         _textLabel.text = NSEaseLocalizedString(@"message.toolBar.record.upCancel", @"Fingers up slide, cancel sending");
         [self addSubview:_textLabel];
-        _textLabel.font = [UIFont systemFontOfSize:13];
+        _textLabel.font = [UIFont systemFontOfSize:12];
         _textLabel.textColor = [UIColor whiteColor];
         _textLabel.layer.cornerRadius = 7;
         _textLabel.layer.borderColor = [[UIColor redColor] colorWithAlphaComponent:0.5].CGColor;

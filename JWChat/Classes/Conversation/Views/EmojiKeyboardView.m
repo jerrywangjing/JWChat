@@ -113,7 +113,7 @@
             [btn setTitle:@"发送" forState:UIControlStateNormal];
             [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [btn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-            [btn setBackgroundImage:[UIImage imageNamed:@"navbar_bg"] forState:UIControlStateNormal];
+            [btn setBackgroundImage:[UIImage imageNamed:@"enableBtn_bg"] forState:UIControlStateNormal];
             [btn setBackgroundImage:[UIImage imageNamed:@"voice_press_bg"] forState:UIControlStateDisabled];
             self.sendBtn = btn;
             self.sendBtn.enabled = NO;

@@ -11,6 +11,8 @@
 #import "ContactsDetailTableViewCell.h"
 #import "ChatRoomViewController.h"
 #import "ModifyUserCommentViewController.h"
+#import "ConversationViewController.h"
+#import "MainTabBarController.h"
 
 @interface ContactsDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -27,6 +29,7 @@
     [self setupTableView];
 }
 
+
 -(void)setupTableView{
 
     UITableView * tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
@@ -42,11 +45,12 @@
     UIView * headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 80)];
     headView.backgroundColor = [UIColor clearColor];
     UIButton * sendMsgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [sendMsgBtn setBackgroundImage:[UIImage imageNamed:@"submit_but_bg_nor"] forState:UIControlStateNormal];
-    [sendMsgBtn setBackgroundImage:[UIImage imageNamed:@"submit_but_bg_hlt"] forState:UIControlStateHighlighted];
+    
+    [sendMsgBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg_nor"] forState:UIControlStateNormal];
+    [sendMsgBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg_hlt"] forState:UIControlStateHighlighted];
     [sendMsgBtn setTitle:@"发消息" forState:UIControlStateNormal];
     [sendMsgBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-    sendMsgBtn.layer.cornerRadius = 5;
+    sendMsgBtn.layer.cornerRadius = 3;
     sendMsgBtn.layer.masksToBounds = YES;
     [sendMsgBtn addTarget:self action:@selector(sendMsgBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [headView addSubview:sendMsgBtn];
@@ -136,13 +140,35 @@
 
 
 -(void)sendMsgBtnClick:(UIButton *)btn{
-
+    
     if ([self.previousVc isKindOfClass:[ChatRoomViewController class]]) {
         [self.navigationController popViewControllerAnimated:YES];
         return;
     }
     //跳转到聊天界面
-    self.pushToChatRoomBlock(self.contactModel);
+    
+    UIViewController  * rootVieweController = [UIApplication sharedApplication].keyWindow.rootViewController;
+
+    if ([rootVieweController.presentedViewController isKindOfClass:[UITabBarController class]]) {
+        MainTabBarController * tabBarVc = (MainTabBarController *)rootVieweController.presentedViewController;
+        tabBarVc.selectedIndex = 0;
+        
+        for (UINavigationController * vc in tabBarVc.viewControllers) {
+            if ([vc.visibleViewController isKindOfClass:[ConversationViewController class]]) {
+                ConversationViewController * converVc = (ConversationViewController *)vc.visibleViewController;
+                
+                ChatRoomViewController * chatRoom = [[ChatRoomViewController alloc] init];
+                chatRoom.hidesBottomBarWhenPushed  = YES;
+                chatRoom.contact = self.contactModel;
+                
+                [converVc.navigationController pushViewController:chatRoom animated:YES];
+                
+            }
+        }
+        
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES]; // 一定在跳转到聊天页面后pop，不然会被提前销毁
  
 }
 @end

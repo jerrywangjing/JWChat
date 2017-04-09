@@ -140,74 +140,75 @@ BOOL hasApply = NO; // 是否有申请信息
 -(void)initOrUpdateContactsData{
 
     [MBProgressHUD showMessage:nil toView:self.tableView];
+    [self updateTableViewData];
     
-    [ContactsManager getAllFriendsFromServer:^(NSArray *remoteFriends,BOOL succeed) {
-        
-        // 从服务器获取联系人信息，并插入数据库
-        
-        if (succeed) {
-            if (remoteFriends.count > 0) {
-                
-                dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                    
-                    for ( ContactsModel * remoteFriend in remoteFriends) {
-                        
-                        // 放到子线程处理，优化加载
-                        BOOL existed = [[DBManager shareManager] isExistsRecordInTable:DBContactsListName withColumnName:@"userId" andColumnValue:remoteFriend.userId];
-                        if (existed) {
-                            ContactsModel * localFriend = [[DBManager shareManager] getUserWithUserId:remoteFriend.userId];
-                            
-                            if (remoteFriend.version.integerValue > localFriend.version.integerValue) {
-                                // 更新好友资料
-                                [ContactsManager getUserInfoFromServerWithUserId:remoteFriend.userId completeHandler:^(NSDictionary *infoDic) {
-                                    
-                                    ContactsModel * model = [ContactsModel contactWithDic:infoDic];
-                                    model.state = ContactsStateIsFriend;
-                                    NSLog(@"%@更新了资料",model.userId);
-                                    // 存储到数据库
-                                    [[DBManager shareManager] creatOrUpdateContactWith:model];
-                                    [self updateTableViewData];
-                                }];
-                            }else{ //不需要更正资料时
-                                
-                                dispatch_async(dispatch_get_main_queue(), ^{
-                                    [self updateTableViewData];
-                                });
-                            }
-                            
-                        }else{
-                            
-                            // 插入新联系人记录
-                            [ContactsManager getUserInfoFromServerWithUserId:remoteFriend.userId completeHandler:^(NSDictionary *infoDic) {
-                                
-                                ContactsModel * model = [ContactsModel contactWithDic:infoDic];
-                                model.state = ContactsStateIsFriend;
-                                NSLog(@"插入了新好友：%@",model.userId);
-                                // 存储到数据库
-                                [[DBManager shareManager] creatOrUpdateContactWith:model];
-                                [self updateTableViewData];
-                            }];
-                            
-                        }
-                        
-                    }
-                    
-                });
-                
-            }else{
-                
-                // 服务器加载失败,从本地数据库加载
-                NSLog(@"从本地数据库加载了联系人列表");
-                [self updateTableViewData];
-                
-            }
-        }else{ // 网络请求失败
-        
-            [MBProgressHUD hideHUDForView:self.tableView];
-            [MBProgressHUD showLabel:@"网络请求失败，稍后再试"];
-        }
-        
-    }];
+//    [ContactsManager getAllFriendsFromServer:^(NSArray *remoteFriends,BOOL succeed) {
+//        
+//        // 从服务器获取联系人信息，并插入数据库
+//        
+//        if (succeed) {
+//            if (remoteFriends.count > 0) {
+//                
+//                dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//                    
+//                    for ( ContactsModel * remoteFriend in remoteFriends) {
+//                        
+//                        // 放到子线程处理，优化加载
+//                        BOOL existed = [[DBManager shareManager] isExistsRecordInTable:DBContactsListName withColumnName:@"userId" andColumnValue:remoteFriend.userId];
+//                        if (existed) {
+//                            ContactsModel * localFriend = [[DBManager shareManager] getUserWithUserId:remoteFriend.userId];
+//                            
+//                            if (remoteFriend.version.integerValue > localFriend.version.integerValue) {
+//                                // 更新好友资料
+//                                [ContactsManager getUserInfoFromServerWithUserId:remoteFriend.userId completeHandler:^(NSDictionary *infoDic) {
+//                                    
+//                                    ContactsModel * model = [ContactsModel contactWithDic:infoDic];
+//                                    model.state = ContactsStateIsFriend;
+//                                    NSLog(@"%@更新了资料",model.userId);
+//                                    // 存储到数据库
+//                                    [[DBManager shareManager] creatOrUpdateContactWith:model];
+//                                    [self updateTableViewData];
+//                                }];
+//                            }else{ //不需要更正资料时
+//                                
+//                                dispatch_async(dispatch_get_main_queue(), ^{
+//                                    [self updateTableViewData];
+//                                });
+//                            }
+//                            
+//                        }else{
+//                            
+//                            // 插入新联系人记录
+//                            [ContactsManager getUserInfoFromServerWithUserId:remoteFriend.userId completeHandler:^(NSDictionary *infoDic) {
+//                                
+//                                ContactsModel * model = [ContactsModel contactWithDic:infoDic];
+//                                model.state = ContactsStateIsFriend;
+//                                NSLog(@"插入了新好友：%@",model.userId);
+//                                // 存储到数据库
+//                                [[DBManager shareManager] creatOrUpdateContactWith:model];
+//                                [self updateTableViewData];
+//                            }];
+//                            
+//                        }
+//                        
+//                    }
+//                    
+//                });
+//                
+//            }else{
+//                
+//                // 服务器加载失败,从本地数据库加载
+//                NSLog(@"从本地数据库加载了联系人列表");
+//                [self updateTableViewData];
+//                
+//            }
+//        }else{ // 网络请求失败
+//        
+//            [MBProgressHUD hideHUDForView:self.tableView];
+//            [MBProgressHUD showLabel:@"网络请求失败，稍后再试"];
+//        }
+//        
+//    }];
 }
 
 -(void)updateTableViewData{
@@ -241,8 +242,10 @@ BOOL hasApply = NO; // 是否有申请信息
         _searchController.dimsBackgroundDuringPresentation = NO;//在搜索时是否需要关闭蒙版,好处在于可以直接点击搜索到的结果
         //修改searchBar属性
         _searchController.searchBar.barTintColor = IMBgColor;
+        _searchController.searchBar.tintColor = ThemeColor;
         _searchController.searchBar.placeholder = @"搜索";
         _searchController.searchBar.backgroundImage = [[UIImage alloc] init];
+        self.definesPresentationContext = YES;// 设置此属性可以修复搜索框消失的问题
 
     }
     return _searchController;
@@ -324,7 +327,7 @@ BOOL hasApply = NO; // 是否有申请信息
             cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
             cell.textLabel.text = @"申请与通知";
             cell.separatorInset = UIEdgeInsetsMake(0, 0,SCREEN_WIDTH,CELL_HEIGHT-0.5);//去掉系统默认底部细线
-
+            
             if (hasApply) {
                 [self showRedDotNoticeWithCell:cell addCount:0];
             }else{
@@ -469,21 +472,6 @@ BOOL hasApply = NO; // 是否有申请信息
     detailVc.contactModel = user;
     detailVc.previousVc = self;
     detailVc.hidesBottomBarWhenPushed = YES;
-
-    UIViewController  * rootVieweController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    
-    detailVc.pushToChatRoomBlock = ^(ContactsModel * user){
-    
-        [self.navigationController popToRootViewControllerAnimated:NO];
-        ChatRoomViewController * chatRoom = [[ChatRoomViewController alloc] init];
-        chatRoom.hidesBottomBarWhenPushed  = YES;
-        chatRoom.contact = user;
-        
-        UIViewController * currentVc = [UIViewController getCurrentViewControllerWithRootViewController:rootVieweController];
-        
-        [currentVc.navigationController pushViewController:chatRoom animated:YES];
-    };
-    
     [self.navigationController pushViewController:detailVc animated:YES];
 }
 

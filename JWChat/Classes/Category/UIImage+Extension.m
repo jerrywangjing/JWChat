@@ -86,12 +86,13 @@
 
 + (UIImage* )getAvatarImageWithString:(NSString *)str{
     
-    NSData * imgData = nil;
-    if (![str isKindOfClass:[NSNull class]] && str != nil) {
-        imgData = [[NSData alloc] initWithBase64EncodedString:str options:0];
-    }
-    
-    UIImage * avatarImg = imgData == nil?[UIImage imageNamed:@"avatar_man"]:[[UIImage alloc] initWithData:imgData];
+//    NSData * imgData = nil;
+//    if (![str isKindOfClass:[NSNull class]] && str != nil) {
+//        imgData = [[NSData alloc] initWithBase64EncodedString:str options:0];
+//    }
+//    
+//    UIImage * avatarImg = imgData == nil?[UIImage imageNamed:@"avatar_man"]:[[UIImage alloc] initWithData:imgData];
+    UIImage * avatarImg = [UIImage imageNamed:str];
     
     return avatarImg;
 }

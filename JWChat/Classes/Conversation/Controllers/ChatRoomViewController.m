@@ -3,7 +3,7 @@
 //  ESDemo
 //
 //  Created by jerry on 16/9/12.
-//  Copyright © 2016年 Zhang, Lawrence. All rights reserved.
+//  Copyright © 2016年 jerry. All rights reserved.
 //
 
 #import "ChatRoomViewController.h"
@@ -85,13 +85,13 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     return _messageFrames;
 }
 
-// 录音按钮
+// 录音视图
 -(RecordView *)recordView{
 
     if (!_recordView) {
-        CGFloat viewHW = 140;
+        CGFloat viewHW = 130;
         RecordView * view = [[RecordView alloc] initWithFrame:CGRectMake(0,0, viewHW, viewHW)];
-        view.center = self.view.center;
+        view.center = self.tableView.center;
         _recordView = view;
         
         [self.view addSubview:_recordView];
@@ -123,7 +123,7 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     _showEmojiKeyboardBtn = showEmojiKeyboardBtn;
 
     if (showEmojiKeyboardBtn) {
-        [self.emojiBtn setImage:[UIImage imageNamed:@"keyboard_nor"] forState:UIControlStateNormal];
+        [self.emojiBtn setImage:[UIImage imageNamed:@"keyboard_hlt"] forState:UIControlStateNormal];
 
         [UIView animateWithDuration:KeyboardTimeInterval animations:^{
             [self scrollToBottom];
@@ -145,7 +145,7 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
         
     }else{
     
-        [self.emojiBtn setImage:[UIImage imageNamed:@"face_nor"] forState:UIControlStateNormal];
+        [self.emojiBtn setImage:[UIImage imageNamed:@"face_hlt"] forState:UIControlStateNormal];
         [UIView animateWithDuration:KeyboardTimeInterval animations:^{
             
             self.emojiKeyboard.transform = CGAffineTransformIdentity;
@@ -189,7 +189,7 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     _showVoiceKeyboardBtn = showVoiceKeyboardBtn;
 
     if (showVoiceKeyboardBtn) {
-        [self.voiceBtn setImage:[UIImage imageNamed:@"keyboard_nor"] forState:UIControlStateNormal];
+        [self.voiceBtn setImage:[UIImage imageNamed:@"keyboard_hlt"] forState:UIControlStateNormal];
         self.recordBtn.hidden = NO;
         self.textView.hidden = YES;
         
@@ -209,7 +209,7 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
         }
     }else{
     
-        [self.voiceBtn setImage:[UIImage imageNamed:@"voice_nor"] forState:UIControlStateNormal];
+        [self.voiceBtn setImage:[UIImage imageNamed:@"voice_hlt"] forState:UIControlStateNormal];
         self.recordBtn.hidden = YES;
         self.textView.hidden = NO;
         
@@ -337,6 +337,12 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     };
     self.textView.delegate = self;
     self.textView.returnKeyType = UIReturnKeySend;
+    self.textView.layer.borderWidth = 0.5;
+    self.textView.layer.borderColor = WJRGBColor(218, 218, 218).CGColor;
+    // toolbar 顶部的间隔线
+    UIView * toolBarLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.5)];
+    toolBarLine.backgroundColor = WJRGBColor(218, 218, 218);
+    [self.toolBar addSubview: toolBarLine];
 }
 // 加载刷新消息
 
@@ -758,6 +764,8 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     recordBtn.hidden = YES;
     recordBtn.layer.cornerRadius = 5;
     recordBtn.layer.masksToBounds = YES;
+    recordBtn.layer.borderColor = WJRGBColor(218, 218, 218).CGColor;
+    recordBtn.layer.borderWidth = 0.5;
     
     [self.recordBtn addTarget:self action:@selector(recordButtonTouchDown) forControlEvents:UIControlEventTouchDown];
     [self.recordBtn addTarget:self action:@selector(recordButtonTouchUpOutside) forControlEvents:UIControlEventTouchUpOutside];
@@ -1114,14 +1122,8 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
 -(void)avatarViewSelcted:(MessageFrame *)model{
     // 跳转联系人详情页面
 
-    ContactsModel * userModel = nil;
+    ContactsModel * userModel = self.contact;
     
-    if (model.aMessage.direction == MessageDirectionSend) {
-        userModel = [[DBManager shareManager] getUserWithUserId:CurrentUserId];
-    }else{
-        
-        userModel = self.contact;
-    }
     ContactsDetailViewController * detailVc = [[ContactsDetailViewController alloc] init];
     detailVc.contactModel = userModel;
     detailVc.hidesBottomBarWhenPushed = YES;

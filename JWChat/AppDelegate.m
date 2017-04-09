@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "MainNavController.h"
 #import "LoginViewController.h"
+#import <IQKeyboardManager.h>
 
 @interface AppDelegate ()
 
@@ -26,6 +27,10 @@
     LoginViewController * loginVc = [[LoginViewController alloc] init];
     
     _window.rootViewController = loginVc;
+    
+    // 初始化键盘控制器
+    [[IQKeyboardManager sharedManager] setEnable:NO];
+    [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
     
     return YES;
 }

@@ -124,7 +124,7 @@ static NSString * const kPassword = @"password";
     _avatarView.backgroundColor = [UIColor grayColor];
 //    _avatarView.layer.cornerRadius = 5;
 //    _avatarView.layer.masksToBounds = YES;
-    _avatarView.image = [UIImage imageNamed:@"avatar"];
+    _avatarView.image = [UIImage imageNamed:@"avatarBoy"];
     [self.view addSubview:_avatarView];
     
     _accountLabel = [[UILabel alloc] init];

@@ -62,6 +62,7 @@
     _searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     _searchController.searchResultsUpdater = self;
     _searchController.searchBar.barTintColor = IMBgColor;
+    _searchController.searchBar.tintColor = ThemeColor;
     _searchController.searchBar.placeholder = @"搜索";
     _searchController.searchBar.backgroundImage = [[UIImage alloc] init];
     _searchController.hidesNavigationBarDuringPresentation = NO;

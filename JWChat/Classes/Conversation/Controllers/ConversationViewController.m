@@ -17,6 +17,9 @@
 #import "MessageModel.h"
 #import "EMCDDeviceManager.h"
 #import "ContactsModel.h"
+#import "AddContactsViewController.h"
+
+#define ConversationCellH 60
 
 static NSInteger unreadCount = 0; //未读消息数
 static NSString * lastTime; // 用于设置是否隐藏cell时间
@@ -119,10 +122,12 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
         _searchController.dimsBackgroundDuringPresentation = NO;//在搜索时是否需要关闭蒙版,好处在于可以直接点击搜索到的结果
         _searchController.delegate = self;
         //修改searchBar属性
-        _searchController.searchBar.barTintColor = [UIColor greenColor];
+        _searchController.searchBar.barTintColor = IMBgColor;
+        _searchController.searchBar.tintColor = ThemeColor;
         _searchController.searchBar.placeholder = @"搜索";
         _searchController.searchBar.backgroundImage = [[UIImage alloc] init];
         [_searchController.searchBar sizeToFit];
+        //self.definesPresentationContext = YES;// 设置此属性可以修复搜索框消失的问题
     }
     return _searchController;
 }
@@ -148,8 +153,10 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor whiteColor];
-    //NSLog(@"沙盒路径--%@",NSHomeDirectory());
+    self.view.backgroundColor = IMBgColor;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"addBtn_bg"] style:UIBarButtonItemStylePlain target:self action:@selector(addBtnClick:)];
+    
+    [self testMethod];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -167,9 +174,12 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
 
 -(void)testMethod{
     
-    ContactsModel * user = [[ContactsModel alloc] initWithUserId:@"jerry001"];
-    
-    [[DBManager shareManager] creatOrUpdateContactWith:user];
+//    ContactsModel * user = [[ContactsModel alloc] initWithUserId:@"jerry002"];
+//    user.userName = @"alsa";
+//    user.avatarImageUrl = @"avatarGirl";
+//    user.online = @"1";
+//    
+//    [[DBManager shareManager] creatOrUpdateContactWith:user];
     
 }
 
@@ -192,14 +202,20 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
         }
     }
     // 添加下拉刷新
-    MJRefreshNormalHeader * refresh = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshTableView:)];
-    refresh.lastUpdatedTimeLabel.hidden = YES;
-    refresh.stateLabel.hidden = NO;
-    
-    _tableView.mj_header = refresh;
+//    MJRefreshNormalHeader * refresh = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshTableView:)];
+//    refresh.lastUpdatedTimeLabel.hidden = YES;
+//    refresh.stateLabel.hidden = NO;
+//    
+//    _tableView.mj_header = refresh;
 
 }
 
+#pragma mark - barButtonItem actions
+- (void)addBtnClick:(UIButton *)btn{
+
+    AddContactsViewController * addVc = [[AddContactsViewController alloc] init];
+    [self.navigationController pushViewController:addVc animated:YES];
+}
 // 刷新表格
 -(void)refreshTableView:(UIRefreshControl *)refresh{
     
@@ -288,7 +304,7 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 44;
+    return ConversationCellH;
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -344,7 +360,6 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
     [self.navigationController pushViewController:chatRoom animated:YES];
     
 }
-
 
 #pragma mark - SearchResultsUpdating delegate
 

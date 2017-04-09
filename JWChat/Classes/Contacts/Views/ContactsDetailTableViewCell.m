@@ -35,7 +35,7 @@
 
     _cellData = cellData;
     
-    _avatarImageView.image = [UIImage getAvatarImageWithString:cellData.avatarImageUrl];
+    _avatarImageView.image = [UIImage imageNamed:cellData.avatarImageUrl];
     _userName.text = cellData.userComment ? cellData.userComment : cellData.userName;
     _userId.text = [NSString stringWithFormat:@"ID号：%@",cellData.userId];
     _neckName.text = [NSString stringWithFormat:@"昵称：%@",cellData.neckName];
