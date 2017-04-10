@@ -18,6 +18,7 @@
 #import "EMCDDeviceManager.h"
 #import "ContactsModel.h"
 #import "AddContactsViewController.h"
+#import "ActivityTitleView.h"
 
 #define ConversationCellH 60
 
@@ -26,7 +27,7 @@ static NSString * lastTime; // 用于设置是否隐藏cell时间
 static const CGFloat kDefaultPlaySoundInterval = 3.0; // 2次响铃的最小间隔时间
 BOOL canClick = NO; // 连接状态视图是否可以点击
 
-@interface ConversationViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UISearchResultsUpdating,UISearchControllerDelegate,ActivityViewTitleDelegate>
+@interface ConversationViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UISearchResultsUpdating,UISearchControllerDelegate,ActivityTitleViewDelegate>
 
 @property (nonatomic,strong) NSMutableArray * dataArr; // 存放conversationModel 对象
 @property (nonatomic,weak) UITableView * tableView;
@@ -35,52 +36,7 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
 @property (nonatomic,copy) NSString * latestMsgId;  //存放新消息的发送者
 @property (nonatomic,strong) NSDate *lastPlaySoundDate;  // 上次播放响铃的时间
 
-@property (nonatomic,weak) ActivityViewTitle * activityViewTitle; // 动态标题视图
-
-@end
-
-#pragma mark - 状态视图实现
-@implementation ActivityViewTitle
-
-- (instancetype)initWithFrame:(CGRect)frame{
-    
-    if (self = [super initWithFrame:frame]) {
-        
-        UIActivityIndicatorView * activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-        _activityView = activityView;
-        
-        UILabel * title = [[UILabel alloc] init];
-        _titleLabel = title;
-        
-        _titleLabel.font = [UIFont boldSystemFontOfSize:17];
-        
-        title.textColor = [UIColor whiteColor];
-        [self addSubview:title];
-        [self addSubview:_activityView];
-        // 布局
-        [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.center.mas_equalTo(CGPointMake(0, 0)); // 注意：由于label是self的子控件所以它的中心点是（0，0）
-        }];
-        [_activityView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(_titleLabel.mas_left).offset(-5);
-            make.top.equalTo(_titleLabel.mas_top);
-        }];
-        
-        // 添加点击事件
-        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reloginClick)];
-        [self addGestureRecognizer:tap];
-        
-    }
-    return self;
-}
-
-// 重新登录点击方法
--(void)reloginClick{
-    
-    if ([self.delegate respondsToSelector:@selector(didClickRelogin:)]) {
-        [self.delegate didClickRelogin:self];
-    }
-}
+@property (nonatomic,weak) ActivityTitleView * activityViewTitle; // 动态标题视图
 
 @end
 
@@ -88,10 +44,10 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
 
 #pragma mark - getter
 
--(ActivityViewTitle *)activityViewTitle{
+-(ActivityTitleView *)activityViewTitle{
     
     if (!_activityViewTitle) {
-        ActivityViewTitle * view = [[ActivityViewTitle alloc] initWithFrame:CGRectMake(0, 0, 100, 20)];
+        ActivityTitleView * view = [[ActivityTitleView alloc] initWithFrame:CGRectMake(0, 0, 100, 20)];
         _activityViewTitle = view;
         _activityViewTitle.delegate = self;
         self.navigationItem.titleView = view;
@@ -157,6 +113,10 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"addBtn_bg"] style:UIBarButtonItemStylePlain target:self action:@selector(addBtnClick:)];
     
     [self testMethod];
+    
+    // 登录云信sdk
+    
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{

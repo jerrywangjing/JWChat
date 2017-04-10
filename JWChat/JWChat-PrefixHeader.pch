@@ -38,6 +38,7 @@
 
 // 即时通讯相关头文件
 
+#import <NIMSDK/NIMSDK.h>
 #import "DBManager.h"
 #import "WJMessageHelper.h"
 #import "EMCDDeviceManager.h"

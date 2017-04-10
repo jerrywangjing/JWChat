@@ -21,6 +21,7 @@
 		C4870B081E93B104009650B9 /* wav.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4870AF61E93B104009650B9 /* wav.mm */; };
 		C4870B091E93B104009650B9 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4870AFA1E93B104009650B9 /* libopencore-amrnb.a */; };
 		C4870B0A1E93B104009650B9 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4870AFE1E93B104009650B9 /* libopencore-amrwb.a */; };
+		C4870B101E9BD3AA009650B9 /* ActivityTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4870B0F1E9BD3AA009650B9 /* ActivityTitleView.m */; };
 		C4C75F101E8F3EEC0093F723 /* MBProgressHUD+WJ.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C75F0F1E8F3EEC0093F723 /* MBProgressHUD+WJ.m */; };
 		C4C75F131E8F44000093F723 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C75F121E8F44000093F723 /* ConversationViewController.m */; };
 		C4C75F191E8F44300093F723 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C75F181E8F44300093F723 /* ProfileViewController.m */; };
@@ -272,6 +273,8 @@
 		C4870AFC1E93B104009650B9 /* dec_if.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dec_if.h; sourceTree = "<group>"; };
 		C4870AFD1E93B104009650B9 /* if_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
 		C4870AFE1E93B104009650B9 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
+		C4870B0E1E9BD3AA009650B9 /* ActivityTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityTitleView.h; sourceTree = "<group>"; };
+		C4870B0F1E9BD3AA009650B9 /* ActivityTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityTitleView.m; sourceTree = "<group>"; };
 		C4C75F0E1E8F3EEC0093F723 /* MBProgressHUD+WJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+WJ.h"; sourceTree = "<group>"; };
 		C4C75F0F1E8F3EEC0093F723 /* MBProgressHUD+WJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+WJ.m"; sourceTree = "<group>"; };
 		C4C75F111E8F44000093F723 /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
@@ -1143,6 +1146,8 @@
 				C4F472DF1E93323B001ED39F /* RecordView.m */,
 				C4F472ED1E933283001ED39F /* InputView.h */,
 				C4F472EE1E933283001ED39F /* InputView.m */,
+				C4870B0E1E9BD3AA009650B9 /* ActivityTitleView.h */,
+				C4870B0F1E9BD3AA009650B9 /* ActivityTitleView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1639,6 +1644,7 @@
 				C4F472E11E93323B001ED39F /* EmojiKeyboardView.m in Sources */,
 				C4870AFF1E93B104009650B9 /* EMAudioPlayerUtil.m in Sources */,
 				C4F473011E9332D8001ED39F /* Message.m in Sources */,
+				C4870B101E9BD3AA009650B9 /* ActivityTitleView.m in Sources */,
 				C4F474591E93385F001ED39F /* NSAttributedString+EmojiExtension.m in Sources */,
 				C4F475801E9398D8001ED39F /* MWGridCell.m in Sources */,
 				C4C764A71E9489270093F723 /* HCSortString.m in Sources */,

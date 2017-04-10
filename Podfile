@@ -19,6 +19,7 @@ target 'JWChat' do
   pod 'DateTools'
   pod 'DACircularProgress'
   pod 'SDWebImage', '~> 3.8.2'
+  pod 'NIMSDK' # 网易云信sdk
 
   target 'JWChatTests' do
     inherit! :search_paths

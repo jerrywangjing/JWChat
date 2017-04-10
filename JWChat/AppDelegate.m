@@ -11,6 +11,9 @@
 #import "LoginViewController.h"
 #import <IQKeyboardManager.h>
 
+
+#define AppID @"7ac53fa9e06e58f828cc3ef87fff57dd"
+
 @interface AppDelegate ()
 
 @end
@@ -31,6 +34,10 @@
     // 初始化键盘控制器
     [[IQKeyboardManager sharedManager] setEnable:NO];
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
+    
+    // 初始化云信sdk
+    [[NIMSDK sharedSDK] registerWithAppID:AppID cerName:nil];
+    [[NIMSDK sharedSDK] enableConsoleLog];
     
     return YES;
 }
