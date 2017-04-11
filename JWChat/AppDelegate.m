@@ -7,9 +7,9 @@
 //
 
 #import "AppDelegate.h"
-#import "MainNavController.h"
 #import "LoginViewController.h"
 #import <IQKeyboardManager.h>
+#import "MainTabBarController.h"
 
 @interface AppDelegate ()
 
@@ -24,9 +24,9 @@
     _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [_window makeKeyAndVisible];
     
-    LoginViewController * loginVc = [[LoginViewController alloc] init];
-    
-    _window.rootViewController = loginVc;
+    //LoginViewController * loginVc = [[LoginViewController alloc] init];
+    MainTabBarController * mainTabBar = [[MainTabBarController alloc] init];
+    _window.rootViewController = mainTabBar;
     
     // 初始化键盘控制器
     [[IQKeyboardManager sharedManager] setEnable:NO];

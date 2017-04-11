@@ -7,6 +7,7 @@
 //
 
 #import "ProfileViewController.h"
+#import "ChatToolBar.h"
 
 @interface ProfileViewController ()
 
@@ -26,13 +27,12 @@
     
     [super loadView];
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     
 }
 
@@ -41,5 +41,8 @@
 
 }
 
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
 
+    [self.view endEditing:YES];
+}
 @end
