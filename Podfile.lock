@@ -28,6 +28,7 @@ PODS:
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
+  - TZImagePickerController (1.7.8)
   - WZLBadge (1.2.5)
 
 DEPENDENCIES:
@@ -42,6 +43,7 @@ DEPENDENCIES:
   - QBImagePickerController
   - SAMKeychain
   - SDWebImage (~> 3.8.2)
+  - TZImagePickerController
   - WZLBadge
 
 SPEC CHECKSUMS:
@@ -56,8 +58,9 @@ SPEC CHECKSUMS:
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
   SAMKeychain: 1865333198217411f35327e8da61b43de79b635b
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  TZImagePickerController: 87a138ae5d585225aaa6c8abe2cface0f0ad19dd
   WZLBadge: 16c08aa0a645e2591690f21cbcb410a3d878c7ac
 
-PODFILE CHECKSUM: 65cf59f2dd6f6fc43974588a1d47f53742023b07
+PODFILE CHECKSUM: 5d0e937ad6cb83c5136012b6a45ebf8681951823
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.0.1

@@ -19,6 +19,7 @@ target 'JWChat' do
   pod 'DateTools'
   pod 'DACircularProgress'
   pod 'SDWebImage', '~> 3.8.2'
+  pod 'TZImagePickerController'  # 照片选择控件
 
   target 'JWChatTests' do
     inherit! :search_paths

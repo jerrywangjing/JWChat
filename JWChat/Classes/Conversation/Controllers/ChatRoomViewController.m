@@ -26,7 +26,7 @@
 #import "ContactsDetailViewController.h"
 #import "ContactsModel.h"
 #import "ChatInformationViewController.h"
-#import <QBImagePickerController/QBImagePickerController.h>
+#import <TZImagePickerController.h>
 
 #define CachesDirectory NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject
 #define FILE_PATH [CachesDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",self.conversationId]]
@@ -38,7 +38,7 @@
 
 static NSInteger LastOffset = 0; //记录上次消息加载数
 
-@interface ChatRoomViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,EmojiKeyboardViewDelegate,AddOtherFuncKeyboardDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,MessageTableViewCellDelegate>
+@interface ChatRoomViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,EmojiKeyboardViewDelegate,AddOtherFuncKeyboardDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,MessageTableViewCellDelegate,TZImagePickerControllerDelegate>
 
 @property (nonatomic,strong) NSMutableArray *messageFrames; // 消息数据源
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -248,6 +248,8 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     
     // 异步加载表情、更多键盘
     [self setupEmojiAndMoreKeyboardView];
+    
+    NSLog(@"沙盒：%@",NSHomeDirectory());
 
 }
 
@@ -928,7 +930,26 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
 
 -(void)openAlbum{
     
-    [self openImagePickerController:UIImagePickerControllerSourceTypePhotoLibrary];
+    
+    //[self openImagePickerController:UIImagePickerControllerSourceTypePhotoLibrary];
+    TZImagePickerController * pickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:9 delegate:self];
+    
+    [pickerVc setDidFinishPickingPhotosWithInfosHandle:^(NSArray<UIImage *> * photos, NSArray * assets, BOOL isSelectOriginalPhoto, NSArray<NSDictionary *> * infos) {
+        
+        for ( int i = 0; i<photos.count; i++) {
+            
+            NSData * imgData = UIImagePNGRepresentation(photos[i]);
+            
+            NSString * imageName = [NSString stringWithFormat:@"%.f%d",[[NSDate date] timeIntervalSince1970],i];
+            
+            NSString * relativePath = [[MessageReadManager shareManager] saveMsgAttachWithData:imgData attachType:MessageBodyTypeImage andAttachName:imageName];
+            
+            [self sendImageMessageWithData:imgData localPath:relativePath];
+        }
+    }];
+    
+    [self presentViewController:pickerVc animated:YES completion:nil];
+    
 }
 
 -(void)openImagePickerController:(UIImagePickerControllerSourceType)type{

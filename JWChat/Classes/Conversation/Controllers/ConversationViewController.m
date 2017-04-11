@@ -174,12 +174,12 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
 
 -(void)testMethod{
     
-//    ContactsModel * user = [[ContactsModel alloc] initWithUserId:@"jerry002"];
-//    user.userName = @"alsa";
-//    user.avatarImageUrl = @"avatarGirl";
-//    user.online = @"1";
-//    
-//    [[DBManager shareManager] creatOrUpdateContactWith:user];
+    ContactsModel * user = [[ContactsModel alloc] initWithUserId:@"jerry002"];
+    user.userName = @"jerry";
+    user.avatarImageUrl = @"avatarBoy";
+    user.online = @"1";
+    
+    [[DBManager shareManager] creatOrUpdateContactWith:user];
     
 }
 

@@ -41,7 +41,6 @@ typedef enum {
 
 
 
-
 // ------------------------------------------------------
 /*!
  *  插入一条消息，消息的conversationId应该和会话的conversationId一致，消息会被插入DB，并且更新会话的latestMessage等属性
