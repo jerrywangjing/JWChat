@@ -104,7 +104,6 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     CGFloat offset = CGRectGetMaxY(lastCellFrame);
     NSLog(@"lastceFrame-%@",NSStringFromCGRect(lastCellFrame));
    
-    
     CGFloat toolbarY = self.toolBar.y - height;
     NSLog(@"toobarY -%.f",toolbarY);
     if (offset > toolbarY) {

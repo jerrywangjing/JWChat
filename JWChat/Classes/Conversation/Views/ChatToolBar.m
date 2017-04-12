@@ -24,7 +24,7 @@
 
     if (self = [super initWithFrame:frame]) {
         
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = WJRGBColor(245, 245, 246);
         
         [self configSubviews];
     }
@@ -61,21 +61,23 @@
     _inputView = [[InputView alloc] init];
     
     WJWeakSelf(weakSelf);
-    _inputView.maxNumberOfLines = 4;
+    _inputView.maxLineHeight = 80;
     _inputView.textHeightChangeBlock = ^(NSString * text,CGFloat textHeight){
         
-        weakSelf.height = textHeight + 10;
+        [weakSelf mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(textHeight + 10);
+        }];
     };
     
     _inputView.delegate = self;
     _inputView.returnKeyType = UIReturnKeySend;
     _inputView.layer.borderWidth = 0.5;
-    _inputView.layer.borderColor = WJRGBColor(218, 218, 218).CGColor;
+    _inputView.layer.borderColor = LineColor.CGColor;
     _inputView.font = [UIFont systemFontOfSize:15];
     
     // toolbar 顶部的间隔线
     UIView * toolBarLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.5)];
-    toolBarLine.backgroundColor = WJRGBColor(218, 218, 218);
+    toolBarLine.backgroundColor = LineColor;
     [self addSubview: toolBarLine];
     [self addSubview:_inputView];
     
