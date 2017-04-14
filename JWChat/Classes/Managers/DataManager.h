@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger,LoginState){
 
 @interface DataManager : NSObject
 
-+ (void)loginWithUsername:(NSString *)username password:(NSString *) password success:(void (^) (LoginState responseType))success failure:(void (^) (NSError *error))failure;
++ (void)loginWithUsername:(NSString *)username password:(NSString *) password success:(void (^) (NSDictionary *responseDic))success failure:(void (^) (NSError *error))failure;
 
 
 @end

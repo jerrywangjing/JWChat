@@ -18,8 +18,7 @@
  @method
  @brief Posted when the state of the proximity sensor changes.
  @param isCloseToUser indicates whether the proximity sensor is close to the user (YES) or not (NO).
- @discussion
- @result
+
  */
 - (void)proximitySensorChanged:(BOOL)isCloseToUser;
 

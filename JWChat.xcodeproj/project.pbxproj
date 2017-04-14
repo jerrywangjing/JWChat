@@ -223,7 +223,6 @@
 		C4F475A71E9398D8001ED39F /* VideoOverlay@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F475741E9398D8001ED39F /* VideoOverlay@3x.png */; };
 		C4F475A81E9398D8001ED39F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4F475761E9398D8001ED39F /* Info.plist */; };
 		C4F475A91E9398D8001ED39F /* MWPhotoBrowser-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F475771E9398D8001ED39F /* MWPhotoBrowser-dummy.m */; };
-		C4F475AA1E9398D8001ED39F /* MWPhotoBrowser.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C4F4757B1E9398D8001ED39F /* MWPhotoBrowser.xcconfig */; };
 		C4F475AB1E9398D8001ED39F /* ResourceBundle-MWPhotoBrowser-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4F4757C1E9398D8001ED39F /* ResourceBundle-MWPhotoBrowser-Info.plist */; };
 		C4F475AC1E9398D8001ED39F /* UIImage+MWPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F4757E1E9398D8001ED39F /* UIImage+MWPhotoBrowser.m */; };
 /* End PBXBuildFile section */
@@ -1305,7 +1304,7 @@
 		C4F470F21E8D43CB001ED39F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = JerryWang;
 				TargetAttributes = {
 					C4F470F91E8D43CB001ED39F = {
@@ -1412,7 +1411,6 @@
 				C4F4758A1E9398D8001ED39F /* ImageSelectedOff.png in Resources */,
 				C4F475AB1E9398D8001ED39F /* ResourceBundle-MWPhotoBrowser-Info.plist in Resources */,
 				C4C764871E94884C0093F723 /* UIResource.bundle in Resources */,
-				C4F475AA1E9398D8001ED39F /* MWPhotoBrowser.xcconfig in Resources */,
 				C4F475881E9398D8001ED39F /* ImageError@2x.png in Resources */,
 				C4C75FAC1E9487E10093F723 /* [64].png in Resources */,
 				C4C75FAA1E9487E10093F723 /* [62].png in Resources */,

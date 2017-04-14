@@ -252,23 +252,33 @@ static NSString * const kPassword = @"password";
         return;
     }
     
-    [DataManager loginWithUsername:self.accountText.text password:self.passwordText.text success:^(LoginState responseType) {
+    [DataManager loginWithUsername:self.accountText.text password:self.passwordText.text success:^(NSDictionary *responseDic) {
 
-        if (responseType == LoginStateSuccess) {
-            //直接跳转
-            MainTabBarController * tabBarVc = [[MainTabBarController alloc] init];
-            
-            
-            [self presentViewController:tabBarVc animated:NO completion:^{
-                [WJUserDefault setObject:self.accountText.text forKey:kAccount];
-                [WJUserDefault setObject:self.passwordText.text forKey:kPassword];
-                [WJUserDefault synchronize];
-                [self removeFromParentViewController];
-            }];
-        }
+        NSString *result = responseDic[@"result"];
+        NSString *msg = responseDic[@"msg"];
+        NSString *token = responseDic[@"NIMToken"];
         
-        if (responseType == LoginStateFailure) {
-            [MBProgressHUD showLabelWithText:@"账号或密码错误"];
+        if ([result isEqualToString:@"1"]) {
+            
+            if (token) {
+                //初始化NIM引擎
+                
+                
+                //直接跳转
+                MainTabBarController * tabBarVc = [[MainTabBarController alloc] init];
+                
+                [self presentViewController:tabBarVc animated:NO completion:^{
+                    [WJUserDefault setObject:self.accountText.text forKey:kAccount];
+                    [WJUserDefault setObject:self.passwordText.text forKey:kPassword];
+                    [WJUserDefault synchronize];
+                    [self removeFromParentViewController];
+                }];
+
+            }
+            
+        }else{
+        
+            [MBProgressHUD showLabelWithText:msg];
         }
         
     } failure:^(NSError *error) {

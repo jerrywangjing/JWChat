@@ -37,6 +37,7 @@
     // 1.创建请求管理者
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
 
+    mgr.responseSerializer.acceptableContentTypes = [[NSSet alloc] initWithObjects:@"text/html", nil];
     // 2.发送请求
     
     [mgr POST:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -53,6 +54,8 @@
 +(void)post:(NSString *)url params:(NSDictionary *)params constructingBody:(void(^)(id<AFMultipartFormData> formData))constructingBody success:(void (^)(id respenseObject))success failure:(void (^)(NSError *error))failure{
 
     AFHTTPSessionManager * mgr = [AFHTTPSessionManager manager];
+    mgr.responseSerializer.acceptableContentTypes = [[NSSet alloc] initWithObjects:@"text/html", nil];
+    
     [mgr POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         if (constructingBody) {
             constructingBody(formData);

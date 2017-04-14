@@ -122,8 +122,6 @@
     }
     
    // 给申请人同意消息
-    
-    int result = 1;
 
     NSError * error = nil;
     // TODO：通知服务器
@@ -150,7 +148,6 @@
         NSLog(@"删除新联系人%@失败",applyUser.userName);
     }
      //给申请人拒绝消息
-    int result = 0;
     
     NSError * error = nil;
     

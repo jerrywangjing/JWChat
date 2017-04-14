@@ -24,9 +24,9 @@
     _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [_window makeKeyAndVisible];
     
-    //LoginViewController * loginVc = [[LoginViewController alloc] init];
-    MainTabBarController * mainTabBar = [[MainTabBarController alloc] init];
-    _window.rootViewController = mainTabBar;
+    LoginViewController * loginVc = [[LoginViewController alloc] init];
+    //MainTabBarController * mainTabBar = [[MainTabBarController alloc] init];
+    _window.rootViewController = loginVc;
     
     // 初始化键盘控制器
     [[IQKeyboardManager sharedManager] setEnable:NO];
