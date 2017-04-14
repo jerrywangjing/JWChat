@@ -10,8 +10,8 @@
 
 typedef NS_ENUM(NSInteger,LoginState){
 
-    LoginStateSuccess,
-    LoginStateFailure,
+    LoginStateSuccess = 1,
+    LoginStateFailure = 0,
 };
 
 @interface DataManager : NSObject
