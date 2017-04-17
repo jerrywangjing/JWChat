@@ -38,7 +38,10 @@
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
 
     mgr.responseSerializer.acceptableContentTypes = [[NSSet alloc] initWithObjects:@"text/html", nil];
+<<<<<<< HEAD
     mgr.requestSerializer.timeoutInterval = 15;
+=======
+>>>>>>> 6c8c3453cde2ce38c83ff8b2cc8fc1ed6bb1b700
     // 2.发送请求
     
     [mgr POST:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -56,7 +59,10 @@
 
     AFHTTPSessionManager * mgr = [AFHTTPSessionManager manager];
     mgr.responseSerializer.acceptableContentTypes = [[NSSet alloc] initWithObjects:@"text/html", nil];
+<<<<<<< HEAD
     mgr.requestSerializer.timeoutInterval = 15;
+=======
+>>>>>>> 6c8c3453cde2ce38c83ff8b2cc8fc1ed6bb1b700
     
     [mgr POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         if (constructingBody) {

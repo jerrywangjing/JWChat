@@ -265,6 +265,7 @@ static NSString * const kPassword = @"password";
             if (token) {
                 //初始化NIM引擎
                 
+<<<<<<< HEAD
                 [[NIMSDK sharedSDK].loginManager login:self.accountText.text token:token completion:^(NSError * _Nullable error) {
                     
                     if (!error) {
@@ -288,6 +289,17 @@ static NSString * const kPassword = @"password";
                         [MBProgressHUD showLabelWithText:@"登录失败"];
                     }
                     
+=======
+                
+                //直接跳转
+                MainTabBarController * tabBarVc = [[MainTabBarController alloc] init];
+                
+                [self presentViewController:tabBarVc animated:NO completion:^{
+                    [WJUserDefault setObject:self.accountText.text forKey:kAccount];
+                    [WJUserDefault setObject:self.passwordText.text forKey:kPassword];
+                    [WJUserDefault synchronize];
+                    [self removeFromParentViewController];
+>>>>>>> 6c8c3453cde2ce38c83ff8b2cc8fc1ed6bb1b700
                 }];
 
             }

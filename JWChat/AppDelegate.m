@@ -10,7 +10,10 @@
 #import "LoginViewController.h"
 #import <IQKeyboardManager.h>
 #import "MainTabBarController.h"
+<<<<<<< HEAD
 #import "NTESDemoConfig.h"
+=======
+>>>>>>> 6c8c3453cde2ce38c83ff8b2cc8fc1ed6bb1b700
 
 @interface AppDelegate ()
 

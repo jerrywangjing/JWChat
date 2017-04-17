@@ -22,11 +22,18 @@
         
         [WJHttpTool post:url params:params success:^(id responseObject) {
             NSDictionary * responseDic = (NSDictionary *)responseObject;
+<<<<<<< HEAD
             [MBProgressHUD hideHUD];
             success(responseDic);
             
         } failure:^(NSError *error) {
             [MBProgressHUD hideHUD];
+=======
+            
+            success(responseDic);
+        } failure:^(NSError *error) {
+            
+>>>>>>> 6c8c3453cde2ce38c83ff8b2cc8fc1ed6bb1b700
             failure(error);
         }];
         
