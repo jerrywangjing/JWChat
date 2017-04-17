@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		AE232E87FB61793C8B5E9DD7 /* libPods-JWChatTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69DAE01FC217C91E0E1C1615 /* libPods-JWChatTests.a */; };
 		B6A1C2424D4D5DBA4A9996C3 /* libPods-JWChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C61DF51CCA267BD3C47F968B /* libPods-JWChat.a */; };
+		C4680F461EA46B9200A57104 /* NTESDemoConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C4680F451EA46B9200A57104 /* NTESDemoConfig.m */; };
+		C4680F491EA46CC700A57104 /* NSDictionary+NTESJson.m in Sources */ = {isa = PBXBuildFile; fileRef = C4680F481EA46CC700A57104 /* NSDictionary+NTESJson.m */; };
+		C4680F4F1EA4710300A57104 /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4680F4E1EA4710300A57104 /* LoginManager.m */; };
 		C4870AFF1E93B104009650B9 /* EMAudioPlayerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C4870AE11E93B104009650B9 /* EMAudioPlayerUtil.m */; };
 		C4870B001E93B104009650B9 /* EMAudioRecorderUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C4870AE31E93B104009650B9 /* EMAudioRecorderUtil.m */; };
 		C4870B011E93B104009650B9 /* EMCDDeviceManager+Media.m in Sources */ = {isa = PBXBuildFile; fileRef = C4870AE51E93B104009650B9 /* EMCDDeviceManager+Media.m */; };
@@ -21,7 +24,6 @@
 		C4870B081E93B104009650B9 /* wav.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4870AF61E93B104009650B9 /* wav.mm */; };
 		C4870B091E93B104009650B9 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4870AFA1E93B104009650B9 /* libopencore-amrnb.a */; };
 		C4870B0A1E93B104009650B9 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4870AFE1E93B104009650B9 /* libopencore-amrwb.a */; };
-		C4870B101E9BD3AA009650B9 /* ActivityTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4870B0F1E9BD3AA009650B9 /* ActivityTitleView.m */; };
 		C4C75F101E8F3EEC0093F723 /* MBProgressHUD+WJ.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C75F0F1E8F3EEC0093F723 /* MBProgressHUD+WJ.m */; };
 		C4C75F131E8F44000093F723 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C75F121E8F44000093F723 /* ConversationViewController.m */; };
 		C4C75F191E8F44300093F723 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C75F181E8F44300093F723 /* ProfileViewController.m */; };
@@ -130,6 +132,7 @@
 		C4C764D11E948AB90093F723 /* ConversationListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C764CC1E948AB90093F723 /* ConversationListModel.m */; };
 		C4C764D21E948AB90093F723 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C764CE1E948AB90093F723 /* DBManager.m */; };
 		C4C764D31E948AB90093F723 /* MessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C764D01E948AB90093F723 /* MessageModel.m */; };
+		C4C768C41E9CB0110093F723 /* ChatToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C768C31E9CB0110093F723 /* ChatToolBar.m */; };
 		C4F470FF1E8D43CB001ED39F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F470FE1E8D43CB001ED39F /* main.m */; };
 		C4F471021E8D43CB001ED39F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F471011E8D43CB001ED39F /* AppDelegate.m */; };
 		C4F4710A1E8D43CB001ED39F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4F471091E8D43CB001ED39F /* Assets.xcassets */; };
@@ -145,7 +148,6 @@
 		C4F472C41E933031001ED39F /* ConvarsationListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F472C21E933031001ED39F /* ConvarsationListTableViewCell.xib */; };
 		C4F472C71E93306D001ED39F /* ContactsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F472C61E93306D001ED39F /* ContactsListViewController.m */; };
 		C4F472CA1E9330C5001ED39F /* ChatRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F472C91E9330C4001ED39F /* ChatRoomViewController.m */; };
-		C4F472CC1E9330CE001ED39F /* ChatRoomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F472CB1E9330CE001ED39F /* ChatRoomViewController.xib */; };
 		C4F472CF1E9330FF001ED39F /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F472CE1E9330FF001ED39F /* MessageTableViewCell.m */; };
 		C4F472D21E933109001ED39F /* ContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F472D11E933109001ED39F /* ContactTableViewCell.m */; };
 		C4F472D51E93312C001ED39F /* ContactsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F472D41E93312C001ED39F /* ContactsModel.m */; };
@@ -224,7 +226,6 @@
 		C4F475A71E9398D8001ED39F /* VideoOverlay@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F475741E9398D8001ED39F /* VideoOverlay@3x.png */; };
 		C4F475A81E9398D8001ED39F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4F475761E9398D8001ED39F /* Info.plist */; };
 		C4F475A91E9398D8001ED39F /* MWPhotoBrowser-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F475771E9398D8001ED39F /* MWPhotoBrowser-dummy.m */; };
-		C4F475AA1E9398D8001ED39F /* MWPhotoBrowser.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C4F4757B1E9398D8001ED39F /* MWPhotoBrowser.xcconfig */; };
 		C4F475AB1E9398D8001ED39F /* ResourceBundle-MWPhotoBrowser-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4F4757C1E9398D8001ED39F /* ResourceBundle-MWPhotoBrowser-Info.plist */; };
 		C4F475AC1E9398D8001ED39F /* UIImage+MWPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F4757E1E9398D8001ED39F /* UIImage+MWPhotoBrowser.m */; };
 /* End PBXBuildFile section */
@@ -243,6 +244,12 @@
 		0143081FBF501D23F9F6EE33 /* Pods-JWChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JWChat/Pods-JWChat.debug.xcconfig"; sourceTree = "<group>"; };
 		69DAE01FC217C91E0E1C1615 /* libPods-JWChatTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JWChatTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A02832E3441BC6141CB054C /* Pods-JWChatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWChatTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JWChatTests/Pods-JWChatTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C4680F441EA46B9200A57104 /* NTESDemoConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESDemoConfig.h; sourceTree = "<group>"; };
+		C4680F451EA46B9200A57104 /* NTESDemoConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESDemoConfig.m; sourceTree = "<group>"; };
+		C4680F471EA46CC700A57104 /* NSDictionary+NTESJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NTESJson.h"; sourceTree = "<group>"; };
+		C4680F481EA46CC700A57104 /* NSDictionary+NTESJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NTESJson.m"; sourceTree = "<group>"; };
+		C4680F4D1EA4710300A57104 /* LoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginManager.h; sourceTree = "<group>"; };
+		C4680F4E1EA4710300A57104 /* LoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginManager.m; sourceTree = "<group>"; };
 		C4870ADC1E93B104009650B9 /* EMCDDeviceManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCDDeviceManagerDelegate.h; sourceTree = "<group>"; };
 		C4870ADD1E93B104009650B9 /* EMCDDeviceManagerProximitySensorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCDDeviceManagerProximitySensorDelegate.h; sourceTree = "<group>"; };
 		C4870ADF1E93B104009650B9 /* DemoErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoErrorCode.h; sourceTree = "<group>"; };
@@ -273,8 +280,6 @@
 		C4870AFC1E93B104009650B9 /* dec_if.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dec_if.h; sourceTree = "<group>"; };
 		C4870AFD1E93B104009650B9 /* if_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
 		C4870AFE1E93B104009650B9 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
-		C4870B0E1E9BD3AA009650B9 /* ActivityTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityTitleView.h; sourceTree = "<group>"; };
-		C4870B0F1E9BD3AA009650B9 /* ActivityTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityTitleView.m; sourceTree = "<group>"; };
 		C4C75F0E1E8F3EEC0093F723 /* MBProgressHUD+WJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+WJ.h"; sourceTree = "<group>"; };
 		C4C75F0F1E8F3EEC0093F723 /* MBProgressHUD+WJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+WJ.m"; sourceTree = "<group>"; };
 		C4C75F111E8F44000093F723 /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
@@ -409,6 +414,8 @@
 		C4C764CE1E948AB90093F723 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
 		C4C764CF1E948AB90093F723 /* MessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageModel.h; sourceTree = "<group>"; };
 		C4C764D01E948AB90093F723 /* MessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageModel.m; sourceTree = "<group>"; };
+		C4C768C21E9CB0110093F723 /* ChatToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatToolBar.h; sourceTree = "<group>"; };
+		C4C768C31E9CB0110093F723 /* ChatToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatToolBar.m; sourceTree = "<group>"; };
 		C4F470FA1E8D43CB001ED39F /* JWChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JWChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4F470FE1E8D43CB001ED39F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C4F471001E8D43CB001ED39F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../../AppDelegate.h; sourceTree = "<group>"; };
@@ -439,7 +446,6 @@
 		C4F472C61E93306D001ED39F /* ContactsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsListViewController.m; sourceTree = "<group>"; };
 		C4F472C81E9330C4001ED39F /* ChatRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatRoomViewController.h; sourceTree = "<group>"; };
 		C4F472C91E9330C4001ED39F /* ChatRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatRoomViewController.m; sourceTree = "<group>"; };
-		C4F472CB1E9330CE001ED39F /* ChatRoomViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatRoomViewController.xib; sourceTree = "<group>"; };
 		C4F472CD1E9330FF001ED39F /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewCell.h; sourceTree = "<group>"; };
 		C4F472CE1E9330FF001ED39F /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
 		C4F472D01E933109001ED39F /* ContactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactTableViewCell.h; sourceTree = "<group>"; };
@@ -612,6 +618,15 @@
 				69DAE01FC217C91E0E1C1615 /* libPods-JWChatTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C4680F391EA469CF00A57104 /* DemoServer */ = {
+			isa = PBXGroup;
+			children = (
+				C4680F441EA46B9200A57104 /* NTESDemoConfig.h */,
+				C4680F451EA46B9200A57104 /* NTESDemoConfig.m */,
+			);
+			name = DemoServer;
 			sourceTree = "<group>";
 		};
 		C4870ADA1E93B104009650B9 /* DeviceHelper */ = {
@@ -928,6 +943,8 @@
 		C4F471331E8D4C59001ED39F /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				C4680F471EA46CC700A57104 /* NSDictionary+NTESJson.h */,
+				C4680F481EA46CC700A57104 /* NSDictionary+NTESJson.m */,
 				C4C75F0E1E8F3EEC0093F723 /* MBProgressHUD+WJ.h */,
 				C4C75F0F1E8F3EEC0093F723 /* MBProgressHUD+WJ.m */,
 				C4C75F1A1E8F880F0093F723 /* MBProgressHUD+CustomView.h */,
@@ -998,7 +1015,6 @@
 				C4C75F121E8F44000093F723 /* ConversationViewController.m */,
 				C4F472C81E9330C4001ED39F /* ChatRoomViewController.h */,
 				C4F472C91E9330C4001ED39F /* ChatRoomViewController.m */,
-				C4F472CB1E9330CE001ED39F /* ChatRoomViewController.xib */,
 				C4F473081E93331E001ED39F /* ChatInformationViewController.h */,
 				C4F473091E93331E001ED39F /* ChatInformationViewController.m */,
 			);
@@ -1019,6 +1035,8 @@
 				C4F471511E8EB8CB001ED39F /* DataManager.m */,
 				C4F472F01E9332AF001ED39F /* UserProfileManager.h */,
 				C4F472F11E9332AF001ED39F /* UserProfileManager.m */,
+				C4680F4D1EA4710300A57104 /* LoginManager.h */,
+				C4680F4E1EA4710300A57104 /* LoginManager.m */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1074,6 +1092,7 @@
 		C4F472B01E932F62001ED39F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				C4680F391EA469CF00A57104 /* DemoServer */,
 				C4C7648F1E94890B0093F723 /* ChatToolbar */,
 				C4C7648B1E9488B00093F723 /* HttpTools */,
 				C4870ADA1E93B104009650B9 /* DeviceHelper */,
@@ -1146,8 +1165,8 @@
 				C4F472DF1E93323B001ED39F /* RecordView.m */,
 				C4F472ED1E933283001ED39F /* InputView.h */,
 				C4F472EE1E933283001ED39F /* InputView.m */,
-				C4870B0E1E9BD3AA009650B9 /* ActivityTitleView.h */,
-				C4870B0F1E9BD3AA009650B9 /* ActivityTitleView.m */,
+				C4C768C21E9CB0110093F723 /* ChatToolBar.h */,
+				C4C768C31E9CB0110093F723 /* ChatToolBar.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1308,7 +1327,7 @@
 		C4F470F21E8D43CB001ED39F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = JerryWang;
 				TargetAttributes = {
 					C4F470F91E8D43CB001ED39F = {
@@ -1415,7 +1434,6 @@
 				C4F4758A1E9398D8001ED39F /* ImageSelectedOff.png in Resources */,
 				C4F475AB1E9398D8001ED39F /* ResourceBundle-MWPhotoBrowser-Info.plist in Resources */,
 				C4C764871E94884C0093F723 /* UIResource.bundle in Resources */,
-				C4F475AA1E9398D8001ED39F /* MWPhotoBrowser.xcconfig in Resources */,
 				C4F475881E9398D8001ED39F /* ImageError@2x.png in Resources */,
 				C4C75FAC1E9487E10093F723 /* [64].png in Resources */,
 				C4C75FAA1E9487E10093F723 /* [62].png in Resources */,
@@ -1428,7 +1446,6 @@
 				C4F472EC1E933268001ED39F /* ContactsDetailTableViewCell.xib in Resources */,
 				C4C75F8D1E9487E10093F723 /* [36].png in Resources */,
 				C4C75F941E9487E10093F723 /* [42].png in Resources */,
-				C4F472CC1E9330CE001ED39F /* ChatRoomViewController.xib in Resources */,
 				C4C75F831E9487E10093F723 /* [27].png in Resources */,
 				C4F475A41E9398D8001ED39F /* UIBarButtonItemGrid@3x.png in Resources */,
 				C4C75F8C1E9487E10093F723 /* [35].png in Resources */,
@@ -1499,7 +1516,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		848EC5441E85846C54F4459F /* [CP] Check Pods Manifest.lock */ = {
@@ -1514,7 +1531,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		9EF5EC5A6042685493EF9AA1 /* [CP] Copy Pods Resources */ = {
@@ -1609,6 +1626,7 @@
 				C4F475A91E9398D8001ED39F /* MWPhotoBrowser-dummy.m in Sources */,
 				C4F472D51E93312C001ED39F /* ContactsModel.m in Sources */,
 				C4F471021E8D43CB001ED39F /* AppDelegate.m in Sources */,
+				C4680F491EA46CC700A57104 /* NSDictionary+NTESJson.m in Sources */,
 				C4F475841E9398D8001ED39F /* MWTapDetectingImageView.m in Sources */,
 				C4F471521E8EB8CB001ED39F /* DataManager.m in Sources */,
 				C4F472BE1E933001001ED39F /* Conversation.m in Sources */,
@@ -1644,7 +1662,6 @@
 				C4F472E11E93323B001ED39F /* EmojiKeyboardView.m in Sources */,
 				C4870AFF1E93B104009650B9 /* EMAudioPlayerUtil.m in Sources */,
 				C4F473011E9332D8001ED39F /* Message.m in Sources */,
-				C4870B101E9BD3AA009650B9 /* ActivityTitleView.m in Sources */,
 				C4F474591E93385F001ED39F /* NSAttributedString+EmojiExtension.m in Sources */,
 				C4F475801E9398D8001ED39F /* MWGridCell.m in Sources */,
 				C4C764A71E9489270093F723 /* HCSortString.m in Sources */,
@@ -1671,8 +1688,11 @@
 				C4F473191E933436001ED39F /* ContactsSelectViewController.m in Sources */,
 				C4C764A81E9489270093F723 /* UIAlertController+HCAdd.m in Sources */,
 				C4F474611E93385F001ED39F /* UIViewController+WJExtension.m in Sources */,
+				C4C768C41E9CB0110093F723 /* ChatToolBar.m in Sources */,
 				C4F473071E9332D8001ED39F /* MessageFrame.m in Sources */,
+				C4680F4F1EA4710300A57104 /* LoginManager.m in Sources */,
 				C4C764D31E948AB90093F723 /* MessageModel.m in Sources */,
+				C4680F461EA46B9200A57104 /* NTESDemoConfig.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1800,6 +1820,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R5688PHUE9;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/JWChat/XunYiTongV2.0",
@@ -1829,6 +1850,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R5688PHUE9;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/JWChat/XunYiTongV2.0",

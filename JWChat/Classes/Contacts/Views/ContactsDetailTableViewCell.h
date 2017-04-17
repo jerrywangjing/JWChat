@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@class ContactsModel;
 @interface ContactsDetailTableViewCell : UITableViewCell
 
-@property (nonatomic ,strong) ContactsModel * cellData;
+@property (nonatomic,strong) NIMUser * user;
 
 +(instancetype)contactsCellWithTableView:(UITableView *)tableView;
 @end

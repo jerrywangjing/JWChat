@@ -37,7 +37,6 @@
 #import "UIViewController+WJExtension.h"
 
 // 即时通讯相关头文件
-
 #import <NIMSDK/NIMSDK.h>
 #import "DBManager.h"
 #import "WJMessageHelper.h"
@@ -81,12 +80,12 @@
 
 // 项目主题颜色
 
-#define IMBgColor [UIColor colorWithRed:235/255.0f green:235/255.0f blue:241/255.0f alpha:1.0f]
+#define IMBgColor [UIColor colorWithRed:235/255.0f green:235/255.0f blue:235/255.0f alpha:1.0f]
 #define ThemeColor [UIColor colorWithRed:30/255.0f green:161/255.0f blue:20/255.0f alpha:1.0f]
 #define bgColor [UIColor colorWithRed:235.0/255 green:235.0/255 blue:235.0/255 alpha:1.0]
 #define pinkColor [UIColor colorWithRed:255.0/255 green:114.0/255 blue:180.0/255 alpha:1.0]
 #define BACKGROUND_COLOR [UIColor colorWithRed:240/255.0 green:240/255.0 blue:244/255.0 alpha:1]
-#define COLOR_LINE [UIColor lightGrayColor]
+#define LineColor WJRGBColor(218, 218, 218)
 
 #define emotionBtnsBGColor [UIColor colorWithRed:195.0/255 green:195.0/255 blue:195.0/255 alpha:1.0]
 

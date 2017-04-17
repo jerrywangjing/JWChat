@@ -19,7 +19,8 @@ target 'JWChat' do
   pod 'DateTools'
   pod 'DACircularProgress'
   pod 'SDWebImage', '~> 3.8.2'
-  pod 'NIMSDK' # 网易云信sdk
+  pod 'TZImagePickerController'  # 照片选择控件
+  pod 'NIMSDK' # NIM即时通讯
 
   target 'JWChatTests' do
     inherit! :search_paths

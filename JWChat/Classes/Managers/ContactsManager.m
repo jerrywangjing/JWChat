@@ -164,26 +164,36 @@
 
     //执行搜索
     
-    NSString * url = @"http://192.168.2.233/imService/SearchUser.ashx";
-    NSDictionary * param = [NSDictionary dictionaryWithObject:keyword forKey:@"key"];
+//    NSString * url = @"http://192.168.2.233/imService/SearchUser.ashx";
+//    NSDictionary * param = [NSDictionary dictionaryWithObject:keyword forKey:@"key"];
+//    
+//    [WJHttpTool get:url params:param success:^(id responseObject) {
+//        
+//        NSArray * responseArr = responseObject;
+//        NSMutableArray * tempArr = [NSMutableArray array];
+//        for (NSDictionary * dic in responseArr) {
+//            
+//            ContactsModel * model = [ContactsModel contactWithDic:dic];
+//            if (![model.userId isEqualToString:CurrentUserId]) {
+//                [tempArr addObject:model];
+//            }
+//        }
+//        
+//        completeHandler(tempArr);
+//        
+//    } failure:^(NSError *error) {
+//        completeHandler(nil);
+//        NSLog(@"查询失败");
+//    }];
     
-    [WJHttpTool get:url params:param success:^(id responseObject) {
+    [[NIMSDK sharedSDK].userManager fetchUserInfos:@[keyword] completion:^(NSArray<NIMUser *> * _Nullable users, NSError * _Nullable error) {
         
-        NSArray * responseArr = responseObject;
-        NSMutableArray * tempArr = [NSMutableArray array];
-        for (NSDictionary * dic in responseArr) {
-            
-            ContactsModel * model = [ContactsModel contactWithDic:dic];
-            if (![model.userId isEqualToString:CurrentUserId]) {
-                [tempArr addObject:model];
-            }
+        if (!error) {
+            // 跳转到个人名片中心
+        }else{
+            NSLog(@"获取失败：%@",error.localizedDescription);
         }
         
-        completeHandler(tempArr);
-        
-    } failure:^(NSError *error) {
-        completeHandler(nil);
-        NSLog(@"查询失败");
     }];
 
 }

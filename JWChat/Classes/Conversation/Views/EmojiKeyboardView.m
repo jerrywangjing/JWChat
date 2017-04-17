@@ -64,14 +64,20 @@
     UIScrollView * contentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.width,EmojiViewH)];
     _contentScrollView = contentScrollView;
     _contentScrollView.delegate = self;
-    contentScrollView.backgroundColor = IMBgColor;
+    contentScrollView.backgroundColor = WJRGBColor(245, 245, 246);
     contentScrollView.contentSize = CGSizeMake(SCREEN_WIDTH * pageCount, EmojiViewH);
     contentScrollView.pagingEnabled = YES;
     contentScrollView.showsVerticalScrollIndicator = NO;
     contentScrollView.showsHorizontalScrollIndicator = NO;
 
     [self addSubview:contentScrollView];
+    
+    // top line
+    UIView * topLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 0.5)];
+    topLine.backgroundColor = LineColor;
 
+    [self addSubview:topLine];
+    
     // 添加pageControl
     UIPageControl * pageControl = [[UIPageControl alloc] init];
     pageControl.frame = CGRectMake(SCREEN_WIDTH/2, EmojiViewH-PageControlH, 0, 0);

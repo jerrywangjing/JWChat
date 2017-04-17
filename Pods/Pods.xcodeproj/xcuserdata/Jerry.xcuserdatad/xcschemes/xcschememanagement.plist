@@ -74,6 +74,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>TZImagePickerController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>WZLBadge.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -82,77 +87,82 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>04CF549EBEEE7BC87AEAE35397184D94</key>
+		<key>31FF44B5E2FF8CF00090950A8B67AFF6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>566F4ABBCBEDCEC37D69B25D045D2B71</key>
+		<key>3FDCE5E5A378CDF320CE7CD4B0A8DC5F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>586F2DFA9BDCC6675C2546793A69E5CC</key>
+		<key>424F0F76597B08797DA8EE314429CEFF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7994816B08F95690E4B8E6DAEC17CBBD</key>
+		<key>4B13CF36F615452A0EC5AE6B9E0CD2A7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>80C78E3378F83B325C60D0AFC55A3157</key>
+		<key>4D74D60FD069BF4B7CDE3D0637C5C884</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8642CC820CE8C5B88C113D7F47AF4BC3</key>
+		<key>53480ED0BE09FF49E34B1702D485CAAB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9650B5ADCE86F1A055FAFC635284BDB5</key>
+		<key>556D52200B3EFBE8BA09C58264DEACA5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9DC8D9E02903E93BD0B2FEC9D846EA20</key>
+		<key>70BC44266C6FFE30D2C57129458E070B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9E033EDB5EC0819481B0546434FA577B</key>
+		<key>928353533005A4198EBDA5B700D37B64</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A1632B4373799388F238CD77AA47E9BC</key>
+		<key>9775596B3CA16905FC8F66DA8E2A3C67</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AF4F9787610E172388BB6D9A7C62F61B</key>
+		<key>9F12FB4A63E20F601CFB2E64A65B57C1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B36F6D48026E14827529F787D63D61B8</key>
+		<key>CA853F4C2CF70A608EEC06F3B572E3CD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C791F0A928C1A8FE97074DFC9ACF4E75</key>
+		<key>D058B89EB3B3DF45457A2DCD3971AFFE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CCE0436E234D5E3D6353E91C565BDEB2</key>
+		<key>D0D0C9D20C43FA94D4C88FBFE2601B8E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FA880864DA0D9E032782A171841A62D6</key>
+		<key>F1E1D14CBEE528AEFA5D2B40EAE4DB18</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F7BE96F242741DE5F82120D9ADDBBAC7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

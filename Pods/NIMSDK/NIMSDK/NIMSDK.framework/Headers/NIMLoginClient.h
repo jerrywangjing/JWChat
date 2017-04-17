@@ -58,7 +58,7 @@ typedef NS_ENUM(NSInteger, NIMLoginClientType) {
 /**
  *  操作系统
  */
-@property (nullable,nonatomic,copy,readonly)     NSString       *os;
+@property (nullable,nonatomic,copy,readonly)     NSString                *os;
 /**
  *  登录时间
  */

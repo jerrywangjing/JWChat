@@ -15,3 +15,19 @@
 
 @end
 
+
+// 状态标题视图
+
+@protocol ActivityViewTitleDelegate <NSObject>
+
+-(void)didClickRelogin:(UIView * )activityView;
+
+@end
+
+@interface ActivityViewTitle : UIView
+
+@property (nonatomic,weak)UIActivityIndicatorView * activityView;
+@property (nonatomic,weak)UILabel * titleLabel;
+@property (nonatomic,weak)id<ActivityViewTitleDelegate>delegate;
+
+@end

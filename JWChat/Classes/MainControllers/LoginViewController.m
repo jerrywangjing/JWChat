@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "MainTabBarController.h"
+#import <NIMSDK/NIMSDK.h>
 
 
 static NSString * const kAccount = @"account";
@@ -237,6 +238,7 @@ static NSString * const kPassword = @"password";
     }
     
 }
+
 #pragma mark - actions
 
 - (void)loginBtnDidClick:(UIButton *)btn{
@@ -252,23 +254,47 @@ static NSString * const kPassword = @"password";
         return;
     }
     
-    [DataManager loginWithUsername:self.accountText.text password:self.passwordText.text success:^(LoginState responseType) {
+    [DataManager loginWithUsername:self.accountText.text password:self.passwordText.text success:^(NSDictionary *responseDic) {
 
-        if (responseType == LoginStateSuccess) {
-            //直接跳转
-            MainTabBarController * tabBarVc = [[MainTabBarController alloc] init];
-            
-            
-            [self presentViewController:tabBarVc animated:NO completion:^{
-                [WJUserDefault setObject:self.accountText.text forKey:kAccount];
-                [WJUserDefault setObject:self.passwordText.text forKey:kPassword];
-                [WJUserDefault synchronize];
-                [self removeFromParentViewController];
-            }];
-        }
+        NSString *result = responseDic[@"result"];
+        NSString *msg = responseDic[@"msg"];
+        NSString *token = responseDic[@"NIMToken"];
         
-        if (responseType == LoginStateFailure) {
-            [MBProgressHUD showLabelWithText:@"账号或密码错误"];
+        if ([result isEqualToString:@"1"]) {
+            
+            if (token) {
+                //初始化NIM引擎
+                
+                [[NIMSDK sharedSDK].loginManager login:self.accountText.text token:token completion:^(NSError * _Nullable error) {
+                    
+                    if (!error) {
+                        
+                        //保存登录数据
+                        
+                        //处理业务逻辑
+                        
+                        //更新UI
+                        MainTabBarController * tabBarVc = [[MainTabBarController alloc] init];
+                        
+                        [self presentViewController:tabBarVc animated:NO completion:^{
+                            [WJUserDefault setObject:self.accountText.text forKey:kAccount];
+                            [WJUserDefault setObject:self.passwordText.text forKey:kPassword];
+                            [WJUserDefault synchronize];
+                            [self removeFromParentViewController];
+                        }];
+                        
+                    }else{
+                        NSLog(@"NIM引擎登录失败：error:%@",error.localizedDescription);
+                        [MBProgressHUD showLabelWithText:@"登录失败"];
+                    }
+                    
+                }];
+
+            }
+            
+        }else{
+        
+            [MBProgressHUD showLabelWithText:msg];
         }
         
     } failure:^(NSError *error) {
@@ -287,6 +313,7 @@ static NSString * const kPassword = @"password";
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
+
 
 
 @end

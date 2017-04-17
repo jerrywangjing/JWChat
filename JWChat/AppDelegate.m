@@ -7,12 +7,10 @@
 //
 
 #import "AppDelegate.h"
-#import "MainNavController.h"
 #import "LoginViewController.h"
 #import <IQKeyboardManager.h>
-
-
-#define AppID @"7ac53fa9e06e58f828cc3ef87fff57dd"
+#import "MainTabBarController.h"
+#import "NTESDemoConfig.h"
 
 @interface AppDelegate ()
 
@@ -28,16 +26,18 @@
     [_window makeKeyAndVisible];
     
     LoginViewController * loginVc = [[LoginViewController alloc] init];
-    
+    //MainTabBarController * mainTabBar = [[MainTabBarController alloc] init];
     _window.rootViewController = loginVc;
     
     // 初始化键盘控制器
     [[IQKeyboardManager sharedManager] setEnable:NO];
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
     
-    // 初始化云信sdk
-    [[NIMSDK sharedSDK] registerWithAppID:AppID cerName:nil];
-    [[NIMSDK sharedSDK] enableConsoleLog];
+    // 初始化NIM
+    NSString *appKey = [[NTESDemoConfig sharedConfig] appKey];
+    NSString *cerName = [[NTESDemoConfig sharedConfig] cerName];
+    
+    [[NIMSDK sharedSDK] registerWithAppID:appKey cerName:cerName];
     
     return YES;
 }

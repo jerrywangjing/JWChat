@@ -9,6 +9,7 @@
 #import "AddContactsViewController.h"
 #import "ContactTableViewCell.h"
 #import "ContactsModel.h"
+#import "ContactsDetailViewController.h"
 
 #define  CellHeight 50
 
@@ -63,7 +64,7 @@
     _searchController.searchResultsUpdater = self;
     _searchController.searchBar.barTintColor = IMBgColor;
     _searchController.searchBar.tintColor = ThemeColor;
-    _searchController.searchBar.placeholder = @"搜索";
+    _searchController.searchBar.placeholder = @"请输入联系人账号";
     _searchController.searchBar.backgroundImage = [[UIImage alloc] init];
     _searchController.hidesNavigationBarDuringPresentation = NO;
     _searchController.searchBar.delegate = self;
@@ -112,23 +113,39 @@
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
 
-    NSString * searchText = searchBar.text;
+    NSString * userId = [searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]; // 整理字符串
+    
     self.searchController.active = NO;
-    [MBProgressHUD showMessage:nil toView:self.tableView];
-    WJWeakSelf(weakSelf);
-    [ContactsManager searchUserListWithKeyword:searchText completionHandler:^(NSArray *dataArr) {
-        WJStrongSelf(strongSelf);
-        [MBProgressHUD hideHUDForView:strongSelf.tableView];
+    
+    [MBProgressHUD showHUD];
+    [[NIMSDK sharedSDK].userManager fetchUserInfos:@[userId] completion:^(NSArray<NIMUser *> * _Nullable users, NSError * _Nullable error) {
+        [MBProgressHUD hideHUD];
         
-        if (dataArr.count > 0) {
-            strongSelf.resultData = dataArr;
-            [strongSelf.tableView reloadData];
+        if (users.count > 0) {
+            ContactsDetailViewController * userDetailVc = [[ContactsDetailViewController alloc] initWithUserId:userId];
+            [self.navigationController pushViewController:userDetailVc animated:YES];
         }else{
         
-            [MBProgressHUD showLabel:@"无相关联系人" toView:strongSelf.tableView];
+            [MBProgressHUD showLabelWithText:@"无相关联系人"];
         }
-
     }];
+    
+//    [MBProgressHUD showMessage:nil toView:self.tableView];
+//    
+//    WJWeakSelf(weakSelf);
+//    [ContactsManager searchUserListWithKeyword:searchText completionHandler:^(NSArray *dataArr) {
+//        WJStrongSelf(strongSelf);
+//        [MBProgressHUD hideHUDForView:strongSelf.tableView];
+//        
+//        if (dataArr.count > 0) {
+//            strongSelf.resultData = dataArr;
+//            [strongSelf.tableView reloadData];
+//        }else{
+//        
+//            [MBProgressHUD showLabel:@"无相关联系人" toView:strongSelf.tableView];
+//        }
+//
+//    }];
 }
 
 

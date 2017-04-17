@@ -79,7 +79,13 @@
     
     // 计算最大高度 = (每行高度 * 总行数 + 文字上下间距)
     _maxTextH = ceil(self.font.lineHeight * maxNumberOfLines + self.textContainerInset.top + self.textContainerInset.bottom);
+}
+
+- (void)setMaxLineHeight:(NSUInteger)maxLineHeight{
+
+    _maxLineHeight = maxLineHeight;
     
+    _maxTextH = maxLineHeight;
 }
 
 - (void)setCornerRadius:(NSUInteger)cornerRadius

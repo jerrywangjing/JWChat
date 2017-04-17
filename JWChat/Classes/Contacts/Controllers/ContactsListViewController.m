@@ -23,7 +23,7 @@ BOOL hasApply = NO; // 是否有申请信息
 @interface ContactsListViewController ()<UISearchResultsUpdating,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,UISearchControllerDelegate>
 
 @property (nonatomic,weak) UITableView * tableView;
-@property (nonatomic,strong)UISearchController * searchController;
+@property (nonatomic,strong) UISearchController * searchController;
 @property (nonatomic,strong) NSMutableArray * origUserList; // 排序前的数据源
 @property (nonatomic,strong) NSMutableDictionary * sectionUserList;// 排序后的分组数据源
 @property (nonatomic,strong) NSMutableArray * searchResultData; // 搜索结果数据源

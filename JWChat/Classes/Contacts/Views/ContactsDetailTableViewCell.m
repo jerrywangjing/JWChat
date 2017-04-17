@@ -31,15 +31,13 @@
     return cell;
 }
 
--(void)setCellData:(ContactsModel *)cellData{
+-(void)setUser:(NIMUser *)user{
 
-    _cellData = cellData;
-    
-    _avatarImageView.image = [UIImage imageNamed:cellData.avatarImageUrl];
-    _userName.text = cellData.userComment ? cellData.userComment : cellData.userName;
-    _userId.text = [NSString stringWithFormat:@"ID号：%@",cellData.userId];
-    _neckName.text = [NSString stringWithFormat:@"昵称：%@",cellData.neckName];
-    
+    _user = user;
+    NSLog(@"用户头像URL:%@",user.userInfo.avatarUrl);
+    _userName.text = user.userInfo.nickName;
+    _userId.text = [NSString stringWithFormat:@"ID号：%@",user.userId];
+    _neckName.text = [NSString stringWithFormat:@"备注：%@",user.alias];
 }
 
 @end

@@ -22,11 +22,12 @@
 #import "ConversationModel.h"
 #import "Conversation.h"
 #import "ContactsSelectViewController.h"
-#import "InputView.h"
 #import "ContactsDetailViewController.h"
 #import "ContactsModel.h"
 #import "ChatInformationViewController.h"
-#import <QBImagePickerController/QBImagePickerController.h>
+#import <TZImagePickerController.h>
+#import "ChatToolBar.h"
+#import "InputView.h"
 
 #define CachesDirectory NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject
 #define FILE_PATH [CachesDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",self.conversationId]]
@@ -38,17 +39,16 @@
 
 static NSInteger LastOffset = 0; //记录上次消息加载数
 
-@interface ChatRoomViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,EmojiKeyboardViewDelegate,AddOtherFuncKeyboardDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,MessageTableViewCellDelegate>
+@interface ChatRoomViewController ()<UITableViewDataSource,UITableViewDelegate,EmojiKeyboardViewDelegate,AddOtherFuncKeyboardDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,MessageTableViewCellDelegate,TZImagePickerControllerDelegate,ChatToolBarDelegate>
 
 @property (nonatomic,strong) NSMutableArray *messageFrames; // 消息数据源
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet InputView *textView;
-@property (weak, nonatomic) IBOutlet UIButton *emojiBtn;
-@property (weak, nonatomic) IBOutlet UIButton *addBtn;
-@property (weak, nonatomic) IBOutlet UIView *toolBar;
-@property (weak, nonatomic) IBOutlet UIButton *voiceBtn;
+@property (nonatomic,strong) UITableView * tableView;
 @property (nonatomic,weak) UIButton * recordBtn;
 @property (nonatomic,weak) RecordView * recordView;
+@property (nonatomic,strong) ChatToolBar * toolBar;
+@property (nonatomic,weak) UIButton * emojiBtn;
+@property (nonatomic,weak) UIButton * addBtn;
+@property (nonatomic,weak) UIButton * voiceBtn;
 @property (nonatomic,assign) BOOL isPlayingAudio;
 
 @property (strong,nonatomic) EmojiKeyboardView * emojiKeyboard;
@@ -61,11 +61,6 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
 @property (assign,nonatomic) BOOL showAddKeyboardBtn;
 @property (assign,nonatomic) BOOL showVoiceKeyboardBtn;
 
-- (IBAction)emojiBtnClick:(id)sender;
-- (IBAction)addBtnClick:(id)sender;
-- (IBAction)voiceBtnClick:(id)sender;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarConstH;
 
 @end
 
@@ -109,7 +104,6 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     CGFloat offset = CGRectGetMaxY(lastCellFrame);
     NSLog(@"lastceFrame-%@",NSStringFromCGRect(lastCellFrame));
    
-    
     CGFloat toolbarY = self.toolBar.y - height;
     NSLog(@"toobarY -%.f",toolbarY);
     if (offset > toolbarY) {
@@ -191,13 +185,13 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     if (showVoiceKeyboardBtn) {
         [self.voiceBtn setImage:[UIImage imageNamed:@"keyboard_hlt"] forState:UIControlStateNormal];
         self.recordBtn.hidden = NO;
-        self.textView.hidden = YES;
+        self.toolBar.inputView.hidden = YES;
         
-        if (self.showEmojiKeyboardBtn || self.showAddKeyboardBtn || self.textView.isFirstResponder) {
+        if (self.showEmojiKeyboardBtn || self.showAddKeyboardBtn || self.toolBar.inputView.isFirstResponder) {
 
             self.showEmojiKeyboardBtn = NO;
             self.showAddKeyboardBtn = NO;
-            [self.textView resignFirstResponder];
+            [self.toolBar.inputView resignFirstResponder];
             [UIView animateWithDuration:KeyboardTimeInterval animations:^{
                 
                 self.tableView.transform = CGAffineTransformIdentity;
@@ -211,7 +205,7 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     
         [self.voiceBtn setImage:[UIImage imageNamed:@"voice_hlt"] forState:UIControlStateNormal];
         self.recordBtn.hidden = YES;
-        self.textView.hidden = NO;
+        self.toolBar.inputView.hidden = NO;
         
     }
 }
@@ -230,8 +224,8 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     // setup tableView
     [self setupTableView];
     
-    //setup  textView
-    [self setupTextView];
+    //setup  toolbar
+    [self setupToolbar];
     
     // 添加录音按钮
     [self setupRecordBtn];
@@ -248,6 +242,8 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     
     // 异步加载表情、更多键盘
     [self setupEmojiAndMoreKeyboardView];
+    
+    NSLog(@"沙盒：%@",NSHomeDirectory());
 
 }
 
@@ -298,7 +294,7 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     // 初始化表情键盘
 
     _emojiKeyboard = [[EmojiKeyboardView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, emojiBoardH * HEIGHT_RATE)];
-    _emojiKeyboard.inputView = self.textView;
+    _emojiKeyboard.inputView = self.toolBar.inputView;
     _emojiKeyboard.delegate = self;
     WJWeakSelf(weakSelf);
     _emojiKeyboard.completionBlock = ^{
@@ -315,43 +311,42 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
 }
 - (void)setupTableView{
 
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone; //去掉分割线
-    self.tableView.allowsSelection = NO;//不能选中
-    self.tableView.backgroundColor = IMBgColor;
-    // 添加下拉刷新
-    MJRefreshNormalHeader * refresh = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshToLoadMessages:)];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-ToolbarHeight) style:UITableViewStylePlain];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone; //去掉分割线
+    _tableView.allowsSelection = NO;//不能选中
+    _tableView.backgroundColor = IMBgColor;
+
+    UIRefreshControl * refresh = [[UIRefreshControl alloc] initWithFrame:CGRectZero];
+    [refresh addTarget:self action:@selector(refreshToLoadMessages:) forControlEvents:UIControlEventValueChanged];
+    [_tableView addSubview:refresh];
     
-    refresh.lastUpdatedTimeLabel.hidden = YES;
-    refresh.stateLabel.hidden = YES;
-    self.tableView.mj_header = refresh;
+    [self.view addSubview:_tableView];
 
 }
 
-- (void)setupTextView{
+- (void)setupToolbar{
 
-    WJWeakSelf(weakSelf); // 注意：这里必须使用weakSelf，不然要循环引用
-    self.textView.maxNumberOfLines = 4;
-    self.textView.textHeightChangeBlock = ^(NSString * text,CGFloat textHeight){
-        
-        weakSelf.toolbarConstH.constant = textHeight + 10;
-    };
-    self.textView.delegate = self;
-    self.textView.returnKeyType = UIReturnKeySend;
-    self.textView.layer.borderWidth = 0.5;
-    self.textView.layer.borderColor = WJRGBColor(218, 218, 218).CGColor;
-    // toolbar 顶部的间隔线
-    UIView * toolBarLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.5)];
-    toolBarLine.backgroundColor = WJRGBColor(218, 218, 218);
-    [self.toolBar addSubview: toolBarLine];
+    _toolBar = [[ChatToolBar alloc] init];
+    _toolBar.delegate = self;
+    [self.view addSubview:_toolBar];
+    
+    [_toolBar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+    }];
 }
+
 // 加载刷新消息
 
 -(void)refreshToLoadMessages:(UIRefreshControl *)refresh{
 
     if (refresh.refreshing) {
         // 追加新消息的数组最前面
-        [self updateMessagesFromDBWithCompletion:nil];
-        [refresh endRefreshing];
+        [self updateMessagesFromDBWithCompletion:^{
+            
+            [refresh endRefreshing];
+        }];
     }
 }
 // 加载/更新消息
@@ -453,8 +448,8 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     // 退出键盘
 
-    if (self.textView.isFirstResponder) {
-        [self.textView resignFirstResponder];
+    if (self.toolBar.inputView.isFirstResponder) {
+        [self.toolBar.inputView resignFirstResponder];
     }
     
     if (self.showAddKeyboardBtn) {
@@ -539,48 +534,6 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     
 }
 
-#pragma mark - 发送文本消息
--(void)textViewDidBeginEditing:(UITextView *)textView{
-
-}
--(void)textViewDidChange:(UITextView *)textView{
-
-    if (textView.text.length > 0) {
-        self.emojiKeyboard.sendBtn.enabled = YES;
-    }else{
-        self.emojiKeyboard.sendBtn.enabled = NO;
-    }
-}
-
-// 点击send 触发事件
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    
-    if ([text isEqualToString:@"\n"]) {
-        //表情图片解析后的消息文本
-        NSString *messageText = [[_textView.textStorage getPlainString] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        // 发送文本消息按钮点击事件
-        
-        [self sendTextMessage:messageText withDirection:MessageDirectionSend];
-        textView.text = nil;
-        return NO;
-    }
-    return YES;
-}
-
--(void)sendTextMessage:(NSString *)text withDirection:(MessageDirection)direction{
-
-    [UIView animateWithDuration:0.25 animations:^{
-        self.toolbarConstH.constant = ToolbarHeight;
-    }];
-    
-    if (text.length > 0) {
-        // 包装消息对象
-        NSDictionary * extMsg = [NSDictionary dictionary];
-        Message * message = [WJMessageHelper sendTextMessage:text to:self.conversationId messageExt:extMsg];
-        [self sendMessage:message messageDirection:MessageDirectionSend];
-    }
-}
-
 #pragma mark - 发送消息到服务器
 
 -(void)sendMessageToServerWithMessage:(Message *)message{
@@ -595,6 +548,21 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
             break;
         default:
             break;
+    }
+}
+#pragma mark - 发送文本消息
+
+-(void)sendTextMessage:(NSString *)text withDirection:(MessageDirection)direction{
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        self.toolBar.height = ToolbarHeight;
+    }];
+    
+    if (text.length > 0) {
+        // 包装消息对象
+        NSDictionary * extMsg = [NSDictionary dictionary];
+        Message * message = [WJMessageHelper sendTextMessage:text to:self.conversationId messageExt:extMsg];
+        [self sendMessage:message messageDirection:MessageDirectionSend];
     }
 }
 
@@ -635,9 +603,8 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     }
 }
 
-#pragma mark - toolBar 按钮点击事件
+#pragma mark - 键盘frame改变通知
 
-// 键盘弹出退出事件
 - (void)keyboradWillChangeFrame:(NSNotification *)noti{
     
     //注意： 键盘弹出之前首先要考虑是否有其他键盘是第一响应者，如果有就需要先设置为NO后再弹出
@@ -663,7 +630,7 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
             self.toolBar.transform = CGAffineTransformMakeTranslation(0, offsetY);
         }else{
             
-            if (self.textView.isFirstResponder) {
+            if (self.toolBar.inputView.isFirstResponder) {
                 if (self.showVoiceKeyboardBtn) { // 如果点击的是语音按钮
                     self.toolBar.transform = CGAffineTransformMakeTranslation(0, offsetY);
                 }else{
@@ -687,8 +654,38 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     }];
 }
 
+#pragma mark - toolbar delegate
+
+-(void)chatToolBar:(ChatToolBar *)toolBar textViewDidChange:(UITextView *)textView{
+    
+    if (textView.text.length > 0) {
+        self.emojiKeyboard.sendBtn.enabled = YES;
+    }else{
+        self.emojiKeyboard.sendBtn.enabled = NO;
+    }
+}
+-(void)chatToolBar:(ChatToolBar *)toolBar textViewDidBeginEditing:(UITextView *)textView{
+    
+}
+
+// 点击send 触发
+-(BOOL)chatToolBar:(ChatToolBar *)toolBar textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    
+    if ([text isEqualToString:@"\n"]) {
+        //表情图片解析后的消息文本
+        NSString *messageText = [[self.toolBar.inputView.textStorage getPlainString] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        // 发送文本消息按钮点击事件
+        
+        [self sendTextMessage:messageText withDirection:MessageDirectionSend];
+        textView.text = nil;
+        return NO;
+    }
+    return YES;
+}
+
 // 表情按钮点击
-- (IBAction)emojiBtnClick:(id)sender {
+-(void)chatToolBar:(ChatToolBar *)toolBar emojiBtnDidClick:(UIButton *)btn{
+    _emojiBtn = btn;
 
     if (self.showVoiceKeyboardBtn) {
         self.showVoiceKeyboardBtn = NO;
@@ -696,23 +693,26 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     if (self.showAddKeyboardBtn) {
         self.showAddKeyboardBtn = NO;
     }
-     if (self.textView.isFirstResponder) {
-         [self.textView resignFirstResponder];
-     }
-     if (self.showEmojiKeyboardBtn) {
-         
-         self.showEmojiKeyboardBtn = NO;
-         [self.textView becomeFirstResponder];
-     
-     }else{
-     
-         self.showEmojiKeyboardBtn = YES; // 弹出表情键盘
-     
-     }
-
+    if (self.toolBar.inputView.isFirstResponder) {
+        [self.toolBar.inputView resignFirstResponder];
+    }
+    if (self.showEmojiKeyboardBtn) {
+        
+        self.showEmojiKeyboardBtn = NO;
+        [self.toolBar.inputView becomeFirstResponder];
+        
+    }else{
+        
+        self.showEmojiKeyboardBtn = YES; // 弹出表情键盘
+        
+    }
 }
-// 添加按钮点击
-- (IBAction)addBtnClick:(id)sender {
+
+// 更多按钮点击
+
+-(void)chatToolBar:(ChatToolBar *)toolBar addBtnDidClick:(UIButton *)btn{
+
+    _addBtn = btn;
     
     if (self.showVoiceKeyboardBtn) {
         self.showVoiceKeyboardBtn = NO;
@@ -720,28 +720,31 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     if (self.showEmojiKeyboardBtn) {
         self.showEmojiKeyboardBtn = NO;
     }
-    if (self.textView.isFirstResponder) {
-        [self.textView resignFirstResponder];
+    if (self.toolBar.inputView.isFirstResponder) {
+        [self.toolBar.inputView resignFirstResponder];
     }
-
+    
     if (self.showAddKeyboardBtn) {
         
         self.showAddKeyboardBtn = NO;
-        [self.textView becomeFirstResponder];
+        [self.toolBar.inputView becomeFirstResponder];
         
     }else{
         
         self.showAddKeyboardBtn = YES; // 弹出更多键盘
     }
+
 }
+// 语言按钮点击
 
-// 语音按钮点击
-- (IBAction)voiceBtnClick:(id)sender {
+-(void)chatToolBar:(ChatToolBar *)toolBar voiceBtnDidClick:(UIButton *)btn{
 
+    _voiceBtn = btn;
+    
     if (self.showVoiceKeyboardBtn) {
         
         self.showVoiceKeyboardBtn = NO;
-        [self.textView becomeFirstResponder];
+        [self.toolBar.inputView becomeFirstResponder];
         
     }else{
         
@@ -749,9 +752,12 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     }
 }
 
+
+#pragma mark - recordBtn touch actions
+
 // 创建录音按钮
 -(void)setupRecordBtn{
-
+    
     UIButton * recordBtn = [[UIButton alloc] init];
     _recordBtn = recordBtn;
     [recordBtn setBackgroundImage:[UIImage imageNamed:@"word_input"] forState:UIControlStateNormal];
@@ -777,13 +783,12 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     
     [_recordBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.toolBar);
-        make.left.right.equalTo(self.textView);
-        make.height.mas_equalTo(self.textView.mas_height);
+        make.left.right.equalTo(self.toolBar.inputView);
+        make.height.mas_equalTo(self.toolBar.inputView.mas_height);
     }];
     
 }
 
-#pragma mark - recordBtn touch actions
 // 当按下录音按钮时触发（开始录音）
 - (void)recordButtonTouchDown
 {
@@ -859,9 +864,9 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     
     // 回调改变输入框的高度
     WJWeakSelf(weakSelf);
-    self.textView.textHeightChangeBlock = ^(NSString * text,CGFloat textHeight){
+    self.toolBar.inputView.textHeightChangeBlock = ^(NSString * text,CGFloat textHeight){
         
-        weakSelf.toolbarConstH.constant = textHeight + 10;
+        weakSelf.toolBar.height = textHeight + 10;
     };
     if (!self.emojiKeyboard.sendBtn.enabled) {
         self.emojiKeyboard.sendBtn.enabled = YES;
@@ -871,9 +876,9 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
 -(void)sendBtnDicClick:(UIButton *)btn{
     
     //表情图片解析后的消息文本
-    NSString *messageText = [[self.textView.textStorage getPlainString] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *messageText = [[self.toolBar.inputView.textStorage getPlainString] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     [self sendTextMessage:messageText withDirection:MessageDirectionSend];
-    self.textView.text = nil;
+    self.toolBar.inputView.text = nil;
     self.emojiKeyboard.sendBtn.enabled = NO;
     
 }
@@ -928,7 +933,26 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
 
 -(void)openAlbum{
     
-    [self openImagePickerController:UIImagePickerControllerSourceTypePhotoLibrary];
+    
+    //[self openImagePickerController:UIImagePickerControllerSourceTypePhotoLibrary];
+    TZImagePickerController * pickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:9 delegate:self];
+    
+    [pickerVc setDidFinishPickingPhotosWithInfosHandle:^(NSArray<UIImage *> * photos, NSArray * assets, BOOL isSelectOriginalPhoto, NSArray<NSDictionary *> * infos) {
+        
+        for ( int i = 0; i<photos.count; i++) {
+            
+            NSData * imgData = UIImagePNGRepresentation(photos[i]);
+            
+            NSString * imageName = [NSString stringWithFormat:@"%.f%d",[[NSDate date] timeIntervalSince1970],i];
+            
+            NSString * relativePath = [[MessageReadManager shareManager] saveMsgAttachWithData:imgData attachType:MessageBodyTypeImage andAttachName:imageName];
+            
+            [self sendImageMessageWithData:imgData localPath:relativePath];
+        }
+    }];
+    
+    [self presentViewController:pickerVc animated:YES completion:nil];
+    
 }
 
 -(void)openImagePickerController:(UIImagePickerControllerSourceType)type{
@@ -1143,7 +1167,7 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     
     //NSLog(@"sender:%@,actions:%@",sender,NSStringFromSelector(action));
     //注意： 这里可以通过判断当前第一响应者来筛选保留哪些menuItem
-    if (self.textView.isFirstResponder) {
+    if (self.toolBar.inputView.isFirstResponder) {
         
         if (action == @selector(paste:)) {
             return YES;
