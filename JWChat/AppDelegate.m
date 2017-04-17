@@ -33,7 +33,7 @@
     [[IQKeyboardManager sharedManager] setEnable:NO];
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
     
-    // 初始化NIM
+    // 初始化NIM(demo appKey)
     NSString *appKey = [[NTESDemoConfig sharedConfig] appKey];
     NSString *cerName = [[NTESDemoConfig sharedConfig] cerName];
     

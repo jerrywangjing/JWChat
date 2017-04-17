@@ -20,11 +20,11 @@
 #define SearchBarH 44
 BOOL hasApply = NO; // 是否有申请信息
 
-@interface ContactsListViewController ()<UISearchResultsUpdating,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,UISearchControllerDelegate>
+@interface ContactsListViewController ()<UISearchResultsUpdating,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,UISearchControllerDelegate,NIMUserManagerDelegate,NIMSystemNotificationManagerDelegate,NIMLoginManagerDelegate>
 
 @property (nonatomic,weak) UITableView * tableView;
 @property (nonatomic,strong) UISearchController * searchController;
-@property (nonatomic,strong) NSMutableArray * origUserList; // 排序前的数据源
+@property (nonatomic,strong) NSArray * origUserList; // 排序前的数据源
 @property (nonatomic,strong) NSMutableDictionary * sectionUserList;// 排序后的分组数据源
 @property (nonatomic,strong) NSMutableArray * searchResultData; // 搜索结果数据源
 @property (nonatomic,strong) NSMutableArray * indexData; // 索引数据源
@@ -60,7 +60,12 @@ BOOL hasApply = NO; // 是否有申请信息
     // 联系人上下线代理
 
     // 初始化数据
-    [self initOrUpdateContactsData];
+    [self prepareData];
+    
+    // 设置代理
+    [[[NIMSDK sharedSDK] systemNotificationManager] addDelegate:self];
+    [[[NIMSDK sharedSDK] loginManager] addDelegate:self];
+    [[[NIMSDK sharedSDK] userManager] addDelegate:self];
 }
 
 
@@ -138,9 +143,8 @@ BOOL hasApply = NO; // 是否有申请信息
 #pragma mark init_method
 
 -(void)initOrUpdateContactsData{
-
-    [MBProgressHUD showMessage:nil toView:self.tableView];
-    [self updateTableViewData];
+    
+    
     
 //    [ContactsManager getAllFriendsFromServer:^(NSArray *remoteFriends,BOOL succeed) {
 //        
@@ -225,7 +229,8 @@ BOOL hasApply = NO; // 是否有申请信息
 -(NSMutableDictionary *)sortSourceData:(NSArray *)userList{
 
     // 排序后数据
-    NSMutableDictionary * sortUsersDic = [HCSortString sortAndGroupForArray:userList PropertyName:@"userName"];
+    NSMutableDictionary * sortUsersDic = [HCSortString sortAndGroupForArray:userList PropertyName:@"userId"];
+    
     _indexData = [HCSortString sortForStringAry:sortUsersDic.allKeys];
 
     return sortUsersDic;
@@ -341,8 +346,8 @@ BOOL hasApply = NO; // 是否有申请信息
             
             NSArray * sectionModels = [_sectionUserList objectForKey:_indexData[indexPath.section-1]];
 
-            ContactsModel * userModel = sectionModels[indexPath.row];
-            cell.userModel = userModel;
+            NIMUser * user = sectionModels[indexPath.row];
+            cell.user = user;
             
             return cell;
         }
@@ -352,8 +357,8 @@ BOOL hasApply = NO; // 是否有申请信息
         
         ContactTableViewCell *cell = [ContactTableViewCell contactsCellWithTableView:tableView];
         
-        ContactsModel * userModel = self.searchResultData[indexPath.row];
-        cell.userModel = userModel;
+        NIMUser * user = self.searchResultData[indexPath.row];
+        cell.user = user;
         return cell;
     }
 }
@@ -453,7 +458,7 @@ BOOL hasApply = NO; // 是否有申请信息
         
             // 获取当前用户id
             NSArray *sectionUsers = [_sectionUserList objectForKey:_indexData[indexPath.section-1]];
-            ContactsModel * user = sectionUsers[indexPath.row];
+            NIMUser * user = sectionUsers[indexPath.row];
             [self pushToContactsDetailVc:user];
         }
     }else{
@@ -463,13 +468,13 @@ BOOL hasApply = NO; // 是否有申请信息
 }
 
 // 跳转到会话列表
--(void)pushToContactsDetailVc:(ContactsModel *)user{
+-(void)pushToContactsDetailVc:(NIMUser *)user{
     // 跳转会话列表之前让搜索控制器关闭
     self.searchController.active = NO;
     // 跳转到联系人详情页
     
-    ContactsDetailViewController * detailVc = [[ContactsDetailViewController alloc] init];
-    detailVc.contactModel = user;
+    ContactsDetailViewController * detailVc = [[ContactsDetailViewController alloc] initWithUserId:user.userId];
+//    detailVc.contactModel = user;
     detailVc.previousVc = self;
     detailVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:detailVc animated:YES];
@@ -482,7 +487,7 @@ BOOL hasApply = NO; // 是否有申请信息
     // 获取全部数据
     NSArray * allDataArr = [HCSortString getAllValuesFromDict:self.sectionUserList];
     // 获取搜索结果数据
-    NSArray * resultArr = [ZYPinYinSearch searchWithOriginalArray: allDataArr andSearchText:searchController.searchBar.text andSearchByPropertyName:@"userName"];
+    NSArray * resultArr = [ZYPinYinSearch searchWithOriginalArray: allDataArr andSearchText:searchController.searchBar.text andSearchByPropertyName:@"userId"];
     
     if (self.searchController.searchBar.text.length == 0) {
 
@@ -512,6 +517,67 @@ BOOL hasApply = NO; // 是否有申请信息
 
 #pragma  mark - 回调方法
 
+#pragma mark - NIMContactDataCellDelegate
+- (void)onPressAvatar:(NSString *)memberId{
+//    [self enterPersonalCard:memberId];
+}
+
+#pragma mark - NTESContactUtilCellDelegate
+- (void)onPressUtilImage:(NSString *)content{
+    //[self.view makeToast:[NSString stringWithFormat:@"点我干嘛 我是<%@>",content] duration:2.0 position:CSToastPositionCenter];
+}
+
+#pragma mark - NIMContactSelectDelegate
+- (void)didFinishedSelect:(NSArray *)selectedContacts{
+    
+}
+
+#pragma mark - NIMSDK Delegate
+- (void)onSystemNotificationCountChanged:(NSInteger)unreadCount
+{
+    [self refresh];
+}
+
+- (void)onLogin:(NIMLoginStep)step
+{
+    if (step == NIMLoginStepSyncOK) {
+        if (self.isViewLoaded) {//没有加载view的话viewDidLoad里会走一遍prepareData
+            [self refresh];
+        }
+    }
+}
+
+- (void)onUserInfoChanged:(NIMUser *)user
+{
+    [self refresh];
+}
+
+- (void)onFriendChanged:(NIMUser *)user{
+    [self refresh];
+}
+
+- (void)onBlackListChanged
+{
+    [self refresh];
+}
+
+- (void)onMuteListChanged
+{
+    [self refresh];
+}
+
+- (void)refresh
+{
+    [self prepareData];
+    [self.tableView reloadData];
+}
+
+- (void)prepareData{
+
+    NSArray * userList = [[NIMSDK sharedSDK].userManager myFriends];
+    self.sectionUserList = [self sortSourceData:userList];
+
+}
 // 联系人上线回调
 -(void)addUserForOnline:(NSString *)userID{
 
@@ -563,6 +629,11 @@ BOOL hasApply = NO; // 是否有申请信息
 }
 
 -(void)dealloc{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[[NIMSDK sharedSDK] systemNotificationManager] removeDelegate:self];
+    [[[NIMSDK sharedSDK] loginManager] removeDelegate:self];
+    [[[NIMSDK sharedSDK] userManager] removeDelegate:self];
     
     _searchController = nil;
     self.tableView = nil;

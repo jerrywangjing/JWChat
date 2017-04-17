@@ -46,7 +46,7 @@
     title.font = [UIFont systemFontOfSize:15];
     UITextField * field = [[UITextField alloc] init];
     _field = field;
-    field.text = self.user.userComment ? self.user.userComment:self.user.userName;
+    field.text = self.user.userInfo.nickName ? self.user.alias:self.user.userInfo.nickName;
     field.font = [UIFont systemFontOfSize:14];
     field.textColor = [UIColor darkGrayColor];
     field.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -74,24 +74,37 @@
         [self.field resignFirstResponder];
     }
     
-    [ContactsManager changeMyBaseInfoWithName:@"测试001-修改" orgId:@"#0" signatureStr:@"001签名-修改" andCurrentUser:self.user];
+    self.user.alias = self.field.text;
     
-    // 插入备注到数据库
+    [[NIMSDK sharedSDK].userManager updateUser:self.user completion:^(NSError * _Nullable error) {
+        if (!error) {
+            [MBProgressHUD showLabelWithText:@"修改成功"];
+        }else{
+        
+            NSLog(@"备注修改失败Error：%@",error.localizedDescription);
+            [MBProgressHUD showLabelWithText:@"修改失败"];
+        }
+        
+    }];
     
-    BOOL  success = [[DBManager shareManager] updateContactsInfoWithUserId:self.user.userId ColumuName:@"userComment" value:self.field.text];
-    if (success) {
-        
-        self.modifyCallback(self.field.text);
-        
-        // 提交到服务器
-        [ContactsManager changeFriendCommentName:self.field.text andUserId:_user.userId];
-        
-        [self.navigationController popViewControllerAnimated:YES];
-        
-    }else{
-    
-        [MBProgressHUD showLabel:@"修改失败" toView:self.view];
-    }
+//    [ContactsManager changeMyBaseInfoWithName:@"测试001-修改" orgId:@"#0" signatureStr:@"001签名-修改" andCurrentUser:self.user];
+//    
+//    // 插入备注到数据库
+//    
+//    BOOL  success = [[DBManager shareManager] updateContactsInfoWithUserId:self.user.userId ColumuName:@"userComment" value:self.field.text];
+//    if (success) {
+//        
+//        self.modifyCallback(self.field.text);
+//        
+//        // 提交到服务器
+//        [ContactsManager changeFriendCommentName:self.field.text andUserId:_user.userId];
+//        
+//        [self.navigationController popViewControllerAnimated:YES];
+//        
+//    }else{
+//    
+//        [MBProgressHUD showLabel:@"修改失败" toView:self.view];
+//    }
     
 }
 

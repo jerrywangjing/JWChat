@@ -7,13 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-@class ContactsModel;
 
 typedef void(^PushToChatRoomBlock) (ContactsModel *user);
 
 @interface ContactsDetailViewController : UIViewController
 
-@property (nonatomic,strong)ContactsModel * contactModel; // 联系人模型
 @property (nonatomic,weak) UIViewController * previousVc; // 导航栈中上一个控制器
 
 - (instancetype)initWithUserId:(NSString *)userId;

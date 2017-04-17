@@ -77,7 +77,7 @@ typedef NS_ENUM(NSUInteger, UserType) {
         self.needNotify = YES;
     }
     
-    self.user = [[NIMSDK sharedSDK].userManager userInfo:currentUserId];
+    self.user = [[NIMSDK sharedSDK].userManager userInfo:self.userId];
     
 }
 
@@ -113,8 +113,8 @@ typedef NS_ENUM(NSUInteger, UserType) {
     
     if (self.currentUserType == UserTypeIsMyFriend) {
         
-        [addOrdeleteBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg_nor"] forState:UIControlStateNormal];
-        [addOrdeleteBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg_hlt"] forState:UIControlStateHighlighted];
+        [addOrdeleteBtn setBackgroundImage:[UIImage imageNamed:@"deleteBtn_nor"] forState:UIControlStateNormal];
+        [addOrdeleteBtn setBackgroundImage:[UIImage imageNamed:@"deleteBtn_hlt"] forState:UIControlStateHighlighted];
         [addOrdeleteBtn setTitle:@"删除好友" forState:UIControlStateNormal];
         [addOrdeleteBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     }
@@ -133,9 +133,14 @@ typedef NS_ENUM(NSUInteger, UserType) {
     
     [headView addSubview:sendMsgBtn];
     [headView addSubview:addOrdeleteBtn];
+    tableView.tableFooterView = headView;
     
-    if (self.currentUserType != UserTypeIsMe) {
-        tableView.tableFooterView = headView;
+    // 修改按钮显示逻辑
+    if (self.currentUserType == UserTypeIsMe) {
+        headView.hidden = YES;
+    }
+    if (self.currentUserType == UserTypeUnKnownUser) {
+        sendMsgBtn.hidden = YES;
     }
     
     // 布局
@@ -149,7 +154,9 @@ typedef NS_ENUM(NSUInteger, UserType) {
         make.top.equalTo(sendMsgBtn.mas_bottom).offset(15);
     }];
     
+    
 }
+
 
 #pragma mark - tableView delegate
 
@@ -239,9 +246,9 @@ typedef NS_ENUM(NSUInteger, UserType) {
     
     if (indexPath.section == 1) {
         ModifyUserCommentViewController * modifyVc = [[ModifyUserCommentViewController alloc] init];
-        modifyVc.user = self.contactModel;
+        modifyVc.user = self.user;
         modifyVc.modifyCallback = ^(NSString * comment){
-            self.contactModel.userComment = comment;
+            self.user.alias = comment;
             [self.tableView reloadData];
         };
         [self.navigationController pushViewController:modifyVc animated:YES];
@@ -260,7 +267,11 @@ typedef NS_ENUM(NSUInteger, UserType) {
     return headerView;
 }
 
+- (void)refreshData{
 
+    [self configData];
+
+}
 #pragma mark - actions
 
 -(void)sendMsgBtnClick:(UIButton *)btn{
@@ -298,6 +309,29 @@ typedef NS_ENUM(NSUInteger, UserType) {
 
 - (void)addOrDeleteBtnClick:(UIButton *)btn{
 
+    if (self.currentUserType == UserTypeUnKnownUser) {
+        // 添加好友
+        
+        NIMUserRequest * userRequest = [[NIMUserRequest alloc] init];
+        userRequest.userId = self.userId;
+        userRequest.operation = NIMUserOperationAdd;
+        [MBProgressHUD showHUD];
+        [[NIMSDK sharedSDK].userManager requestFriend:userRequest completion:^(NSError * _Nullable error) {
+            [MBProgressHUD hideHUD];
+            if (!error) {
+                [MBProgressHUD showLabelWithText:@"添加成功"];
+                
+                [self refreshData];
+            }else{
+            
+                [MBProgressHUD showLabelWithText:@"添加失败"];
+            }
+        }];
+        
+    }else{
+        // 删除好友
+        
+    }
     
 }
 - (void)nofifySwitchChanged:(UISwitch *)switchBtn{

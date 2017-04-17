@@ -142,14 +142,24 @@
     
 }
 
--(void)setUserModel:(ContactsModel *)userModel{
+//-(void)setUserModel:(ContactsModel *)userModel{
+//
+//    _userModel = userModel;
+//    
+//    _headImageView.image = [UIImage getAvatarImageWithString:_userModel.avatarImageUrl];
+//    _headImageView.alpha = [userModel.online isEqualToString:@"1"]? 1:0.5;
+//    _nameLabel.text = userModel.userComment ? userModel.userComment : userModel.userName;
+//    _onlineLabel.text = [userModel.online isEqualToString:@"1"]? @"[在线]":@"[离线]";
+//    
+//}
 
-    _userModel = userModel;
+- (void)setUser:(NIMUser *)user{
+
+    _user = user;
     
-    _headImageView.image = [UIImage getAvatarImageWithString:_userModel.avatarImageUrl];
-    _headImageView.alpha = [userModel.online isEqualToString:@"1"]? 1:0.5;
-    _nameLabel.text = userModel.userComment ? userModel.userComment : userModel.userName;
-    _onlineLabel.text = [userModel.online isEqualToString:@"1"]? @"[在线]":@"[离线]";
+    _headImageView.image = [UIImage imageNamed:@"avatarBoy"];
+    _nameLabel.text = user.userInfo.nickName;
+    _onlineLabel.text = @"[在线]";
     
 }
 

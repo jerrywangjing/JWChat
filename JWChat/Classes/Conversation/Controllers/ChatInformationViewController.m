@@ -86,7 +86,7 @@
     if (indexPath.section == 0) {
         ContactTableViewCell * cell = [ContactTableViewCell contactsCellWithTableView:tableView];
 
-        cell.userModel = _contactsModel;
+        //cell.userModel = _contactsModel;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         // border view
         UIView * topBorder = [UIView cellTopBorderView];

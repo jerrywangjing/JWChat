@@ -90,9 +90,8 @@
         [weakself addContactBtnClick:btn andIndex:indexPath.row];
     };
     // 赋值
-    ContactsModel * data = self.resultData[indexPath.row];
-
-    cell.userModel = data;
+    NIMUser * user = self.resultData[indexPath.row];
+    cell.user = user;
     
     return cell;
     

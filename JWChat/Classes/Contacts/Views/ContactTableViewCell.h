@@ -13,7 +13,8 @@ typedef void (^CompletionBlock)(UIButton *btn);
 
 @interface ContactTableViewCell : UITableViewCell
 
-@property (nonatomic,strong) ContactsModel * userModel;
+//@property (nonatomic,strong) ContactsModel * userModel;
+@property (nonatomic,strong) NIMUser *user;
 
 @property (nonatomic,assign,getter=isShowAddBtn) BOOL showAddBtn;
 @property (nonatomic,copy) CompletionBlock addBtnDidClickBlock;
