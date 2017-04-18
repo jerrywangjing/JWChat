@@ -8,11 +8,8 @@
 
 #import "LoginViewController.h"
 #import "MainTabBarController.h"
-#import <NIMSDK/NIMSDK.h>
+#import "LoginManager.h"
 
-
-static NSString * const kAccount = @"account";
-static NSString * const kPassword = @"password";
 
 @interface LoginViewController ()<UITextFieldDelegate>
 
@@ -46,7 +43,6 @@ static NSString * const kPassword = @"password";
     // init subViews
     [self configureSubviews];
     
-    
 }
 
 - (void)viewDidLoad {
@@ -55,14 +51,16 @@ static NSString * const kPassword = @"password";
     self.view.backgroundColor = [UIColor whiteColor];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldDidChanged:) name:UITextFieldTextDidChangeNotification object:nil];
-    // 是否已登录过
-    if ([WJUserDefault valueForKey:kAccount] && [WJUserDefault valueForKey:kPassword]) {
-        
-        self.accountText.text = [WJUserDefault valueForKey:kAccount];
-        self.passwordText.text = [WJUserDefault valueForKey:kPassword];
-    }
+    
 //    NSString * path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
 //    NSLog(@"沙盒：%@",path);
+    
+
+    if (![[LoginManager shareManager] isFirstLogin]) {
+        [[LoginManager shareManager] autoLogin];
+        
+        return;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -139,6 +137,7 @@ static NSString * const kPassword = @"password";
     _accountContainerView = [[UIView alloc] init];
     _accountText = [self creatTextInputFieldWith:@"账号" placeholder:@"请填写账号" containerView: _accountContainerView];
     _accountText.delegate = self;
+    _accountText.keyboardType = UIKeyboardTypeAlphabet;
     
     _passwordContainerView = [[UIView alloc] init];
     _passwordText = [self creatTextInputFieldWith:@"密码" placeholder:@"请填写密码" containerView:_passwordContainerView];
@@ -254,52 +253,18 @@ static NSString * const kPassword = @"password";
         return;
     }
     
-    [DataManager loginWithUsername:self.accountText.text password:self.passwordText.text success:^(NSDictionary *responseDic) {
-
-        NSString *result = responseDic[@"result"];
-        NSString *msg = responseDic[@"msg"];
-        NSString *token = responseDic[@"NIMToken"];
+    // 登录
+    
+    [[LoginManager shareManager] loginWithAccount:self.accountText.text password:self.passwordText.text completionHandler:^{
         
-        if ([result isEqualToString:@"1"]) {
-            
-            if (token) {
-                //初始化NIM引擎
-                
-                [[NIMSDK sharedSDK].loginManager login:self.accountText.text token:token completion:^(NSError * _Nullable error) {
-                    
-                    if (!error) {
-                        
-                        //保存登录数据
-                        
-                        //处理业务逻辑
-                        
-                        //更新UI
-                        MainTabBarController * tabBarVc = [[MainTabBarController alloc] init];
-                        
-                        [self presentViewController:tabBarVc animated:NO completion:^{
-                            [WJUserDefault setObject:self.accountText.text forKey:kAccount];
-                            [WJUserDefault setObject:self.passwordText.text forKey:kPassword];
-                            [WJUserDefault synchronize];
-                            [self removeFromParentViewController];
-                        }];
-                        
-                    }else{
-                        NSLog(@"NIM引擎登录失败：error:%@",error.localizedDescription);
-                        [MBProgressHUD showLabelWithText:@"登录失败"];
-                    }
-                    
-                }];
-
-            }
-            
-        }else{
+        //处理业务逻辑
         
-            [MBProgressHUD showLabelWithText:msg];
-        }
+        //更新UI
+        MainTabBarController * tabBarVc = [[MainTabBarController alloc] init];
+        [UIApplication sharedApplication].keyWindow.rootViewController = tabBarVc;
         
-    } failure:^(NSError *error) {
-        [MBProgressHUD showLabelWithText:@"登录失败"];
     }];
+    
 }
 
 - (void)loginIssusBtnDidClick:(UIButton *)btn{

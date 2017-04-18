@@ -27,6 +27,7 @@
 #import "Masonry.h"
 #import "NSDate+DateTools.h"
 #import <WZLBadge/WZLBadgeImport.h>
+#import <UIImageView+WebCache.h>
 
 // 类扩展（分类）
 #import "UIView+WJExtension.h"

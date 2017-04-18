@@ -34,9 +34,12 @@
 
     _conversationData = model;
     
-    UIImage * avatarImg = [UIImage imageNamed:@"avatar"];
+    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:model.user.userInfo.avatarUrl] placeholderImage:[UIImage imageNamed:@"avatar"]];
     
-    _avatarImageView.image = [UIImage makeRoundedImage: avatarImg radius:10];
+//    UIImage * avatarImage = _avatarImageView.image;
+//    
+//    _avatarImageView.image = [UIImage makeRoundedImage: avatarImage radius:10];
+    
     _userName.text = model.user.alias ? model.user.alias : model.user.userInfo.nickName;
     
     // 获取最近的一条消息

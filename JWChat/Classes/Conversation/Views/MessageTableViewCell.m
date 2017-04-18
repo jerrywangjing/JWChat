@@ -186,16 +186,20 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     // 给时间赋值
     self.timeView.text = msg.timeStr;
 
-//    // 给头像赋值方法二：(三目运算)
-//    UIImage * iconImage = nil;
-//    if (msg.direction == MessageDirectionSend) {
-//        ContactsModel * currentUser = [[DBManager shareManager] getUserWithUserId:CurrentUserId];
-//        iconImage = [UIImage getAvatarImageWithString:currentUser.avatarImageUrl];
-//    }else{
-//    
-//        iconImage = [UIImage getAvatarImageWithString:self.contact.avatarImageUrl];
-//    }
-    self.iconView.image = [UIImage imageNamed:@"avatarBoy"];
+    // 给头像赋值
+    
+    if (msg.direction == MessageDirectionSend) {
+        NSString * currentUserId = [[NIMSDK sharedSDK].loginManager currentAccount];
+        NIMUser * currentUserInfo = [[NIMSDK sharedSDK].userManager userInfo:currentUserId];
+        
+        [_iconView sd_setImageWithURL:[NSURL URLWithString:currentUserInfo.userInfo.avatarUrl] placeholderImage:[UIImage imageNamed:@"avatar"]];
+
+    }else{
+    
+        [_iconView sd_setImageWithURL:[NSURL URLWithString:self.user.userInfo.avatarUrl] placeholderImage:[UIImage imageNamed:@"avatar"]];
+
+    }
+    
     // 消息背景图片
     if (msg.direction == MessageDirectionSend) {
         

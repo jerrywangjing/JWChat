@@ -34,8 +34,8 @@
 -(void)setUser:(NIMUser *)user{
 
     _user = user;
-    NSLog(@"头像URL：%@",user.userInfo.avatarUrl);
-    _avatarImageView.image = [UIImage imageNamed:@"avatarBoy"];
+
+    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:user.userInfo.avatarUrl] placeholderImage:[UIImage imageNamed:@"avatar"]];
     _userName.text = user.userInfo.nickName == nil ? user.userId : user.userInfo.nickName;
     _userId.text = [NSString stringWithFormat:@"ID号：%@",user.userId];
     _neckName.text = [NSString stringWithFormat:@"备注：%@",user.alias];

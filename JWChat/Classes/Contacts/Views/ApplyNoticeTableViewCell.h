@@ -11,6 +11,7 @@
 @class ApplyNoticeTableViewCell,ContactsModel;
 
 @protocol ApplyNoticeTableViewCellDelegate <NSObject>
+
 @optional
 -(void)applyNoticeCell:(ApplyNoticeTableViewCell *)applyNoticeCell didSelectedAcceptBtn:(UIButton *)acceptBtn;
 -(void)applyNoticeCell:(ApplyNoticeTableViewCell *)applyNoticeCell didSelectedRefuseBtn:(UIButton *)refuseBtn;

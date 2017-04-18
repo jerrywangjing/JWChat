@@ -147,7 +147,7 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
     [super loadView];
     
     [self setupSubviews];
-    
+      
 }
 
 - (void)viewDidLoad {
@@ -158,7 +158,7 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
     
     [[NIMSDK sharedSDK].chatManager addDelegate:self];
     
-    [self testMethod];
+    //[self testMethod];
 }
 
 - (void)dealloc{
@@ -191,7 +191,7 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
     
 }
 
-- (void) setupSubviews{
+- (void)setupSubviews{
     
     UITableView * tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
     _tableView = tableView;
@@ -503,18 +503,22 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
     // 新消息提醒
     // TODO: 根据参数from 拿到当前消息发的发送者，去数据库查询是否需要消息免打扰，判断是否显示红点及声音提示
     
-    // 红点提醒
-    unreadCount += 1;
-    self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%ld",unreadCount];
     
-    if ([[NIMSDK sharedSDK].userManager notifyForNewMsg:fromUserId]) {
+    if (![self.navigationController.topViewController isKindOfClass:[ChatRoomViewController class]]) {
+        // 红点提醒
+        unreadCount += 1;
+        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%ld",unreadCount];
         
         // 声音和震动提醒
-        if (![WJUserDefault boolForKey:MsgNoticeKey]) {
-            [self playSoundAndVibration];
+        if ([[NIMSDK sharedSDK].userManager notifyForNewMsg:fromUserId]) {
+            
+            
+            if (![WJUserDefault boolForKey:MsgNoticeKey]) {
+                [self playSoundAndVibration];
+            }
         }
     }
-    
+   
     // 刷新UI
     [self refreshTableView:nil];
     

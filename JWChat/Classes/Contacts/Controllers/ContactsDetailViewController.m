@@ -285,8 +285,8 @@ typedef NS_ENUM(NSUInteger, UserType) {
     
     UIViewController  * rootVieweController = [UIApplication sharedApplication].keyWindow.rootViewController;
 
-    if ([rootVieweController.presentedViewController isKindOfClass:[UITabBarController class]]) {
-        MainTabBarController * tabBarVc = (MainTabBarController *)rootVieweController.presentedViewController;
+    if ([rootVieweController isKindOfClass:[UITabBarController class]]) {
+        MainTabBarController * tabBarVc = (MainTabBarController *)rootVieweController;
         tabBarVc.selectedIndex = 0;
         
         for (UINavigationController * vc in tabBarVc.viewControllers) {

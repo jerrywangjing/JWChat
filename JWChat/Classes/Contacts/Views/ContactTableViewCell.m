@@ -157,7 +157,7 @@
 
     _user = user;
     
-    _headImageView.image = [UIImage imageNamed:@"avatarBoy"];
+    [_headImageView sd_setImageWithURL:[NSURL URLWithString:user.userInfo.avatarUrl] placeholderImage:[UIImage imageNamed:@"avatar"]];
     _nameLabel.text = user.userInfo.nickName;
     _onlineLabel.text = @"[在线]";
     

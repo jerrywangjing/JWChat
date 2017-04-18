@@ -12,5 +12,11 @@
 
 + (instancetype)shareManager;
 
+- (void)loginWithAccount:(NSString *)account password:(NSString *)password completionHandler:(void (^)())completion;
 
+- (BOOL)isFirstLogin;
+
+- (void)autoLogin;
+
+- (void)logout;
 @end

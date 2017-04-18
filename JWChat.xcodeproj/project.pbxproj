@@ -12,6 +12,7 @@
 		C4680F461EA46B9200A57104 /* NTESDemoConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C4680F451EA46B9200A57104 /* NTESDemoConfig.m */; };
 		C4680F491EA46CC700A57104 /* NSDictionary+NTESJson.m in Sources */ = {isa = PBXBuildFile; fileRef = C4680F481EA46CC700A57104 /* NSDictionary+NTESJson.m */; };
 		C4680F4F1EA4710300A57104 /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4680F4E1EA4710300A57104 /* LoginManager.m */; };
+		C46C3A551EA64ED600B97761 /* NTESSDKConfigDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C46C3A541EA64ED600B97761 /* NTESSDKConfigDelegate.m */; };
 		C4870AFF1E93B104009650B9 /* EMAudioPlayerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C4870AE11E93B104009650B9 /* EMAudioPlayerUtil.m */; };
 		C4870B001E93B104009650B9 /* EMAudioRecorderUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C4870AE31E93B104009650B9 /* EMAudioRecorderUtil.m */; };
 		C4870B011E93B104009650B9 /* EMCDDeviceManager+Media.m in Sources */ = {isa = PBXBuildFile; fileRef = C4870AE51E93B104009650B9 /* EMCDDeviceManager+Media.m */; };
@@ -250,6 +251,8 @@
 		C4680F481EA46CC700A57104 /* NSDictionary+NTESJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NTESJson.m"; sourceTree = "<group>"; };
 		C4680F4D1EA4710300A57104 /* LoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginManager.h; sourceTree = "<group>"; };
 		C4680F4E1EA4710300A57104 /* LoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginManager.m; sourceTree = "<group>"; };
+		C46C3A531EA64ED600B97761 /* NTESSDKConfigDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESSDKConfigDelegate.h; sourceTree = "<group>"; };
+		C46C3A541EA64ED600B97761 /* NTESSDKConfigDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESSDKConfigDelegate.m; sourceTree = "<group>"; };
 		C4870ADC1E93B104009650B9 /* EMCDDeviceManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCDDeviceManagerDelegate.h; sourceTree = "<group>"; };
 		C4870ADD1E93B104009650B9 /* EMCDDeviceManagerProximitySensorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCDDeviceManagerProximitySensorDelegate.h; sourceTree = "<group>"; };
 		C4870ADF1E93B104009650B9 /* DemoErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoErrorCode.h; sourceTree = "<group>"; };
@@ -625,6 +628,8 @@
 			children = (
 				C4680F441EA46B9200A57104 /* NTESDemoConfig.h */,
 				C4680F451EA46B9200A57104 /* NTESDemoConfig.m */,
+				C46C3A531EA64ED600B97761 /* NTESSDKConfigDelegate.h */,
+				C46C3A541EA64ED600B97761 /* NTESSDKConfigDelegate.m */,
 			);
 			name = DemoServer;
 			sourceTree = "<group>";
@@ -1689,6 +1694,7 @@
 				C4C764A81E9489270093F723 /* UIAlertController+HCAdd.m in Sources */,
 				C4F474611E93385F001ED39F /* UIViewController+WJExtension.m in Sources */,
 				C4C768C41E9CB0110093F723 /* ChatToolBar.m in Sources */,
+				C46C3A551EA64ED600B97761 /* NTESSDKConfigDelegate.m in Sources */,
 				C4F473071E9332D8001ED39F /* MessageFrame.m in Sources */,
 				C4680F4F1EA4710300A57104 /* LoginManager.m in Sources */,
 				C4C764D31E948AB90093F723 /* MessageModel.m in Sources */,

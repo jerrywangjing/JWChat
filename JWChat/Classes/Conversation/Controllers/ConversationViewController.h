@@ -15,7 +15,6 @@
 
 @end
 
-
 // 状态标题视图
 
 @protocol ActivityViewTitleDelegate <NSObject>
