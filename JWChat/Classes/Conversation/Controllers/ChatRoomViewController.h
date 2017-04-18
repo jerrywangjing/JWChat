@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class ConversationModel,ContactsModel;
+@class ConversationModel;
 
 @interface ChatRoomViewController : UIViewController
 
-@property (nonatomic,strong) ContactsModel * contact; // 当前好友
+@property (nonatomic,strong) NIMUser * user;
 @property (nonatomic,strong) ConversationModel * conversationModel;
 @property (nonatomic,copy) NSString * conversationId; // 即当前联系人姓名
 

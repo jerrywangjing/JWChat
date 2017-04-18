@@ -16,7 +16,8 @@
 /// cell 的frame
 @property (nonatomic,weak,readonly) UIButton * contentBtn;
 @property (nonatomic,strong) MessageFrame * messageFrame;
-@property (nonatomic,strong) ContactsModel * contact;
+//@property (nonatomic,strong) ContactsModel * contact;
+@property (nonatomic,strong) NIMUser * user;
 @property (nonatomic,weak) id<MessageTableViewCellDelegate> delegate;
 @property (nonatomic,weak) UIImageView * redDot; // 语音提示红点
 

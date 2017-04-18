@@ -19,4 +19,6 @@ typedef NS_ENUM(NSInteger,LoginState){
 + (void)loginWithUsername:(NSString *)username password:(NSString *) password success:(void (^) (NSDictionary *responseDic))success failure:(void (^) (NSError *error))failure;
 
 
+
+
 @end

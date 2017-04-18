@@ -14,7 +14,6 @@
 @property (nonatomic,strong) UIButton * voiceBtn;
 @property (nonatomic,strong) UIButton * emojiBtn;
 @property (nonatomic,strong) UIButton * addBtn;
-@property (nonatomic,assign) CGFloat toolBarH;
 
 @end
 
@@ -61,7 +60,7 @@
     _inputView = [[InputView alloc] init];
     
     WJWeakSelf(weakSelf);
-    _inputView.maxLineHeight = 80;
+    _inputView.maxLineHeight = 90;
     _inputView.textHeightChangeBlock = ^(NSString * text,CGFloat textHeight){
         
         [weakSelf mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -73,7 +72,7 @@
     _inputView.returnKeyType = UIReturnKeySend;
     _inputView.layer.borderWidth = 0.5;
     _inputView.layer.borderColor = LineColor.CGColor;
-    _inputView.font = [UIFont systemFontOfSize:15];
+    _inputView.font = [UIFont systemFontOfSize:16];
     
     // toolbar 顶部的间隔线
     UIView * toolBarLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.5)];
@@ -107,8 +106,8 @@
 
         make.left.equalTo(_voiceBtn.mas_right).offset(5);
         make.right.equalTo(_emojiBtn.mas_left).offset(-5);
-        make.top.equalTo(self).offset(5);
-        make.bottom.equalTo(self).offset(-5);
+        make.top.equalTo(self).offset(6);
+        make.bottom.equalTo(self).offset(-6);
         
     }];
     

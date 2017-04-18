@@ -106,10 +106,10 @@ BOOL hasApply = NO; // 是否有申请信息
     _tableView.tableFooterView = tipLabel;
     _tableView.tableFooterView.hidden = YES;
     
-    // 下拉刷新
-    MJRefreshNormalHeader * refresh = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshTableView:)];
-    refresh.lastUpdatedTimeLabel.hidden = YES;
-    _tableView.mj_header = refresh;
+//    // 下拉刷新
+//    MJRefreshNormalHeader * refresh = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshTableView:)];
+//    refresh.lastUpdatedTimeLabel.hidden = YES;
+//    _tableView.mj_header = refresh;
     
     // 解决下拉刷新出现黑边的问题
     for (UIView * view in self.tableView.subviews) {
@@ -130,15 +130,15 @@ BOOL hasApply = NO; // 是否有申请信息
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
--(void)refreshTableView:(UIRefreshControl *)refresh{
-
-    if (refresh.isRefreshing) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self initOrUpdateContactsData];
-            [refresh endRefreshing];
-        });
-    }
-}
+//-(void)refreshTableView:(UIRefreshControl *)refresh{
+//
+//    if (refresh.isRefreshing) {
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [self initOrUpdateContactsData];
+//            [refresh endRefreshing];
+//        });
+//    }
+//}
 
 #pragma mark init_method
 
@@ -385,11 +385,11 @@ BOOL hasApply = NO; // 是否有申请信息
     if (editingStyle == UITableViewCellEditingStyleDelete) {
 
         NSMutableArray * sectionUsers = self.sectionUserList[self.indexData[indexPath.section-1]];
-        ContactsModel * deleteUser = sectionUsers[indexPath.row];
+        NIMUser * deleteUser = sectionUsers[indexPath.row];
         
         //给出提示
         
-        UIAlertController * alertVc = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"确认删除好友%@吗？",deleteUser.userName] preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController * alertVc = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"确认删除好友%@吗？",deleteUser.userInfo.nickName] preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
         UIAlertAction * confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
 
@@ -403,11 +403,11 @@ BOOL hasApply = NO; // 是否有申请信息
             // 删除本地数据库联系人记录
             BOOL success = [[DBManager shareManager] deleteContactsRecordWithUserId:deleteUser.userId];
             if (!success) {
-                NSLog(@"本地联系人删除失败%@",deleteUser.userName);
+                NSLog(@"本地联系人删除失败%@",deleteUser.userId);
             }
             // 删除与此人的会话记录
 
-            self.deleteUser(deleteUser);
+            //self.deleteUser(deleteUser);
             // 通知服务器解除好友关系
             [ContactsManager deleteContact:deleteUser.userId completion:^(NSString *aUsername, NSError *aError) {
                 if (aError) {

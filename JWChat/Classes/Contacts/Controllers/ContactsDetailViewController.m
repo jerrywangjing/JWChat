@@ -270,6 +270,7 @@ typedef NS_ENUM(NSUInteger, UserType) {
 - (void)refreshData{
 
     [self configData];
+    [self.tableView reloadData];
 
 }
 #pragma mark - actions
@@ -294,7 +295,7 @@ typedef NS_ENUM(NSUInteger, UserType) {
                 
                 ChatRoomViewController * chatRoom = [[ChatRoomViewController alloc] init];
                 chatRoom.hidesBottomBarWhenPushed  = YES;
-                chatRoom.contact = self.contactModel;
+                chatRoom.user = self.user;
                 
                 [converVc.navigationController pushViewController:chatRoom animated:YES];
                 
@@ -329,28 +330,56 @@ typedef NS_ENUM(NSUInteger, UserType) {
         }];
         
     }else{
-        // 删除好友
         
+        __weak typeof(self) weakSelf = self;
+        // 删除好友
+        UIAlertController * alertVc = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"确认删除好友%@吗？",self.user.userInfo.nickName] preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction * confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
+            // 删除本地数据库联系人记录
+            BOOL success = [[DBManager shareManager] deleteContactsRecordWithUserId:weakSelf.userId];
+            if (!success) {
+                NSLog(@"本地联系人删除失败");
+            }
+
+            // 通知服务器解除好友关系
+            [[NIMSDK sharedSDK].userManager deleteFriend:weakSelf.userId completion:^(NSError * _Nullable error) {
+                if (!error) {
+                    [MBProgressHUD showLabelWithText:@"删除成功"];
+                    [self refreshData];
+                }else{
+                
+                    [MBProgressHUD showLabelWithText:@"删除失败"];
+                }
+            }];
+
+        }];
+        
+        [alertVc addAction:cancel];
+        [alertVc addAction:confirm];
+        [self presentViewController:alertVc animated:YES completion:nil];
     }
     
 }
 - (void)nofifySwitchChanged:(UISwitch *)switchBtn{
 
-    if (switchBtn.on) {
-        NSLog(@"需要消息提醒");
-    }else{
-    
-        NSLog(@"关闭消息提醒");
-    }
+    [[NIMSDK sharedSDK].userManager updateNotifyState:switchBtn.on forUser:self.userId completion:^(NSError * _Nullable error) {
+        if (error) {
+            [MBProgressHUD showLabelWithText:@"操作失败"];
+            [self refreshData];
+            NSLog(@"修改失败Error：%@",error);
+        }
+    }];
 }
 
 - (void)blackListSwitchChanged:(UISwitch *)switchBtn{
 
     if (switchBtn.on) {
-        NSLog(@"在黑名单中");
+        NSLog(@"加入黑名单");
     }else{
     
-        NSLog(@"不在黑名单中");
+        NSLog(@"移除黑名单");
     }
 }
 @end

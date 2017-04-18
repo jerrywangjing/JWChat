@@ -26,7 +26,7 @@ static NSString * lastTime; // 用于设置是否隐藏cell时间
 static const CGFloat kDefaultPlaySoundInterval = 3.0; // 2次响铃的最小间隔时间
 BOOL canClick = NO; // 连接状态视图是否可以点击
 
-@interface ConversationViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UISearchResultsUpdating,UISearchControllerDelegate,ActivityViewTitleDelegate>
+@interface ConversationViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UISearchResultsUpdating,UISearchControllerDelegate,ActivityViewTitleDelegate,NIMChatManagerDelegate>
 
 @property (nonatomic,strong) NSMutableArray * dataArr; // 存放conversationModel 对象
 @property (nonatomic,weak) UITableView * tableView;
@@ -156,7 +156,15 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
     self.view.backgroundColor = IMBgColor;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"addBtn_bg"] style:UIBarButtonItemStylePlain target:self action:@selector(addBtnClick:)];
     
+    [[NIMSDK sharedSDK].chatManager addDelegate:self];
+    
     [self testMethod];
+}
+
+- (void)dealloc{
+
+    [[NIMSDK sharedSDK].chatManager removeDelegate:self];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -249,17 +257,17 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
     
     // 联系人列表
     ContactsListViewController * contactsListVc = [[ContactsListViewController alloc] init];
-    contactsListVc.deleteUser = ^(ContactsModel * deleteContact){
+    contactsListVc.deleteUser = ^(NIMUser * deleteContact){
         // 回调删除会话记录及聊天表
         BOOL success = [[DBManager shareManager] deleteConversationRecordWithConversationId:deleteContact.userId];
         if (success) {
             BOOL success = [[DBManager shareManager] deleteFullTable:deleteContact.userId];
             if (success) {
-                NSLog(@"删除联系人%@成功",deleteContact.userName);
+                NSLog(@"删除联系人%@成功",deleteContact.userId);
             }
         }else{
             
-            NSLog(@"删除联系人%@失败",deleteContact.userName);
+            NSLog(@"删除联系人%@失败",deleteContact.userId);
         }
     };
     
@@ -355,7 +363,7 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
     model.conversation.unreadMessagesCount = 0;
     [[DBManager shareManager] updateConversationWithConversationModel:model];
     chatRoom.conversationModel = model;
-    chatRoom.contact = model.contact;
+    chatRoom.user = model.user;
     
     [self.navigationController pushViewController:chatRoom animated:YES];
     
@@ -438,22 +446,50 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
     }
 }
 
+#pragma mark - 接收到新消息
+
+-(void)onRecvMessages:(NSArray<NIMMessage *> *)messages{
+
+    for (NIMMessage * msg in messages) {
+        
+        Message * recvMsg = nil;
+        
+        switch (msg.messageType) {
+            case NIMMessageTypeText:
+            {
+                recvMsg = [WJMessageHelper receivedTextMessage:msg.text from:msg.from];
+                NSDate * date = [NSDate dateWithTimeIntervalSince1970:msg.timestamp];
+                recvMsg.timeStr = [date defaultFormattedDate];
+                recvMsg.timestamp = [date defaultFormattedDate];
+                recvMsg.direction = MessageDirectionReceive;
+                recvMsg.isHideTime = [lastTime isEqualToString:recvMsg.timeStr]? YES:NO;
+                lastTime = recvMsg.timeStr;
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
+        [self noticeAndSaveNewMessage:recvMsg fromUserId:msg.from];
+    }
+}
+
 #pragma mark - private
 
 // 消息提醒及消息缓存
 -(void)noticeAndSaveNewMessage:(Message *)receivedMsg fromUserId:(NSString *)fromUserId{
     
-    ContactsModel * fromContact = [[DBManager shareManager] getUserWithUserId:fromUserId];
-    
     // 更新会话到数据库
     Conversation * cov = [[Conversation alloc] initWithLatestMessage:receivedMsg];
     
     cov.unreadMessagesCount = [[DBManager shareManager] queryUnreadCountFormTable:fromUserId];
-    cov.conversationId = fromContact.userId;
+    cov.conversationId = fromUserId;
     
+    NIMUser * fromUser = [[NIMSDK sharedSDK].userManager userInfo:fromUserId];
     
     ConversationModel * covModel = [[ConversationModel alloc] initWithConversation:cov];
-    covModel.contact = fromContact;
+    covModel.user = fromUser;
     
     [[DBManager shareManager] creatOrUpdateConversationWith:covModel];
     
@@ -467,10 +503,11 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
     // 新消息提醒
     // TODO: 根据参数from 拿到当前消息发的发送者，去数据库查询是否需要消息免打扰，判断是否显示红点及声音提示
     
-    if (![fromContact.noBothered isEqualToString:@"1"]) {
-        // 红点提醒
-        unreadCount += 1;
-        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%ld",unreadCount];
+    // 红点提醒
+    unreadCount += 1;
+    self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%ld",unreadCount];
+    
+    if ([[NIMSDK sharedSDK].userManager notifyForNewMsg:fromUserId]) {
         
         // 声音和震动提醒
         if (![WJUserDefault boolForKey:MsgNoticeKey]) {

@@ -34,12 +34,13 @@
 #define emojiBoardH 225
 #define addBoardH emojiBoardH
 #define KeyboardTimeInterval 0.25
-#define ToolbarHeight 44
+#define ToolbarHeight 49
 #define  TransformSize (1024 * 100) // 每次发送100k 数据
 
 static NSInteger LastOffset = 0; //记录上次消息加载数
+static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
 
-@interface ChatRoomViewController ()<UITableViewDataSource,UITableViewDelegate,EmojiKeyboardViewDelegate,AddOtherFuncKeyboardDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,MessageTableViewCellDelegate,TZImagePickerControllerDelegate,ChatToolBarDelegate>
+@interface ChatRoomViewController ()<UITableViewDataSource,UITableViewDelegate,EmojiKeyboardViewDelegate,AddOtherFuncKeyboardDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,MessageTableViewCellDelegate,TZImagePickerControllerDelegate,ChatToolBarDelegate,NIMChatManagerDelegate>
 
 @property (nonatomic,strong) NSMutableArray *messageFrames; // 消息数据源
 @property (nonatomic,strong) UITableView * tableView;
@@ -66,9 +67,11 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
 
 @implementation ChatRoomViewController
 #pragma mark - setter 
--(void)setContact:(ContactsModel *)contact{
-    _contact = contact;
-    self.conversationId = contact.userId;
+
+-(void)setUser:(NIMUser *)user{
+
+    _user = user;
+    self.conversationId = user.userId;
 }
 #pragma mark - getter 
 
@@ -215,7 +218,7 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title  = self.contact.userName;
+    self.navigationItem.title  = self.user.userInfo.nickName;
     self.view.backgroundColor = IMBgColor;
     [self.view bringSubviewToFront:self.toolBar]; // 让toobar 在最前面
     UIBarButtonItem * chatInfo = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navbar_info_nor"] style:UIBarButtonItemStylePlain target:self action:@selector(chatInfoBtnClick)];
@@ -243,7 +246,9 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     // 异步加载表情、更多键盘
     [self setupEmojiAndMoreKeyboardView];
     
-    NSLog(@"沙盒：%@",NSHomeDirectory());
+    // 添加聊天管理代理
+    
+    [[NIMSDK sharedSDK].chatManager addDelegate:self];
 
 }
 
@@ -265,7 +270,7 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
 -(void)chatInfoBtnClick{
     
     ChatInformationViewController * chatInfoVc = [[ChatInformationViewController alloc] init];
-    chatInfoVc.contactsModel = self.contact;
+    chatInfoVc.user = self.user;
     chatInfoVc.conversationModel = self.conversationModel;
     
     [chatInfoVc setClearChatMessageBlock:^(BOOL success) {
@@ -281,7 +286,7 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
             
             Conversation * cover = [[Conversation alloc] initWithLatestMessage:message];
             ConversationModel * coverModel = [[ConversationModel alloc] initWithConversation:cover];
-            coverModel.contact = self.contact;
+            coverModel.user = self.user;
             [[DBManager shareManager] creatOrUpdateConversationWith:coverModel];
         }
     }];
@@ -332,7 +337,8 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     _toolBar.delegate = self;
     [self.view addSubview:_toolBar];
     
-    [_toolBar mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_toolBar mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(ToolbarHeight);
         make.left.right.bottom.equalTo(self.view);
     }];
 }
@@ -424,7 +430,7 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
     MessageTableViewCell * cell = [MessageTableViewCell messageCellWithTabelView:tableView andModel:self.messageFrames[indexPath.row]];
     
     cell.delegate = self;
-    cell.contact = self.contact;
+    cell.user = self.user;
     cell.messageFrame = self.messageFrames[indexPath.row];
     
     return cell;
@@ -510,7 +516,7 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
         
         Conversation * cover = [[Conversation alloc] initWithLatestMessage:message];
         ConversationModel * coverModel = [[ConversationModel alloc] initWithConversation:cover];
-        coverModel.contact = self.contact;
+        coverModel.user = self.user;
         [[DBManager shareManager] creatOrUpdateConversationWith:coverModel];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -528,6 +534,9 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
                     self.tableView.transform = CGAffineTransformMakeTranslation(0, -[self getTableContentOffset]);
                 }];
             }
+            
+            // 发送消息到服务器
+            [self sendMessageToServerWithMessage:message];
         });
         
     });
@@ -540,7 +549,20 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
 
     // 转换对象为数据发送
     switch (message.body.type) {
-        case MessageBodyTypeText: // 发送文字消息
+        case MessageBodyTypeText:{
+            
+            TextMessageBody * body = (TextMessageBody *)message.body;
+            
+            NIMMessage * sendMsg = [[NIMMessage alloc] init];
+            sendMsg.text = body.text;
+            
+            NIMSession * msgSession = [NIMSession session:message.conversationId type:NIMSessionTypeP2P];
+            
+            NSError * error = nil;
+            
+            [[NIMSDK sharedSDK].chatManager sendMessage:sendMsg toSession:msgSession error:&error];
+            
+        }
             break;
         case MessageBodyTypeImage: // 发送图片消息
             break;
@@ -550,6 +572,62 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
             break;
     }
 }
+
+#pragma mark - NIM消息发送回调
+
+// 即将要发送消息
+-(void)willSendMessage:(NIMMessage *)message{
+
+    NSLog(@"将要发送消息");
+}
+// 消息发送进度
+-(void)sendMessage:(NIMMessage *)message progress:(float)progress{
+
+    NSLog(@"已发送：%.f",progress);
+}
+// 消息已发送完成的回调
+-(void)sendMessage:(NIMMessage *)message didCompleteWithError:(NSError *)error{
+
+    if (!error) {
+        NSLog(@"消息发送成功");
+    }else{
+    
+        NSLog(@"消息发送失败Error:%@",error);
+    }
+}
+
+// 接收到了消息
+-(void)onRecvMessages:(NSArray<NIMMessage *> *)messages{
+
+    for (NIMMessage *msg in messages) {
+        
+        Message * recvMsg = nil;
+
+        switch (msg.messageType) {
+            case NIMMessageTypeText:
+            {
+                recvMsg = [WJMessageHelper receivedTextMessage:msg.text from:msg.from];
+                NSDate * date = [NSDate dateWithTimeIntervalSince1970:msg.timestamp];
+                recvMsg.timeStr = [date defaultFormattedDate];
+                recvMsg.timestamp = [date defaultFormattedDate];
+                recvMsg.direction = MessageDirectionReceive;
+                recvMsg.isHideTime = [lastTime isEqualToString:recvMsg.timeStr]? YES:NO;
+                lastTime = recvMsg.timeStr;
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
+        [self sendMessage:recvMsg messageDirection:MessageDirectionReceive];
+    }
+}
+// 收到了消息回执
+-(void)onRecvMessageReceipt:(NIMMessageReceipt *)receipt{
+    NSLog(@"收到消息回执:%@",receipt.session.sessionId);
+}
+
 #pragma mark - 发送文本消息
 
 -(void)sendTextMessage:(NSString *)text withDirection:(MessageDirection)direction{
@@ -1146,10 +1224,16 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
 -(void)avatarViewSelcted:(MessageFrame *)model{
     // 跳转联系人详情页面
 
-    ContactsModel * userModel = self.contact;
+    NSString * userId;
+    if (model.aMessage.direction == MessageDirectionSend) {
+        userId = [[NIMSDK sharedSDK].loginManager currentAccount];
+    }else{
     
-    ContactsDetailViewController * detailVc = [[ContactsDetailViewController alloc] init];
-    detailVc.contactModel = userModel;
+        userId = self.user.userId;
+    }
+    
+    ContactsDetailViewController * detailVc = [[ContactsDetailViewController alloc] initWithUserId:userId];
+
     detailVc.hidesBottomBarWhenPushed = YES;
     detailVc.previousVc = self;
     [self.navigationController pushViewController:detailVc animated:YES];
@@ -1493,5 +1577,6 @@ static NSInteger LastOffset = 0; //记录上次消息加载数
 
     LastOffset = 0; // 设置消息加载偏移值为初始值 0
     NSLog(@"销毁了聊天页面%s",__func__);
+    [[NIMSDK sharedSDK].chatManager removeDelegate:self];
 }
 @end

@@ -101,7 +101,7 @@ static DBManager *_dB = nil;
         
         // 插入新记录
         NSString * sql = [NSString stringWithFormat:@"INSERT INTO \"%@\" (conversationId,lastMsgTime,lastMsgContent,avatarImgPath,unreadCount) VALUES (?,?,?,?,?);",DBConversationListName];
-        BOOL success = [_fmdb executeUpdate:sql,model.conversation.conversationId,latestMsg.timestamp,textBody.text,model.contact.avatarImageUrl,@(model.conversation.unreadMessagesCount)];
+        BOOL success = [_fmdb executeUpdate:sql,model.conversation.conversationId,latestMsg.timestamp,textBody.text,model.user.userInfo.thumbAvatarUrl,@(model.conversation.unreadMessagesCount)];
         if (!success) {
             NSLog(@"会话记录插入失败：%@",_fmdb.lastErrorMessage);
             return NO;
@@ -220,11 +220,12 @@ static DBManager *_dB = nil;
         cover.unreadMessagesCount = [set intForColumn:@"unreadCount"];
         cover.latestMessage = latestMsg;
         // 创建联系人模型
-        ContactsModel * user = [self getUserWithUserId:cover.conversationId];
+        //ContactsModel * user = [self getUserWithUserId:cover.conversationId];
     
+        NIMUser * user = [[NIMSDK sharedSDK].userManager userInfo:cover.conversationId];
         // 创建会话模型对象
         ConversationModel * model = [[ConversationModel alloc] initWithConversation:cover];
-        model.contact = user;
+        model.user = user;
         model.uid = [set intForColumn:@"id"];
         
         [array addObject:model];

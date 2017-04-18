@@ -195,7 +195,7 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
 //    
 //        iconImage = [UIImage getAvatarImageWithString:self.contact.avatarImageUrl];
 //    }
-    self.iconView.image = [UIImage imageNamed:self.contact.avatarImageUrl];
+    self.iconView.image = [UIImage imageNamed:@"avatarBoy"];
     // 消息背景图片
     if (msg.direction == MessageDirectionSend) {
         

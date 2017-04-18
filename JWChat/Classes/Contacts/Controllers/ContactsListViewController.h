@@ -10,8 +10,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class ContactsModel;
-typedef void(^deleteUserCallback)(ContactsModel *);
+typedef void(^deleteUserCallback)(NIMUser *);
 
 @interface ContactsListViewController : UIViewController
 

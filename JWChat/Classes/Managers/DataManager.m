@@ -17,6 +17,8 @@
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
+#if TARGET_IPHONE_SIMULATOR//模拟器
+        
         NSString * url = @"http://test.jerry.com:8888/login.php";
         NSDictionary * params = @{ @"account" : username, @"password" : password };
         
@@ -30,7 +32,26 @@
             failure(error);
         }];
         
+#elif TARGET_OS_IPHONE//真机
+        
+        
+        
+        NSString * token = [NSString Md5StringWithString:password];
+        
+        NSDictionary * responseDic = @{ @"result" : @"1",
+                                        @"msg" : @"登录成功",
+                                        @"NIMToken" : token
+                                        };
+        success(responseDic);
+        
+        [MBProgressHUD hideHUD];
+        
+#endif
+
+        
     });
     
 }
+
+
 @end

@@ -14,8 +14,8 @@ typedef void(^ClearChatMessageBlock) (BOOL success);
 
 @interface ChatInformationViewController : UIViewController
 
-@property (strong,nonatomic) ContactsModel * contactsModel;
-@property (strong,nonatomic) ConversationModel * conversationModel;
-@property (copy,nonatomic) ClearChatMessageBlock clearChatMessageBlock;
+@property (nonatomic,strong) NIMUser * user;
+@property (nonatomic,strong) ConversationModel * conversationModel;
+@property (nonatomic,copy) ClearChatMessageBlock clearChatMessageBlock;
 
 @end

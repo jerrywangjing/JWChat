@@ -34,10 +34,10 @@
 
     _conversationData = model;
     
-    UIImage * avatarImg = [UIImage getAvatarImageWithString:model.contact.avatarImageUrl];
+    UIImage * avatarImg = [UIImage imageNamed:@"avatar"];
     
     _avatarImageView.image = [UIImage makeRoundedImage: avatarImg radius:10];
-    _userName.text = model.contact.userComment ? model.contact.userComment : model.contact.userName;
+    _userName.text = model.user.alias ? model.user.alias : model.user.userInfo.nickName;
     
     // 获取最近的一条消息
     Message * latestMsg = model.conversation.latestMessage;

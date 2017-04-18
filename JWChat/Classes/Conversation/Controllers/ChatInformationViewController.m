@@ -86,7 +86,7 @@
     if (indexPath.section == 0) {
         ContactTableViewCell * cell = [ContactTableViewCell contactsCellWithTableView:tableView];
 
-        //cell.userModel = _contactsModel;
+        cell.user = self.user;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         // border view
         UIView * topBorder = [UIView cellTopBorderView];
@@ -182,24 +182,24 @@
 
 -(void)openMsgNotice:(UISwitch *)btn{
 
-    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    if (btn.on) {
-        NSLog(@"开启免打扰..");
-        [defaults setBool:YES forKey:MsgNoticeKey];
-        BOOL  success = [[DBManager shareManager] updateContactsInfoWithUserId:self.contactsModel.userId ColumuName:@"noBothered" value:@"1"];// "1" 表示开启
-        if (!success) {
-            NSLog(@"消息免打扰开启失败");
-        }
-        
-    }else{
-    
-        NSLog(@"关闭免打扰");
-        [defaults setBool:NO forKey:MsgNoticeKey];
-        BOOL  success = [[DBManager shareManager] updateContactsInfoWithUserId:self.contactsModel.userId ColumuName:@"noBothered" value:@"0"];// "1" 表示开启
-        if (!success) {
-            NSLog(@"消息免打扰关闭失败");
-        }
-    }
+//    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+//    if (btn.on) {
+//        NSLog(@"开启免打扰..");
+//        [defaults setBool:YES forKey:MsgNoticeKey];
+//        BOOL  success = [[DBManager shareManager] updateContactsInfoWithUserId:self.contactsModel.userId ColumuName:@"noBothered" value:@"1"];// "1" 表示开启
+//        if (!success) {
+//            NSLog(@"消息免打扰开启失败");
+//        }
+//        
+//    }else{
+//    
+//        NSLog(@"关闭免打扰");
+//        [defaults setBool:NO forKey:MsgNoticeKey];
+//        BOOL  success = [[DBManager shareManager] updateContactsInfoWithUserId:self.contactsModel.userId ColumuName:@"noBothered" value:@"0"];// "1" 表示开启
+//        if (!success) {
+//            NSLog(@"消息免打扰关闭失败");
+//        }
+//    }
     
 }
 
