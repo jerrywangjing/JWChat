@@ -213,6 +213,14 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
     }
 }
 
+-(void)dealloc{
+    
+    LastOffset = 0; // 设置消息加载偏移值为初始值 0
+    [[NIMSDK sharedSDK].chatManager removeDelegate:self];
+    
+//    NSLog(@"销毁了聊天页面%s",__func__);
+}
+
 #pragma mark - ViewDidLoad
 
 - (void)viewDidLoad {
@@ -1573,10 +1581,5 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
     return returnValue;
 }
 
--(void)dealloc{
 
-    LastOffset = 0; // 设置消息加载偏移值为初始值 0
-    NSLog(@"销毁了聊天页面%s",__func__);
-    [[NIMSDK sharedSDK].chatManager removeDelegate:self];
-}
 @end

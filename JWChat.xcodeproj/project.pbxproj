@@ -12,6 +12,10 @@
 		C4680F461EA46B9200A57104 /* NTESDemoConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C4680F451EA46B9200A57104 /* NTESDemoConfig.m */; };
 		C4680F491EA46CC700A57104 /* NSDictionary+NTESJson.m in Sources */ = {isa = PBXBuildFile; fileRef = C4680F481EA46CC700A57104 /* NSDictionary+NTESJson.m */; };
 		C4680F4F1EA4710300A57104 /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4680F4E1EA4710300A57104 /* LoginManager.m */; };
+		C4680F521EA7015000A57104 /* UserInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4680F511EA7015000A57104 /* UserInfoTableViewCell.m */; };
+		C4680F551EA701A600A57104 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4680F541EA701A600A57104 /* BaseTableViewCell.m */; };
+		C4680F581EA7107700A57104 /* ProfileCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4680F571EA7107700A57104 /* ProfileCellModel.m */; };
+		C4680F5B1EA7486500A57104 /* EditUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4680F5A1EA7486500A57104 /* EditUserInfoViewController.m */; };
 		C46C3A551EA64ED600B97761 /* NTESSDKConfigDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C46C3A541EA64ED600B97761 /* NTESSDKConfigDelegate.m */; };
 		C4870AFF1E93B104009650B9 /* EMAudioPlayerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C4870AE11E93B104009650B9 /* EMAudioPlayerUtil.m */; };
 		C4870B001E93B104009650B9 /* EMAudioRecorderUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C4870AE31E93B104009650B9 /* EMAudioRecorderUtil.m */; };
@@ -251,6 +255,14 @@
 		C4680F481EA46CC700A57104 /* NSDictionary+NTESJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NTESJson.m"; sourceTree = "<group>"; };
 		C4680F4D1EA4710300A57104 /* LoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginManager.h; sourceTree = "<group>"; };
 		C4680F4E1EA4710300A57104 /* LoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginManager.m; sourceTree = "<group>"; };
+		C4680F501EA7015000A57104 /* UserInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfoTableViewCell.h; path = JWChat/Classes/Managers/UserInfoTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		C4680F511EA7015000A57104 /* UserInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfoTableViewCell.m; path = JWChat/Classes/Managers/UserInfoTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		C4680F531EA701A600A57104 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseTableViewCell.h; path = JWChat/Classes/Managers/BaseTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		C4680F541EA701A600A57104 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseTableViewCell.m; path = JWChat/Classes/Managers/BaseTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		C4680F561EA7107700A57104 /* ProfileCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileCellModel.h; path = JWChat/Classes/Managers/ProfileCellModel.h; sourceTree = SOURCE_ROOT; };
+		C4680F571EA7107700A57104 /* ProfileCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileCellModel.m; path = JWChat/Classes/Managers/ProfileCellModel.m; sourceTree = SOURCE_ROOT; };
+		C4680F591EA7486500A57104 /* EditUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserInfoViewController.h; sourceTree = "<group>"; };
+		C4680F5A1EA7486500A57104 /* EditUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserInfoViewController.m; sourceTree = "<group>"; };
 		C46C3A531EA64ED600B97761 /* NTESSDKConfigDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESSDKConfigDelegate.h; sourceTree = "<group>"; };
 		C46C3A541EA64ED600B97761 /* NTESSDKConfigDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESSDKConfigDelegate.m; sourceTree = "<group>"; };
 		C4870ADC1E93B104009650B9 /* EMCDDeviceManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCDDeviceManagerDelegate.h; sourceTree = "<group>"; };
@@ -1061,6 +1073,8 @@
 			children = (
 				C4C75F171E8F44300093F723 /* ProfileViewController.h */,
 				C4C75F181E8F44300093F723 /* ProfileViewController.m */,
+				C4680F591EA7486500A57104 /* EditUserInfoViewController.h */,
+				C4680F5A1EA7486500A57104 /* EditUserInfoViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1179,6 +1193,8 @@
 		C4F472B81E932FF0001ED39F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C4680F561EA7107700A57104 /* ProfileCellModel.h */,
+				C4680F571EA7107700A57104 /* ProfileCellModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1186,6 +1202,10 @@
 		C4F472B91E932FF0001ED39F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C4680F531EA701A600A57104 /* BaseTableViewCell.h */,
+				C4680F541EA701A600A57104 /* BaseTableViewCell.m */,
+				C4680F501EA7015000A57104 /* UserInfoTableViewCell.h */,
+				C4680F511EA7015000A57104 /* UserInfoTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1653,6 +1673,7 @@
 				C4C764AB1E9489270093F723 /* HanyuPinyinOutputFormat.m in Sources */,
 				C4870B051E93B104009650B9 /* EMCDDeviceManagerBase.m in Sources */,
 				C4C764D21E948AB90093F723 /* DBManager.m in Sources */,
+				C4680F581EA7107700A57104 /* ProfileCellModel.m in Sources */,
 				C4F475821E9398D8001ED39F /* MWPhoto.m in Sources */,
 				C4C764AF1E9489270093F723 /* PinyinHelper.m in Sources */,
 				C4F472BF1E933001001ED39F /* ConversationModel.m in Sources */,
@@ -1664,6 +1685,7 @@
 				C4C764B11E9489270093F723 /* ZYPinYinSearch.m in Sources */,
 				C4C7648E1E9488BD0093F723 /* WJHttpTool.m in Sources */,
 				C4C764BF1E9489450093F723 /* LiuqsTextAttachment.m in Sources */,
+				C4680F521EA7015000A57104 /* UserInfoTableViewCell.m in Sources */,
 				C4F472E11E93323B001ED39F /* EmojiKeyboardView.m in Sources */,
 				C4870AFF1E93B104009650B9 /* EMAudioPlayerUtil.m in Sources */,
 				C4F473011E9332D8001ED39F /* Message.m in Sources */,
@@ -1685,6 +1707,7 @@
 				C4C764C31E9489B60093F723 /* ContactsManager.m in Sources */,
 				C4F472E01E93323B001ED39F /* AddOtherFuncKeyboard.m in Sources */,
 				C4F472EB1E933268001ED39F /* ContactsDetailTableViewCell.m in Sources */,
+				C4680F5B1EA7486500A57104 /* EditUserInfoViewController.m in Sources */,
 				C4C75F1C1E8F880F0093F723 /* MBProgressHUD+CustomView.m in Sources */,
 				C4F472CA1E9330C5001ED39F /* ChatRoomViewController.m in Sources */,
 				C4F473061E9332D8001ED39F /* FileMessageBody.m in Sources */,
@@ -1695,6 +1718,7 @@
 				C4F474611E93385F001ED39F /* UIViewController+WJExtension.m in Sources */,
 				C4C768C41E9CB0110093F723 /* ChatToolBar.m in Sources */,
 				C46C3A551EA64ED600B97761 /* NTESSDKConfigDelegate.m in Sources */,
+				C4680F551EA701A600A57104 /* BaseTableViewCell.m in Sources */,
 				C4F473071E9332D8001ED39F /* MessageFrame.m in Sources */,
 				C4680F4F1EA4710300A57104 /* LoginManager.m in Sources */,
 				C4C764D31E948AB90093F723 /* MessageModel.m in Sources */,

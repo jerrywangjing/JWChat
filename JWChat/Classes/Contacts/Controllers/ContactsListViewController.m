@@ -43,6 +43,20 @@ BOOL hasApply = NO; // 是否有申请信息
     return _searchResultData;
 }
 
+-(void)dealloc{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[[NIMSDK sharedSDK] systemNotificationManager] removeDelegate:self];
+    [[[NIMSDK sharedSDK] loginManager] removeDelegate:self];
+    [[[NIMSDK sharedSDK] userManager] removeDelegate:self];
+    
+    self.searchController = nil;
+    self.tableView = nil;
+    
+//    NSLog(@"销毁了%s",__func__);
+}
+
+
 #pragma mark - view did load
 
 - (void)viewDidLoad {
@@ -626,18 +640,6 @@ BOOL hasApply = NO; // 是否有申请信息
             make.size.mas_equalTo(CGSizeMake(10, 10));
         }];
     }
-}
-
--(void)dealloc{
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [[[NIMSDK sharedSDK] systemNotificationManager] removeDelegate:self];
-    [[[NIMSDK sharedSDK] loginManager] removeDelegate:self];
-    [[[NIMSDK sharedSDK] userManager] removeDelegate:self];
-    
-    _searchController = nil;
-    self.tableView = nil;
-    NSLog(@"销毁了%s",__func__);
 }
 
 @end

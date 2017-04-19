@@ -100,6 +100,7 @@ static NSString * const NTESNotificationLogout = @"NTESNotificationLogout";
 
 - (void)commonInitListenEvents
 {
+    // 监听登出通知
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(logout:)
                                                  name:NTESNotificationLogout

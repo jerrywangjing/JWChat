@@ -38,6 +38,11 @@
     return _btnStateDic;
 }
 
+-(void)dealloc{
+    
+//    NSLog(@"销毁了%s",__func__);
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"添加联系人";
@@ -71,6 +76,7 @@
     
     _tableView.tableHeaderView = _searchController.searchBar;
 }
+
 #pragma mark - tableView delegate
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -211,8 +217,4 @@
 
 }
 
--(void)dealloc{
-
-    NSLog(@"销毁了%s",__func__);
-}
 @end

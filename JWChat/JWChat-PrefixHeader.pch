@@ -19,6 +19,13 @@
 #define WIDTH_RATE (SCREEN_WIDTH/375)   // 屏幕宽度系数（以4.7英寸为基准）
 #define HEIGHT_RATE (SCREEN_HEIGHT/667)
 
+// 常量字符串
+#define HeaderTitle @"headerTitle"
+#define RowContent @"rowContent"
+#define FooterTitle @"footerTitle"
+#define Title @"title"
+#define SubTitle @"subTitle"
+#define ImageUrl @"imageUrl"
 //三方类库
 
 #import "MBProgressHUD+WJ.h"
