@@ -9,12 +9,13 @@
 #import "ProfileViewController.h"
 #import "BaseTableViewCell.h"
 #import "UserInfoTableViewCell.h"
+#import "LogoutBtnCell.h"
 #import "ProfileCellModel.h"
 #import "EditUserInfoViewController.h"
 
 static const CGFloat HeaderHeight = 15;
 
-@interface ProfileViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ProfileViewController ()<UITableViewDelegate,UITableViewDataSource,NIMUserManagerDelegate>
 
 @property (nonatomic,strong) UITableView * tableView;
 @property (nonatomic,strong) NIMUser * user;
@@ -44,6 +45,11 @@ static const CGFloat HeaderHeight = 15;
     return self;
 }
 
+-(void)dealloc{
+
+    [[NIMSDK sharedSDK].userManager removeDelegate:self];
+}
+
 -(void)loadView {
     
     [super loadView];
@@ -54,8 +60,7 @@ static const CGFloat HeaderHeight = 15;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"设置";
-    
+    [[NIMSDK sharedSDK].userManager addDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,15 +73,25 @@ static const CGFloat HeaderHeight = 15;
     NSString * userId = [[NIMSDK sharedSDK].loginManager currentAccount];
     NIMUser * user = [[NIMSDK sharedSDK].userManager userInfo:userId];
     _user = user;
+    NIMUserInfo * userInfo = user.userInfo;
+    
+    if (!userInfo) {
+        [[NIMSDK sharedSDK].userManager fetchUserInfos:@[userId] completion:^(NSArray<NIMUser *> * _Nullable users, NSError * _Nullable error) {
+            if (!error) {
+                [self configData];
+            }
+        }];
+    }
     
     _dataSource = @[
                     @{
                         HeaderTitle : @"",
                         RowContent  : @[
                                         @{
-                                            ImageUrl : user.userInfo.avatarUrl ? user.userInfo.avatarUrl : @"",
-                                            Title : user.userInfo.nickName,
+                                            ImageUrl : userInfo.avatarUrl ? userInfo.avatarUrl : @"",
+                                            Title : userInfo.nickName ? userInfo.nickName : @"",
                                             SubTitle : user.userId,
+                                            @"gender" : @(user.userInfo.gender),
                                             
                                          },
                                 ],
@@ -127,6 +142,18 @@ static const CGFloat HeaderHeight = 15;
                         FooterTitle : @""
                         
                         },
+                    @{
+                        HeaderTitle : @"",
+                        RowContent : @[
+                                
+                                @{
+                                    Title : @"退出登录",
+                                    SubTitle : @"",
+                                    
+                                    }
+                                ]
+                        
+                        }
                     
                     ];
     
@@ -204,23 +231,16 @@ static const CGFloat HeaderHeight = 15;
         userInfoCell.model = model;
         return userInfoCell;
     }
-    
-    if (indexPath.section == 1) {
-        baseCell.model = [ProfileCellModel cellModelWithDic:dataArr.firstObject];
-        return baseCell;
+
+    if (indexPath.section == 4) { // 更新退出登录按钮的约束
+        LogoutBtnCell * logoutCell = [LogoutBtnCell logoutcellWithTableView:tableView];
+        logoutCell.model = [ProfileCellModel cellModelWithDic:dataArr.firstObject];
+        return logoutCell;
     }
     
-    if (indexPath.section == 2) {
-        baseCell.model = [ProfileCellModel cellModelWithDic:dataArr.firstObject];
-        return baseCell;
-    }
+    baseCell.model = [ProfileCellModel cellModelWithDic:dataArr[indexPath.row]];
     
-    if (indexPath.section == 3) {
-        baseCell.model = [ProfileCellModel cellModelWithDic:dataArr[indexPath.row]];
-        return baseCell;
-    }
-    
-    return [UITableViewCell new];
+    return baseCell;
     
 }
 
@@ -251,7 +271,41 @@ static const CGFloat HeaderHeight = 15;
         }
     }
     
+    if (indexPath.section == 4) {
+        [self logout];
+    }
+    
 }
 
+#pragma mark - NIMUserDelegate
+
+- (void)onUserInfoChanged:(NIMUser *)user{
+
+    [self configData];
+    [self.tableView reloadData];
+}
+
+#pragma mark - private
+
+- (void)logout{
+
+    UIAlertController * alertVc = [UIAlertController alertControllerWithTitle:nil message:@"退出当前账号？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction * confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [MBProgressHUD showHUD];
+            [[NIMSDK sharedSDK].loginManager logout:^(NSError * _Nullable error) {
+                [MBProgressHUD hideHUD];
+                if (!error) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName: NTESNotificationLogout object: nil];
+                }else{
+                
+                    NSLog(@"注销失败");
+                }
+            }];
+    }];
+    [alertVc addAction:cancel];
+    [alertVc addAction:confirm];
+    [self presentViewController:alertVc animated:YES completion:nil];
+}
 
 @end

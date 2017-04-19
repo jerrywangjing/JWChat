@@ -185,16 +185,6 @@
 //        completeHandler(nil);
 //        NSLog(@"查询失败");
 //    }];
-    
-    [[NIMSDK sharedSDK].userManager fetchUserInfos:@[keyword] completion:^(NSArray<NIMUser *> * _Nullable users, NSError * _Nullable error) {
-        
-        if (!error) {
-            // 跳转到个人名片中心
-        }else{
-            NSLog(@"获取失败：%@",error.localizedDescription);
-        }
-        
-    }];
 
 }
 

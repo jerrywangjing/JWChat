@@ -17,6 +17,8 @@
 		C4680F581EA7107700A57104 /* ProfileCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4680F571EA7107700A57104 /* ProfileCellModel.m */; };
 		C4680F5B1EA7486500A57104 /* EditUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4680F5A1EA7486500A57104 /* EditUserInfoViewController.m */; };
 		C46C3A551EA64ED600B97761 /* NTESSDKConfigDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C46C3A541EA64ED600B97761 /* NTESSDKConfigDelegate.m */; };
+		C46C3A5B1EA795AC00B97761 /* LogoutBtnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C46C3A5A1EA795AC00B97761 /* LogoutBtnCell.m */; };
+		C46C3A5E1EA7AE2800B97761 /* NTESFileLocationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C46C3A5D1EA7AE2800B97761 /* NTESFileLocationHelper.m */; };
 		C4870AFF1E93B104009650B9 /* EMAudioPlayerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C4870AE11E93B104009650B9 /* EMAudioPlayerUtil.m */; };
 		C4870B001E93B104009650B9 /* EMAudioRecorderUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C4870AE31E93B104009650B9 /* EMAudioRecorderUtil.m */; };
 		C4870B011E93B104009650B9 /* EMCDDeviceManager+Media.m in Sources */ = {isa = PBXBuildFile; fileRef = C4870AE51E93B104009650B9 /* EMCDDeviceManager+Media.m */; };
@@ -166,7 +168,6 @@
 		C4F472EB1E933268001ED39F /* ContactsDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F472E71E933268001ED39F /* ContactsDetailTableViewCell.m */; };
 		C4F472EC1E933268001ED39F /* ContactsDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F472E81E933268001ED39F /* ContactsDetailTableViewCell.xib */; };
 		C4F472EF1E933283001ED39F /* InputView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F472EE1E933283001ED39F /* InputView.m */; };
-		C4F472F21E9332AF001ED39F /* UserProfileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F472F11E9332AF001ED39F /* UserProfileManager.m */; };
 		C4F473011E9332D8001ED39F /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F472F41E9332D8001ED39F /* Message.m */; };
 		C4F473021E9332D8001ED39F /* MessageBody.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F472F61E9332D8001ED39F /* MessageBody.m */; };
 		C4F473031E9332D8001ED39F /* TextMessageBody.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F472F81E9332D8001ED39F /* TextMessageBody.m */; };
@@ -265,6 +266,10 @@
 		C4680F5A1EA7486500A57104 /* EditUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserInfoViewController.m; sourceTree = "<group>"; };
 		C46C3A531EA64ED600B97761 /* NTESSDKConfigDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESSDKConfigDelegate.h; sourceTree = "<group>"; };
 		C46C3A541EA64ED600B97761 /* NTESSDKConfigDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESSDKConfigDelegate.m; sourceTree = "<group>"; };
+		C46C3A591EA795AC00B97761 /* LogoutBtnCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutBtnCell.h; sourceTree = "<group>"; };
+		C46C3A5A1EA795AC00B97761 /* LogoutBtnCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutBtnCell.m; sourceTree = "<group>"; };
+		C46C3A5C1EA7AE2800B97761 /* NTESFileLocationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESFileLocationHelper.h; sourceTree = "<group>"; };
+		C46C3A5D1EA7AE2800B97761 /* NTESFileLocationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESFileLocationHelper.m; sourceTree = "<group>"; };
 		C4870ADC1E93B104009650B9 /* EMCDDeviceManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCDDeviceManagerDelegate.h; sourceTree = "<group>"; };
 		C4870ADD1E93B104009650B9 /* EMCDDeviceManagerProximitySensorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCDDeviceManagerProximitySensorDelegate.h; sourceTree = "<group>"; };
 		C4870ADF1E93B104009650B9 /* DemoErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoErrorCode.h; sourceTree = "<group>"; };
@@ -483,8 +488,6 @@
 		C4F472E81E933268001ED39F /* ContactsDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsDetailTableViewCell.xib; sourceTree = "<group>"; };
 		C4F472ED1E933283001ED39F /* InputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputView.h; sourceTree = "<group>"; };
 		C4F472EE1E933283001ED39F /* InputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputView.m; sourceTree = "<group>"; };
-		C4F472F01E9332AF001ED39F /* UserProfileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileManager.h; sourceTree = "<group>"; };
-		C4F472F11E9332AF001ED39F /* UserProfileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileManager.m; sourceTree = "<group>"; };
 		C4F472F31E9332D8001ED39F /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
 		C4F472F41E9332D8001ED39F /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		C4F472F51E9332D8001ED39F /* MessageBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageBody.h; sourceTree = "<group>"; };
@@ -635,15 +638,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		C4680F391EA469CF00A57104 /* DemoServer */ = {
+		C4680F391EA469CF00A57104 /* NIMUtils */ = {
 			isa = PBXGroup;
 			children = (
 				C4680F441EA46B9200A57104 /* NTESDemoConfig.h */,
 				C4680F451EA46B9200A57104 /* NTESDemoConfig.m */,
 				C46C3A531EA64ED600B97761 /* NTESSDKConfigDelegate.h */,
 				C46C3A541EA64ED600B97761 /* NTESSDKConfigDelegate.m */,
+				C46C3A5C1EA7AE2800B97761 /* NTESFileLocationHelper.h */,
+				C46C3A5D1EA7AE2800B97761 /* NTESFileLocationHelper.m */,
 			);
-			name = DemoServer;
+			name = NIMUtils;
 			sourceTree = "<group>";
 		};
 		C4870ADA1E93B104009650B9 /* DeviceHelper */ = {
@@ -1050,8 +1055,6 @@
 				C4C764C21E9489B60093F723 /* ContactsManager.m */,
 				C4F471501E8EB8CB001ED39F /* DataManager.h */,
 				C4F471511E8EB8CB001ED39F /* DataManager.m */,
-				C4F472F01E9332AF001ED39F /* UserProfileManager.h */,
-				C4F472F11E9332AF001ED39F /* UserProfileManager.m */,
 				C4680F4D1EA4710300A57104 /* LoginManager.h */,
 				C4680F4E1EA4710300A57104 /* LoginManager.m */,
 			);
@@ -1111,7 +1114,7 @@
 		C4F472B01E932F62001ED39F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				C4680F391EA469CF00A57104 /* DemoServer */,
+				C4680F391EA469CF00A57104 /* NIMUtils */,
 				C4C7648F1E94890B0093F723 /* ChatToolbar */,
 				C4C7648B1E9488B00093F723 /* HttpTools */,
 				C4870ADA1E93B104009650B9 /* DeviceHelper */,
@@ -1206,6 +1209,8 @@
 				C4680F541EA701A600A57104 /* BaseTableViewCell.m */,
 				C4680F501EA7015000A57104 /* UserInfoTableViewCell.h */,
 				C4680F511EA7015000A57104 /* UserInfoTableViewCell.m */,
+				C46C3A591EA795AC00B97761 /* LogoutBtnCell.h */,
+				C46C3A5A1EA795AC00B97761 /* LogoutBtnCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1626,7 +1631,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4F472F21E9332AF001ED39F /* UserProfileManager.m in Sources */,
 				C4870B001E93B104009650B9 /* EMAudioRecorderUtil.m in Sources */,
 				C4F475861E9398D8001ED39F /* MWZoomingScrollView.m in Sources */,
 				C4870B071E93B104009650B9 /* amrFileCodec.mm in Sources */,
@@ -1706,6 +1710,7 @@
 				C4F475851E9398D8001ED39F /* MWTapDetectingView.m in Sources */,
 				C4C764C31E9489B60093F723 /* ContactsManager.m in Sources */,
 				C4F472E01E93323B001ED39F /* AddOtherFuncKeyboard.m in Sources */,
+				C46C3A5B1EA795AC00B97761 /* LogoutBtnCell.m in Sources */,
 				C4F472EB1E933268001ED39F /* ContactsDetailTableViewCell.m in Sources */,
 				C4680F5B1EA7486500A57104 /* EditUserInfoViewController.m in Sources */,
 				C4C75F1C1E8F880F0093F723 /* MBProgressHUD+CustomView.m in Sources */,
@@ -1721,6 +1726,7 @@
 				C4680F551EA701A600A57104 /* BaseTableViewCell.m in Sources */,
 				C4F473071E9332D8001ED39F /* MessageFrame.m in Sources */,
 				C4680F4F1EA4710300A57104 /* LoginManager.m in Sources */,
+				C46C3A5E1EA7AE2800B97761 /* NTESFileLocationHelper.m in Sources */,
 				C4C764D31E948AB90093F723 /* MessageModel.m in Sources */,
 				C4680F461EA46B9200A57104 /* NTESDemoConfig.m in Sources */,
 			);

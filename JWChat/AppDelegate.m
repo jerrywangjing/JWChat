@@ -14,8 +14,6 @@
 #import "LoginManager.h"
 #import "NTESSDKConfigDelegate.h"
 
-static NSString * const NTESNotificationLogout = @"NTESNotificationLogout";
-
 @interface AppDelegate ()<NIMLoginManagerDelegate>
 
 @property (nonatomic,strong) NTESSDKConfigDelegate *sdkConfigDelegate;

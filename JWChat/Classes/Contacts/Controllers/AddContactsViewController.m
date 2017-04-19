@@ -46,7 +46,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"添加联系人";
-    self.view.backgroundColor = [UIColor whiteColor];
     
     // setup tableView
     [self setupTableView];
@@ -135,22 +134,6 @@
         }
     }];
     
-//    [MBProgressHUD showMessage:nil toView:self.tableView];
-//    
-//    WJWeakSelf(weakSelf);
-//    [ContactsManager searchUserListWithKeyword:searchText completionHandler:^(NSArray *dataArr) {
-//        WJStrongSelf(strongSelf);
-//        [MBProgressHUD hideHUDForView:strongSelf.tableView];
-//        
-//        if (dataArr.count > 0) {
-//            strongSelf.resultData = dataArr;
-//            [strongSelf.tableView reloadData];
-//        }else{
-//        
-//            [MBProgressHUD showLabel:@"无相关联系人" toView:strongSelf.tableView];
-//        }
-//
-//    }];
 }
 
 

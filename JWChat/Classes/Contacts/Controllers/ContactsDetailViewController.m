@@ -13,6 +13,7 @@
 #import "ModifyUserCommentViewController.h"
 #import "ConversationViewController.h"
 #import "MainTabBarController.h"
+#import "UserInfoTableViewCell.h"
 
 typedef NS_ENUM(NSUInteger, UserType) {
     UserTypeIsMe,

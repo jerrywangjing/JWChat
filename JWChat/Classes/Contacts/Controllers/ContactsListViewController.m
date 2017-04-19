@@ -43,6 +43,15 @@ BOOL hasApply = NO; // 是否有申请信息
     return _searchResultData;
 }
 
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+
+    if ([super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        
+        [self updateFriendsInfo];
+    }
+    return self;
+}
+
 -(void)dealloc{
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -55,7 +64,6 @@ BOOL hasApply = NO; // 是否有申请信息
     
 //    NSLog(@"销毁了%s",__func__);
 }
-
 
 #pragma mark - view did load
 
@@ -642,4 +650,22 @@ BOOL hasApply = NO; // 是否有申请信息
     }
 }
 
+- (void)updateFriendsInfo{
+
+    NSArray * friends = [[NIMSDK sharedSDK].userManager myFriends];
+    NSArray * friendIds = [NSArray array];
+    
+    NSMutableArray * tempArr = [NSMutableArray array];
+    for (NIMUser * user in friends) {
+        NSString * userId = user.userId;
+        [tempArr addObject:userId];
+    }
+    friendIds = tempArr;
+    
+    [[NIMSDK sharedSDK].userManager fetchUserInfos:friendIds completion:^(NSArray<NIMUser *> * _Nullable users, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"更新好友资料失败:Error(%@)",error.localizedDescription);
+        }
+    }];
+}
 @end

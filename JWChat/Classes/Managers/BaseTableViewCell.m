@@ -11,9 +11,9 @@
 
 @interface BaseTableViewCell ()
 
-@property (nonatomic,weak,readonly) UIImageView * arrowView;
-@property (nonatomic,weak,readonly) UILabel * titleLabel;
-@property (nonatomic,weak,readonly) UILabel * subTitleLabel;
+@property (nonatomic,weak) UIImageView * arrowView;
+@property (nonatomic,weak) UILabel * subTitleLabel;
+@property (nonatomic,weak) UILabel * titleLabel;
 
 @end
 
@@ -111,4 +111,5 @@
     }
     
 }
+
 @end

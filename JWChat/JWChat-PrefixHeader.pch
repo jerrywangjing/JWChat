@@ -130,5 +130,7 @@
 // 获取bundle 资源 定义
 #define NSEaseLocalizedString(key, comment) [[NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"UIResource" withExtension:@"bundle"]] localizedStringForKey:(key) value:@"" table:nil]
 
+// 通知
 
+static NSString * const NTESNotificationLogout = @"NTESNotificationLogout";
 #endif /* JWChat_PrefixHeader_pch */

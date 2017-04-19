@@ -10,11 +10,8 @@
 #import "UserInfoTableViewCell.h"
 #import "BaseTableViewCell.h"
 #import "ProfileCellModel.h"
-#import <TZPhotoPickerController.h>
-#import <TZPhotoPreviewController.h>
 #import <TZImagePickerController.h>
-#import <QBAssetsViewController.h>
-#import <QBImagePickerController.h>
+#import "NTESFileLocationHelper.h"
 
 @interface EditUserInfoViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -74,6 +71,7 @@
                                     ImageUrl : _user.userInfo.avatarUrl ? _user.userInfo.avatarUrl : @"",
                                     Title : _user.userInfo.nickName,
                                     SubTitle : _user.userId,
+                                    @"gender" : @(_user.userInfo.gender),
                                     
                                     },
                                 ],
@@ -240,7 +238,6 @@
 }
 
 
-
 #pragma mark - private 
 
 - (NSString *)userGender:(NIMUserGender)gender{
@@ -272,10 +269,8 @@
         [weakPicker dismissViewControllerAnimated:NO completion:nil];
         
         TZImagePickerController * cropVc = [[TZImagePickerController alloc] initCropTypeWithAsset:assets.firstObject photo:photos.firstObject completion:^(UIImage *cropImage, id asset) {
-            NSLog(@"裁剪完成");
-            
-            // 上传图片到服务器，成功后刷新表格
-            [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+            // 上传图片
+            [weakSelf uploadImage:cropImage];
         }];
         [weakSelf presentViewController:cropVc animated:NO completion:nil];
     }];
@@ -290,6 +285,47 @@
 
 - (void)refreshTableView{
 
-    
+    [[NIMSDK sharedSDK].userManager fetchUserInfos:@[_user.userId] completion:^(NSArray<NIMUser *> * _Nullable users, NSError * _Nullable error) {
+        if (!error) {
+            _user = users.firstObject;
+            [self configData];
+            [self.tableView reloadData];
+        }
+    }];
+   
+}
+
+// 上传头像
+
+- (void)uploadImage:(UIImage *)image{
+//    UIImage *imageForAvatarUpload = [image imageForAvatarUpload];
+    NSString *fileName = [NTESFileLocationHelper genFilenameWithExt:@"jpg"];
+    NSString *filePath = [[NTESFileLocationHelper getAppDocumentPath] stringByAppendingPathComponent:fileName];
+
+    NSData *data = UIImageJPEGRepresentation(image, 1.0);
+    BOOL success = data && [data writeToFile:filePath atomically:YES];
+    __weak typeof(self) wself = self;
+    if (success) {
+        [MBProgressHUD showHUD];
+        [[NIMSDK sharedSDK].resourceManager upload:filePath progress:nil completion:^(NSString *urlString, NSError *error) {
+            
+            if (!error && wself) {
+                [[NIMSDK sharedSDK].userManager updateMyUserInfo:@{@(NIMUserInfoUpdateTagAvatar):urlString} completion:^(NSError *error) {
+                    [MBProgressHUD hideHUD];
+                    
+                    if (!error) {
+                        [[SDWebImageManager sharedManager] saveImageToCache:image forURL:[NSURL URLWithString:urlString]];
+                        [wself refreshTableView];
+                    }else{
+                        [MBProgressHUD showLabelWithText:@"设置头像失败，请重试"];
+                    }
+                }];
+            }else{
+                [MBProgressHUD showLabelWithText:@"图片上传失败，请重试"];
+            }
+        }];
+    }else{
+        [MBProgressHUD showLabelWithText:@"图片保存失败，请重试"];
+    }
 }
 @end

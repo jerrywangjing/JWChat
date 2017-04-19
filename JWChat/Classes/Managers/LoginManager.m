@@ -46,16 +46,19 @@ static NSString * const kToken = @"token";
                 [[NIMSDK sharedSDK].loginManager login:account token:token completion:^(NSError * _Nullable error) {
                     
                     if (!error) {
-                        
-                        // 回调处理
-                        completion();
-                        
+   
                         //保存登录数据
                         
                         [WJUserDefault setObject:account forKey:kAccount];
                         
                         [SAMKeychain setPassword:password forService:kPassword account:account];
                         [SAMKeychain setPassword:token forService:kToken account:account];
+                        
+                        // 获取用户资料
+                        [[NIMSDK sharedSDK].userManager fetchUserInfos:@[account] completion:nil];
+                        
+                        // 回调处理
+                        completion();
                         
                     }else{
                         NSLog(@"NIM引擎登录失败：error:%@",error.localizedDescription);

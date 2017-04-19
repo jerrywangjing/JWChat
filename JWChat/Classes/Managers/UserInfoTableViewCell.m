@@ -15,6 +15,7 @@
 @property (nonatomic,weak) UILabel * titleLabel;
 @property (nonatomic,weak) UILabel * accountLabel;
 @property (nonatomic,weak) UIImageView * arrowView;
+@property (nonatomic,weak) UIImageView * genderView;
 
 @end
 
@@ -53,6 +54,9 @@
     _titleLabel = titleLabel;
     _titleLabel.textColor = [UIColor blackColor];
     [self addSubview:_titleLabel];
+    UIImageView * genderView = [[UIImageView alloc] init];
+    _genderView = genderView;
+    [self addSubview:_genderView];
     
     UILabel * accountLabel = [[UILabel alloc] init];
     _accountLabel = accountLabel;
@@ -82,6 +86,11 @@
         
     }];
     
+    [_genderView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_titleLabel.mas_right).offset(15);
+        make.top.equalTo(_titleLabel);
+    }];
+    
     [_accountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_titleLabel);
         make.bottom.equalTo(_avatarView).offset(-5);
@@ -107,6 +116,18 @@
     [_avatarView sd_setImageWithURL:[NSURL URLWithString:model.imageUrl] placeholderImage:[UIImage imageNamed:@"avatar"]];
     _titleLabel.text = model.title;
     _accountLabel.text = [NSString stringWithFormat:@"账号：%@",model.subTitle];
+
+    switch (model.gender.integerValue) {
+        case NIMUserGenderMale:
+            _genderView.image = [UIImage imageNamed:@"icon_gender_male"];
+            break;
+        case NIMUserGenderFemale:
+            _genderView.image = [UIImage imageNamed:@"icon_gender_female"];
+            
+        default:
+            _genderView.hidden = YES;
+            break;
+    }
 }
 
 @end
