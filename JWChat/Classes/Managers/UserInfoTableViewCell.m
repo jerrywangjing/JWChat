@@ -130,4 +130,14 @@
     }
 }
 
+-(void)setShowArrowView:(BOOL)showArrowView{
+
+    if (showArrowView) {
+        _arrowView.hidden = NO;
+    }else{
+    
+        _arrowView.hidden = YES;
+    }
+}
+
 @end

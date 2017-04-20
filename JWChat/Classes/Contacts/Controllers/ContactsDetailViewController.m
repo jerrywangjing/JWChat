@@ -14,6 +14,7 @@
 #import "ConversationViewController.h"
 #import "MainTabBarController.h"
 #import "UserInfoTableViewCell.h"
+#import "ProfileCellModel.h"
 
 typedef NS_ENUM(NSUInteger, UserType) {
     UserTypeIsMe,
@@ -24,6 +25,7 @@ typedef NS_ENUM(NSUInteger, UserType) {
 @interface ContactsDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,weak) UITableView *tableView;
+@property (nonatomic,strong) NSArray * dataSource;
 @property (nonatomic,copy) NSString *userId;
 @property (nonatomic,strong) NIMUser *user;
 @property (nonatomic,assign) UserType currentUserType;
@@ -79,17 +81,77 @@ typedef NS_ENUM(NSUInteger, UserType) {
     }
     
     self.user = [[NIMSDK sharedSDK].userManager userInfo:self.userId];
+    NIMUserInfo * userInfo = self.user.userInfo;
+    
+    self.dataSource = _dataSource = @[
+                                      @{
+                                          HeaderTitle : @"",
+                                          RowContent  : @[
+                                                  @{
+                                                      ImageUrl : userInfo.avatarUrl ? userInfo.avatarUrl : @"",
+                                                      Title : [self setUserName],
+                                                      SubTitle : _user.userId,
+                                                      @"gender" : @(_user.userInfo.gender),
+                                                      
+                                                      },
+                                                  ],
+                                          FooterTitle :@"",
+                                          
+                                          },
+                                      @{
+                                          HeaderTitle : @"",
+                                          RowContent : @[
+                                                  @{
+                                                      
+                                                      Title : @"设置备注",
+                                                      SubTitle : @"",
+                                                      }
+                                                  ],
+                                          FooterTitle : @"",
+                                          
+                                          },
+                                      
+                                      @{
+                                          HeaderTitle : @"",
+                                          RowContent : @[
+                                                  
+                                                  @{
+                                                      Title : @"消息提醒",
+                                                      SubTitle : @"",
+                                                      
+                                                      },
+                                                  ],
+                                          FooterTitle : @""
+                                          
+                                          },
+                                      @{
+                                          HeaderTitle : @"",
+                                          RowContent : @[
+                                                  
+                                                  @{
+                                                      Title : @"黑名单",
+                                                      SubTitle : @"",
+                                                      
+                                                      },
+                                               
+                                                  ],
+                                          FooterTitle : @""
+                                          
+                                          },
+                                      
+                                      ];
+
     
 }
 
 - (void)setupTableView{
 
-    UITableView * tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    UITableView * tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView = tableView;
     tableView.delegate = self;
     tableView.dataSource = self;
     tableView.backgroundColor = IMBgColor;
-    tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    //tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     [self.view addSubview:tableView];
     
     // tableFooter View
@@ -155,7 +217,6 @@ typedef NS_ENUM(NSUInteger, UserType) {
         make.top.equalTo(sendMsgBtn.mas_bottom).offset(15);
     }];
     
-    
 }
 
 
@@ -166,25 +227,34 @@ typedef NS_ENUM(NSUInteger, UserType) {
     if (self.currentUserType == UserTypeIsMe) {
         return 1;
     }
-    return 4;
+    return self.dataSource.count;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 
-    return 1;
+    NSArray * rowCount = self.dataSource[section][RowContent];
+    return rowCount.count;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+
+    return 15;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+
+    return 0.1;
+}
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     if (indexPath.section == 0) {
-        return 90;
+        return 100;
     }
     return 44;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    ContactsDetailTableViewCell * detailCell = [ContactsDetailTableViewCell contactsCellWithTableView:tableView];
+    UserInfoTableViewCell * detailCell = [UserInfoTableViewCell userInfoCellWithTableView:tableView];
     
     static NSString * cellId = @"detailCell";
     
@@ -195,25 +265,23 @@ typedef NS_ENUM(NSUInteger, UserType) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
+    NSArray * dataArr = self.dataSource[indexPath.section][RowContent];
+    
     if (indexPath.section == 0) {
         
-        detailCell.user = self.user;
-        
-        // border view
-        UIView * topBorder = [UIView cellTopBorderView];
-        [cell.contentView addSubview:topBorder];
-        UIView * bottomBorder = [UIView cellBottomBorderView:90];
-        [cell.contentView addSubview:bottomBorder];
-        
+        ProfileCellModel * model = [ProfileCellModel cellModelWithDic:dataArr.firstObject];
+        detailCell.model = model;
+        detailCell.showArrowView = NO;
+        detailCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return detailCell;
     }
     
     if (indexPath.section == 1) {
-        cell.textLabel.text = @"设置备注";
+        cell.textLabel.text = dataArr.firstObject[Title];
     }
     
     if (indexPath.section == 2) {
-        cell.textLabel.text = @"消息提醒";
+        cell.textLabel.text = dataArr.firstObject[Title];;
         
         UISwitch * notifySwich = [[UISwitch alloc] init];
         notifySwich.on = self.needNotify;
@@ -223,7 +291,7 @@ typedef NS_ENUM(NSUInteger, UserType) {
     }
     
     if (indexPath.section == 3) {
-        cell.textLabel.text = @"黑名单";
+        cell.textLabel.text = dataArr.firstObject[Title];;
         
         UISwitch * blactListSwitch = [[UISwitch alloc] init];
         blactListSwitch.on = self.inBlactList;
@@ -232,11 +300,6 @@ typedef NS_ENUM(NSUInteger, UserType) {
         cell.accessoryView = blactListSwitch;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    // border view
-    UIView * topBorder = [UIView cellTopBorderView];
-    [cell.contentView addSubview:topBorder];
-    UIView * bottomBorder = [UIView cellBottomBorderView:44];
-    [cell.contentView addSubview:bottomBorder];
     
     return cell;
 }
@@ -256,10 +319,6 @@ typedef NS_ENUM(NSUInteger, UserType) {
     }
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    
-    return  15;
-}
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
@@ -382,5 +441,13 @@ typedef NS_ENUM(NSUInteger, UserType) {
     
         NSLog(@"移除黑名单");
     }
+}
+
+- (NSString *)setUserName{
+
+    if (_user.alias) {
+        return _user.alias;
+    }
+    return _user.userInfo.nickName;
 }
 @end

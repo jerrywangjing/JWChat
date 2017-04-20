@@ -158,7 +158,7 @@
     _user = user;
     
     [_headImageView sd_setImageWithURL:[NSURL URLWithString:user.userInfo.avatarUrl] placeholderImage:[UIImage imageNamed:@"avatar"]];
-    _nameLabel.text = user.userInfo.nickName;
+    _nameLabel.text = user.alias ? user.alias : user.userInfo.nickName;
     _onlineLabel.text = @"[在线]";
     
 }

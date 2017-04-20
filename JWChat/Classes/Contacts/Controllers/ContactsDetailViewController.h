@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^PushToChatRoomBlock) (ContactsModel *user);
-
 @interface ContactsDetailViewController : UIViewController
 
 @property (nonatomic,weak) UIViewController * previousVc; // 导航栈中上一个控制器

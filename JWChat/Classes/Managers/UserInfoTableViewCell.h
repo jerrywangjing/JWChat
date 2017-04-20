@@ -12,6 +12,7 @@
 @interface UserInfoTableViewCell : UITableViewCell
 
 @property (nonatomic,strong) ProfileCellModel * model;
+@property (nonatomic,assign,getter=isShowArrowView) BOOL showArrowView;
 
 + (instancetype)userInfoCellWithTableView:(UITableView *)tableView;
 
