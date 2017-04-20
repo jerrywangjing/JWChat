@@ -81,7 +81,7 @@
 #define kIMUserId @"imUserId" //即时通讯当前登录用户
 #define kCurrentUser @"当前联系人" // 当前用户资料键
 
-#define CurrentUserId [WJUserDefault valueForKey:kIMUserId] // 当前登录用户id
+#define CurrentUserId [[NIMSDK sharedSDK].loginManager currentAccount] // 当前登录用户id
 #define DBTableName(tableName) [NSString stringWithFormat:@"%@_%@",tableName,CurrentUserId] // 消息表名
 #define DBConversationListName [NSString stringWithFormat:@"%@_%@",kConversationListName,CurrentUserId] // 会话表名
 #define DBContactsListName [NSString stringWithFormat:@"%@_%@",kContactsListName,CurrentUserId] // 联系人表名

@@ -157,7 +157,8 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"addBtn_bg"] style:UIBarButtonItemStylePlain target:self action:@selector(addBtnClick:)];
     
     [[NIMSDK sharedSDK].chatManager addDelegate:self];
-    
+    NSString * cache = NSHomeDirectory();
+    NSLog(@"沙盒：%@",cache);
     //[self testMethod];
 }
 

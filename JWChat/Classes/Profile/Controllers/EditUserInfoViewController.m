@@ -68,10 +68,10 @@
                         HeaderTitle : @"",
                         RowContent  : @[
                                 @{
-                                    ImageUrl : _user.userInfo.avatarUrl ? _user.userInfo.avatarUrl : @"",
-                                    Title : _user.userInfo.nickName,
+                                    ImageUrl : [ContactsManager getAvatarUrl:_user],
+                                    Title : [ContactsManager getUserName:_user],
                                     SubTitle : _user.userId,
-                                    @"gender" : @(_user.userInfo.gender),
+                                    @"gender" : @([ContactsManager getGender:_user]),
                                     
                                     },
                                 ],

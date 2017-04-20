@@ -431,12 +431,12 @@ BOOL hasApply = NO; // 是否有申请信息
 
             //self.deleteUser(deleteUser);
             // 通知服务器解除好友关系
-            [ContactsManager deleteContact:deleteUser.userId completion:^(NSString *aUsername, NSError *aError) {
-                if (aError) {
-                    NSLog(@"删除%@失败",aUsername);
-                }
-                NSLog(@"告知服务器已删除好友%@",aUsername);
-            }];
+//            [ContactsManager deleteContact:deleteUser.userId completion:^(NSString *aUsername, NSError *aError) {
+//                if (aError) {
+//                    NSLog(@"删除%@失败",aUsername);
+//                }
+//                NSLog(@"告知服务器已删除好友%@",aUsername);
+//            }];
              // 更新UI
             [self.tableView reloadData];
         }];

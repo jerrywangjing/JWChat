@@ -340,6 +340,21 @@ static DBManager *_dB = nil;
     
 }
 
+// 删除所有聊天记录
+
+- (BOOL)deleteAllMessageRecord{
+
+    BOOL success = YES;
+    NSArray * conversations = [self getAllConversationsFromDB];
+    for (ConversationModel * model in conversations) {
+        NSString * covId = model.conversationId;
+        if (![self deleteFullTable:covId]) {
+            success = NO;
+        }
+    }
+    return success;
+}
+
 // 更新会话记录
 - (BOOL)updateConversationWithConversationModel:(ConversationModel *)model{
     

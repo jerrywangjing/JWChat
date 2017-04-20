@@ -12,6 +12,7 @@
 #import "LogoutBtnCell.h"
 #import "ProfileCellModel.h"
 #import "EditUserInfoViewController.h"
+#import "AboutViewController.h"
 
 static const CGFloat HeaderHeight = 15;
 
@@ -73,25 +74,16 @@ static const CGFloat HeaderHeight = 15;
     NSString * userId = [[NIMSDK sharedSDK].loginManager currentAccount];
     NIMUser * user = [[NIMSDK sharedSDK].userManager userInfo:userId];
     _user = user;
-    NIMUserInfo * userInfo = user.userInfo;
-    
-    if (!userInfo) {
-        [[NIMSDK sharedSDK].userManager fetchUserInfos:@[userId] completion:^(NSArray<NIMUser *> * _Nullable users, NSError * _Nullable error) {
-            if (!error) {
-                [self configData];
-            }
-        }];
-    }
     
     _dataSource = @[
                     @{
                         HeaderTitle : @"",
                         RowContent  : @[
                                         @{
-                                            ImageUrl : userInfo.avatarUrl ? userInfo.avatarUrl : @"",
-                                            Title : userInfo.nickName ? userInfo.nickName : @"",
+                                            ImageUrl : [ContactsManager getAvatarUrl:user],
+                                            Title : [ContactsManager getUserName:user],
                                             SubTitle : user.userId,
-                                            @"gender" : @(user.userInfo.gender),
+                                            @"gender" : @([ContactsManager getGender:user]),
                                             
                                          },
                                 ],
@@ -265,9 +257,13 @@ static const CGFloat HeaderHeight = 15;
     if (indexPath.section == 3) {
         if (indexPath.row == 0) {
             // 清空聊天记录
+            [self clearAllChatRecord];
         }
         if (indexPath.row == 1) {
             // 关于页面
+            AboutViewController * about = [AboutViewController new];
+            about.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:about animated:YES];
         }
     }
     
@@ -289,23 +285,52 @@ static const CGFloat HeaderHeight = 15;
 
 - (void)logout{
 
-    UIAlertController * alertVc = [UIAlertController alertControllerWithTitle:nil message:@"退出当前账号？" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction * confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [MBProgressHUD showHUD];
+    [self showAlertViewWithTitle:@"退出当前账号？" message:nil style: UIAlertControllerStyleAlert completion:^(UIAlertAction *action) {
+        if ([action.title isEqualToString:@"确定"]) {
+            
+            [MBProgressHUD showHUD];
             [[NIMSDK sharedSDK].loginManager logout:^(NSError * _Nullable error) {
                 [MBProgressHUD hideHUD];
                 if (!error) {
                     [[NSNotificationCenter defaultCenter] postNotificationName: NTESNotificationLogout object: nil];
                 }else{
-                
+                    
                     NSLog(@"注销失败");
                 }
             }];
+            
+        }
+    }];
+}
+
+- (void)clearAllChatRecord{
+
+    [self showAlertViewWithTitle:nil message:@"确认清空所有聊天记录？" style:UIAlertControllerStyleAlert completion:^(UIAlertAction *action) {
+        [MBProgressHUD showHUD];
+        if ([action.title isEqualToString:@"确定"]) {
+            BOOL success = [[DBManager shareManager] deleteAllMessageRecord];
+            [MBProgressHUD hideHUD];
+            if (!success) {
+                [MBProgressHUD showLabelWithText:@"清除失败，请重试"];
+            }else{
+                [MBProgressHUD showLabelWithText:@"清除完成"];
+            }
+        }
+    }];
+}
+
+- (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)msg style:(UIAlertControllerStyle)style completion:(void(^)(UIAlertAction * action))completion{
+
+    UIAlertController * alertVc = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:style];
+    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction * confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        
+        completion(action);
     }];
     [alertVc addAction:cancel];
     [alertVc addAction:confirm];
     [self presentViewController:alertVc animated:YES completion:nil];
+    
 }
 
 @end

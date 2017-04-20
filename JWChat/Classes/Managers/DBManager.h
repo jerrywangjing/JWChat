@@ -51,5 +51,7 @@ typedef void(^LastOffsetBlock) (NSInteger lastOffset);
 -(BOOL)deleteConversationRecordWithConversationId:(NSString *)converId;
 /// 删除一张表
 - (BOOL)deleteFullTable:(NSString *)tableName;
+/// 删除所有聊天记录
+- (BOOL)deleteAllMessageRecord;
 
 @end

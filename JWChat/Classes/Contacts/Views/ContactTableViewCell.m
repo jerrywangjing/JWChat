@@ -142,23 +142,13 @@
     
 }
 
-//-(void)setUserModel:(ContactsModel *)userModel{
-//
-//    _userModel = userModel;
-//    
-//    _headImageView.image = [UIImage getAvatarImageWithString:_userModel.avatarImageUrl];
-//    _headImageView.alpha = [userModel.online isEqualToString:@"1"]? 1:0.5;
-//    _nameLabel.text = userModel.userComment ? userModel.userComment : userModel.userName;
-//    _onlineLabel.text = [userModel.online isEqualToString:@"1"]? @"[在线]":@"[离线]";
-//    
-//}
 
 - (void)setUser:(NIMUser *)user{
 
     _user = user;
     
     [_headImageView sd_setImageWithURL:[NSURL URLWithString:user.userInfo.avatarUrl] placeholderImage:[UIImage imageNamed:@"avatar"]];
-    _nameLabel.text = user.alias ? user.alias : user.userInfo.nickName;
+    _nameLabel.text = [self setUserName:user];
     _onlineLabel.text = @"[在线]";
     
 }
@@ -167,5 +157,17 @@
 
     // block回调
     _addBtnDidClickBlock(btn);
+}
+
+- (NSString *)setUserName:(NIMUser *)user{
+
+    if (user.alias) {
+        return user.alias;
+    }
+    if (user.userInfo) {
+        return user.userInfo.nickName;
+    }
+    
+    return user.userId;
 }
 @end

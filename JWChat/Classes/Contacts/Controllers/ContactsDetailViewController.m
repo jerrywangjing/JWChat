@@ -80,18 +80,17 @@ typedef NS_ENUM(NSUInteger, UserType) {
         self.needNotify = YES;
     }
     
-    self.user = [[NIMSDK sharedSDK].userManager userInfo:self.userId];
-    NIMUserInfo * userInfo = self.user.userInfo;
+    _user = [[NIMSDK sharedSDK].userManager userInfo:self.userId];
     
     self.dataSource = _dataSource = @[
                                       @{
                                           HeaderTitle : @"",
                                           RowContent  : @[
                                                   @{
-                                                      ImageUrl : userInfo.avatarUrl ? userInfo.avatarUrl : @"",
-                                                      Title : [self setUserName],
+                                                      ImageUrl : [ContactsManager getAvatarUrl:_user],
+                                                      Title : [ContactsManager getUserName:_user],
                                                       SubTitle : _user.userId,
-                                                      @"gender" : @(_user.userInfo.gender),
+                                                      @"gender" : @([ContactsManager getGender:_user]),
                                                       
                                                       },
                                                   ],
@@ -443,11 +442,4 @@ typedef NS_ENUM(NSUInteger, UserType) {
     }
 }
 
-- (NSString *)setUserName{
-
-    if (_user.alias) {
-        return _user.alias;
-    }
-    return _user.userInfo.nickName;
-}
 @end

@@ -40,7 +40,7 @@
 //    
 //    _avatarImageView.image = [UIImage makeRoundedImage: avatarImage radius:10];
     
-    _userName.text = model.user.alias ? model.user.alias : model.user.userInfo.nickName;
+    _userName.text = [ContactsManager getUserName:model.user];
     
     // 获取最近的一条消息
     Message * latestMsg = model.conversation.latestMessage;
