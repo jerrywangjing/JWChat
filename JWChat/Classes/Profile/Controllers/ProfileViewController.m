@@ -11,7 +11,7 @@
 #import "UserInfoTableViewCell.h"
 #import "LogoutBtnCell.h"
 #import "ProfileCellModel.h"
-#import "EditUserInfoViewController.h"
+#import "UserInfoViewController.h"
 #import "AboutViewController.h"
 
 static const CGFloat HeaderHeight = 15;
@@ -242,7 +242,8 @@ static const CGFloat HeaderHeight = 15;
     
     if (indexPath.section == 0) {
         // 跳转修改用户信心页面
-        EditUserInfoViewController * editVc = [[EditUserInfoViewController alloc] initWithUser:self.user];
+        UserInfoViewController * editVc = [[UserInfoViewController alloc] initWithUser:self.user];
+        editVc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController: editVc animated:YES];
     }
     

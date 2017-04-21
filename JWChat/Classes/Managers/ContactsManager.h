@@ -11,7 +11,12 @@
 @interface ContactsManager : NSObject
 
 + (NSString *)getUserName:(NIMUser *)user;
++ (NSString *)getNickName:(NIMUser *)user;
 + (NSString *)getAvatarUrl:(NIMUser *)user;
 + (NIMUserGender)getGender:(NIMUser *)user;
++ (NSString *)getBirthday:(NIMUser *)user;
++ (NSString *)getPhoneNumber:(NIMUser *)user;
++ (NSString *)getEmail:(NIMUser *)user;
++ (NSString *)getSign:(NIMUser *)user;
 
 @end

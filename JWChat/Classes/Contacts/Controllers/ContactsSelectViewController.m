@@ -187,12 +187,12 @@
             
             if ([self updateConversationWithMessage:msg]) {
                 
-                [MBProgressHUD showSuccess:@"发送完成"];
+                [MBProgressHUD showSuccessWithText:@"发送完成"];
             }
             
         }else{
         
-            [MBProgressHUD showError:@"发送失败"];
+            [MBProgressHUD showErrorWithText:@"发送失败"];
         }
         
         [self.searchVc setActive:NO];

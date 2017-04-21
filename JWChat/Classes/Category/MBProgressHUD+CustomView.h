@@ -22,4 +22,7 @@
 
 + (void)showProgressHUDToView:(UIView *)view progress:(void (^)(CGFloat value))progress;
 
++ (void)showErrorWithText:(NSString *)text;
++ (void)showSuccessWithText:(NSString *)text;
+
 @end

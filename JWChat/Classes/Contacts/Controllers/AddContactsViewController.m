@@ -147,24 +147,23 @@
     // 验证是否已经是自己的好友
     if ([[DBManager shareManager] isExistsRecordInTable:DBContactsListName withColumnName:@"userId" andColumnValue:user.userId]) {
         
-        [MBProgressHUD showLabel:[NSString stringWithFormat:@"%@已是你的好友!",user.userName]];
+        [MBProgressHUD showLabelWithText:[NSString stringWithFormat:@"%@已是你的好友!",user.userName]];
+
         return;
     }
     
     // 弹出提示框 让输入添加备注
-
-    WeakSelf(self);
     
     UIAlertController * alertVc = [UIAlertController alertControllerWithTitle:@"好友验证" message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction * confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         // 发送添加请求到服务器
         
-        [MBProgressHUD showMessage:nil toView:weakself.tableView];
+        [MBProgressHUD showHUD];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            [MBProgressHUD hideHUDForView:weakself.tableView];
+            [MBProgressHUD hideHUD];
             //验证信息
             NSString * verifyMsg = alertVc.textFields.firstObject.text;
             

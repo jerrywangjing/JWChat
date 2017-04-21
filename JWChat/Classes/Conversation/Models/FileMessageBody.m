@@ -18,4 +18,11 @@
     return self;
 }
 
+- (instancetype)initWithfileModel:(FileSelectModel *)model{
+
+    if (self = [super init]) {
+        
+    }
+    return self;
+}
 @end

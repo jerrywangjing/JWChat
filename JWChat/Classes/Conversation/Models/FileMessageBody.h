@@ -59,8 +59,4 @@ typedef enum{
  */
 - (instancetype)initWithfileModel:(FileSelectModel *)model;
 
-/*!
- *  初始化文件消息体
- */
-
 @end

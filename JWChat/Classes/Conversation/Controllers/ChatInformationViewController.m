@@ -159,11 +159,11 @@
         BOOL successTab = [[DBManager shareManager] deleteFullTable:model.conversation.conversationId];
 
         if (successTab) {
-            [MBProgressHUD showLabel:@"删除完成" toView:self.tableView];
+            [MBProgressHUD showLabelWithText:@"清除成功"];
             
         }else{
         
-            [MBProgressHUD showLabel:@"删除失败" toView:self.tableView];
+            [MBProgressHUD showLabelWithText:@"清除失败"];
         }
         
         // 回调block 刷新聊天消息

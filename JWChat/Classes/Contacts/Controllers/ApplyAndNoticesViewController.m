@@ -130,10 +130,10 @@
         // 移除这条数据
         [self.dataSource removeObjectAtIndex:indexPath.row];
         [self.tableView reloadData];
-        [MBProgressHUD showLabel:@"已添加" toView:self.tableView];
+        [MBProgressHUD showLabelWithText:@"已添加"];
     }else{
         NSLog(@"接受添加好友失败：%@",error);
-        [MBProgressHUD showLabel:@"处理失败"];
+        [MBProgressHUD showLabelWithText:@"处理失败"];
     }
 
 }
@@ -157,10 +157,10 @@
         // 移除这条数据
         [self.dataSource removeObjectAtIndex:indexPath.row];
         [self.tableView reloadData];
-        [MBProgressHUD showLabel:@"已拒绝" toView:self.tableView];
+        [MBProgressHUD showLabelWithText:@"已拒绝"];
     }else{
         NSLog(@"拒绝添加好友失败：%@",error);
-        [MBProgressHUD showLabel:@"处理失败"];
+        [MBProgressHUD showLabelWithText:@"处理失败"];
     }
 
 }

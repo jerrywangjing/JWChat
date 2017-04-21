@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EditUserInfoViewController : UIViewController
+@interface UserInfoViewController : UIViewController
 
 - (instancetype)initWithUser:(NIMUser *)user;
 @end

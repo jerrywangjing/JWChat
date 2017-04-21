@@ -1052,7 +1052,7 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
     }else{
         
         NSLog(@"相机不可用");
-        [MBProgressHUD showError:@"相机不可用"];
+        [MBProgressHUD showErrorWithText:@"相机不可用"];
     }
     
 }
@@ -1147,7 +1147,7 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
             NSString * imageName = [NSString stringWithFormat:@"%@_%@",[NSDate date],self.conversationId];
 
             if (imageData.length > 10 * 1024 * 1024) { // 需小于10M
-                [MBProgressHUD showError:@"图片太大请重新选择"];
+                [MBProgressHUD showErrorWithText:@"图片太大请重新选择"];
                 return;
             }
             NSString * relativePath = [[MessageReadManager shareManager] saveMsgAttachWithData:imageData attachType:MessageBodyTypeImage andAttachName:imageName];
@@ -1166,7 +1166,7 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
                             if (data) {
                                 
                                 if (data.length > 10 * 1024 * 1024) { // 小于10m
-                                    [MBProgressHUD showError:@"图片太大请重新选择"];
+                                    [MBProgressHUD showErrorWithText:@"图片太大请重新选择"];
                                     return;
                                 }
                                 NSString * relativePath = [[MessageReadManager shareManager] saveMsgAttachWithData:data attachType:MessageBodyTypeImage andAttachName:imageName];
@@ -1186,7 +1186,7 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
                         NSUInteger bufferSize = [assetRepresentation getBytes:buffer fromOffset:0.0 length:(NSUInteger)[assetRepresentation size] error:nil];
                         NSData* fileData = [NSData dataWithBytesNoCopy:buffer length:bufferSize freeWhenDone:YES];
                         if (fileData.length > 10 * 1024 * 1024) { // 小于10m
-                            [MBProgressHUD showError:@"图片太大请重新选择"];
+                            [MBProgressHUD showErrorWithText:@"图片太大请重新选择"];
                             return;
                         }
                         NSString * relativePath = [[MessageReadManager shareManager] saveMsgAttachWithData:fileData attachType:MessageBodyTypeImage andAttachName:imageName];

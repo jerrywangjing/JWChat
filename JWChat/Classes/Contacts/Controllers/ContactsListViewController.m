@@ -243,7 +243,7 @@ BOOL hasApply = NO; // 是否有申请信息
     self.sectionUserList = [self sortSourceData:contactsList];
     // 刷新UI
     [self.tableView reloadData];
-    [MBProgressHUD hideHUDForView:self.tableView];
+    [MBProgressHUD hideHUDFromView:self.tableView];
 
 }
 

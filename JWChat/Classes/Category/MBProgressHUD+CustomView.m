@@ -37,6 +37,7 @@
     hud.label.text = title;
     hud.mode = MBProgressHUDModeIndeterminate; // 默认指示器样式
     hud.animationType = MBProgressHUDAnimationFade; // 动画样式
+    //hud.userInteractionEnabled = NO; // 开启后可点击hud外的其他控件
     
 //    hud.contentColor = [UIColor whiteColor]; // 可修改指示器和hud背景的颜色
 //    hud.bezelView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.7];
@@ -67,7 +68,7 @@
     hud.label.text = text;
     hud.mode = MBProgressHUDModeText;
     hud.animationType = MBProgressHUDAnimationFade;
-    [hud hideAnimated:YES afterDelay:0.5f];
+    [hud hideAnimated:YES afterDelay:1.0f];
 }
 
 #pragma mark - 进度指示hud
@@ -88,4 +89,34 @@
 
 }
 
+#pragma mark - 自定义指示器hud
+
+
++ (void)showSuccessWithText:(NSString *)text{
+
+    [self showCustomHUDWithImage:@"success.png" text:text];
+}
+
++ (void)showErrorWithText:(NSString *)text{
+
+    [self showCustomHUDWithImage:@"error" text:text];
+}
+
++ (void)showCustomHUDWithImage:(NSString *)image text:(NSString *)text{
+
+    UIView * view = [UIApplication sharedApplication].keyWindow;
+    UIImageView * indicatorView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:image]];
+    
+    [self showHUDToView:view indicatorView:indicatorView title:text];
+}
+
++ (void)showHUDToView:(UIView *)view indicatorView:(UIView *)indicatorView title:(NSString *)title{
+
+    MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo: view animated:YES];
+    hud.mode = MBProgressHUDModeCustomView;
+    hud.animationType = MBProgressHUDAnimationFade;
+    hud.customView = indicatorView;
+    hud.label.text = title;
+    [hud hideAnimated:YES afterDelay:1.0f];
+}
 @end

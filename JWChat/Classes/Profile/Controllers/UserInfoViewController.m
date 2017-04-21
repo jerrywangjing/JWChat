@@ -6,14 +6,15 @@
 //  Copyright © 2017年 JerryWang. All rights reserved.
 //
 
-#import "EditUserInfoViewController.h"
+#import "UserInfoViewController.h"
 #import "UserInfoTableViewCell.h"
 #import "BaseTableViewCell.h"
 #import "ProfileCellModel.h"
 #import <TZImagePickerController.h>
 #import "NTESFileLocationHelper.h"
+#import "EditInfoViewController.h"
 
-@interface EditUserInfoViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface UserInfoViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) UITableView * tableView;
 @property (nonatomic,strong) NSArray * dataSource;
@@ -21,7 +22,7 @@
 
 @end
 
-@implementation EditUserInfoViewController
+@implementation UserInfoViewController
 
 #pragma mark - getter
 
@@ -216,25 +217,24 @@
     
     if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            // 修改昵称
+            [self changeTextInfoWithType:EditInfoTypeNickName];
         }
         if (indexPath.row == 1) {
-            // 修改性别
+            [self changeTextInfoWithType:EditInfoTypeGender];
         }
         if (indexPath.row == 2) {
-            // 修改昵称
+            [self changeTextInfoWithType:EditInfoTypeBirthday];
         }
         if (indexPath.row == 3) {
-            // 修改性别
+            [self changeTextInfoWithType:EditInfoTypePhoneNumber];
         }
         if (indexPath.row == 4) {
-            // 修改昵称
+            [self changeTextInfoWithType:EditInfoTypeEmail];
         }
         if (indexPath.row == 5) {
-            // 修改性别
+            [self changeTextInfoWithType:EditInfoTypeSign];
         }
     }
-    
 }
 
 
@@ -250,7 +250,7 @@
             return @"女";
             break;
         case NIMUserGenderUnknown:
-            return @"未知";
+            return @"其他";
             break;
         default:
             return @"未知";
@@ -280,6 +280,20 @@
     }];
     
     [self presentViewController:photoPicker animated:YES completion:nil];
+    
+}
+
+- (void)changeTextInfoWithType:(EditInfoType)type{
+
+    EditInfoViewController * editVc = [[EditInfoViewController alloc] init];
+    editVc.user = _user;
+    editVc.editType = type;
+    WJWeakSelf(weakSelf);
+    editVc.completion = ^{
+        [weakSelf refreshTableView];
+    };
+    
+    [self.navigationController pushViewController:editVc animated:YES];
     
 }
 
@@ -321,6 +335,7 @@
                     }
                 }];
             }else{
+                [MBProgressHUD hideHUD];
                 [MBProgressHUD showLabelWithText:@"图片上传失败，请重试"];
             }
         }];
