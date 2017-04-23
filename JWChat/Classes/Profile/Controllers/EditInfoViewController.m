@@ -26,7 +26,7 @@
 
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         // set default values
-
+        
     }
     return self;
 }
@@ -44,6 +44,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self setupNavTitle];
     
     _dataSource = [self configData];
     
@@ -55,6 +56,7 @@
 //            }
 //        }
 //    }
+
     
 }
 
@@ -166,6 +168,34 @@
     
     return @[];
 }
+
+- (void)setupNavTitle{
+
+    switch (_editType) {
+        case EditInfoTypeNickName:
+            self.navigationItem.title = @"昵称";
+            break;
+        case EditInfoTypeGender:
+            self.navigationItem.title = @"性别";
+            break;
+        case EditInfoTypeBirthday:
+            self.navigationItem.title = @"选择出生日期";
+            break;
+        case EditInfoTypePhoneNumber:
+            self.navigationItem.title = @"手机号码";
+            break;
+        case EditInfoTypeEmail:
+            self.navigationItem.title = @"邮箱";
+            break;
+        case EditInfoTypeSign:
+            self.navigationItem.title = @"签名";
+            break;
+            
+        default:
+            break;
+    }
+}
+
 - (void)setupSubviews{
     
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
@@ -326,6 +356,8 @@
         field.delegate = self;
         field.returnKeyType = UIReturnKeyDone;
         field.placeholder = @"请输入修改内容";
+        [field becomeFirstResponder];
+        
         [textCell.contentView addSubview:field];
         textCell.selectionStyle = UITableViewCellSelectionStyleNone;
         // 布局
