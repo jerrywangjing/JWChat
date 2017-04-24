@@ -72,7 +72,6 @@ typedef enum{
 //@property (nonatomic, copy) NSDictionary *ext;
 
 
-
 // --------------------------------------------------------
 /*!
  *  客户端发送/收到此消息的时间

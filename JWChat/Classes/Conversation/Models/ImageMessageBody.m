@@ -23,7 +23,7 @@
         _origImage = [UIImage imageWithData:aData] == nil ? [UIImage imageWithContentsOfFile:fullPath] : [UIImage imageWithData:aData];
         _imageLocalPath = localPath;
         _imageName = localPath.lastPathComponent;
-        _thumbnailImage = [self getThumbnailImage:_origImage];
+        _thumbnailImage = [self getThumbnailImage:_origImage localPath:localPath];
         _size = _origImage.size;
 
     }
@@ -31,9 +31,20 @@
 }
 
 // 获取压缩后的缩略图
--(UIImage *)getThumbnailImage:(UIImage *)origImage{
+-(UIImage *)getThumbnailImage:(UIImage *)origImage localPath:(NSString *)localPath{
 
+    
     UIImage * thumbnailImage;
+    
+    if (!origImage) {
+        if (localPath) {
+            NSString * homePath = NSHomeDirectory();
+            NSRange range = [localPath rangeOfString:@"Documents"];
+            NSString * relativePath = [localPath substringFromIndex:range.location-1];
+            NSString * fullPath = [homePath stringByAppendingString:relativePath];
+            origImage = [UIImage imageWithContentsOfFile:fullPath];
+        }
+    }
     
     CGSize size = origImage.size;
     

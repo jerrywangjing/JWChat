@@ -555,30 +555,44 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
 
 -(void)sendMessageToServerWithMessage:(Message *)message{
 
+    NIMMessage * sendMsg = [[NIMMessage alloc] init];
+    NIMSession * msgSession = [NIMSession session:message.conversationId type:NIMSessionTypeP2P];
+    
     // 转换对象为数据发送
     switch (message.body.type) {
         case MessageBodyTypeText:{
             
             TextMessageBody * body = (TextMessageBody *)message.body;
-            
-            NIMMessage * sendMsg = [[NIMMessage alloc] init];
             sendMsg.text = body.text;
-            
-            NIMSession * msgSession = [NIMSession session:message.conversationId type:NIMSessionTypeP2P];
-            
-            NSError * error = nil;
-            
-            [[NIMSDK sharedSDK].chatManager sendMessage:sendMsg toSession:msgSession error:&error];
             
         }
             break;
-        case MessageBodyTypeImage: // 发送图片消息
+        case MessageBodyTypeImage:{  // 发送图片消息
+        
+            ImageMessageBody * body = (ImageMessageBody *)message.body;
+            
+            NIMImageObject * image = [[NIMImageObject alloc] initWithImage:body.origImage];
+            sendMsg.messageObject = image;
+            
+        }
             break;
-        case MessageBodyTypeVoice: // 发送语音消息
+        case MessageBodyTypeVoice:{ // 发送语音消息
+        
+            VoiceMessageBody * body  = (VoiceMessageBody *)message.body;
+            
+            NIMAudioObject * voice = [[NIMAudioObject alloc] initWithSourcePath:body.voiceLocalPath];
+            sendMsg.messageObject = voice;
+            
+        }
             break;
         default:
             break;
     }
+    
+    NSError * error = nil;
+    
+    [[NIMSDK sharedSDK].chatManager sendMessage:sendMsg toSession:msgSession error:&error];
+    
 }
 
 #pragma mark - NIM消息发送回调
@@ -587,17 +601,34 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
 -(void)willSendMessage:(NIMMessage *)message{
 
     NSLog(@"将要发送消息");
+    MessageFrame * msgF = self.messageFrames.lastObject;
+    Message * msg = msgF.aMessage;
+    
+    msg.status = MessageStatusDelivering;
+    NSLog(@"state:%ld",message.deliveryState);
+    
+    [self.tableView reloadData];
+    
 }
+
 // 消息发送进度
 -(void)sendMessage:(NIMMessage *)message progress:(float)progress{
 
     NSLog(@"已发送：%.f",progress);
+    NSLog(@"state:%ld",message.deliveryState);
 }
 // 消息已发送完成的回调
 -(void)sendMessage:(NIMMessage *)message didCompleteWithError:(NSError *)error{
 
     if (!error) {
         NSLog(@"消息发送成功");
+        MessageFrame * msgF = self.messageFrames.lastObject;
+        Message * msg = msgF.aMessage;
+        
+        msg.status = MessageStatusSuccessed;
+        [self.tableView reloadData];
+        NSLog(@"state:%ld",message.deliveryState);
+        
     }else{
     
         NSLog(@"消息发送失败Error:%@",error);

@@ -11,6 +11,7 @@
 #import "UIImage+Extension.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "ContactsModel.h"
+#import <UIButton+WebCache.h>
 
 
 NSString *const EaseMessageCellIdentifierRecvText = @"EaseMessageCellRecvText";
@@ -27,7 +28,7 @@ NSString *const EaseMessageCellIdentifierSendVideo = @"EaseMessageCellSendVideo"
 NSString *const EaseMessageCellIdentifierSendImage = @"EaseMessageCellSendImage";
 NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
 
-@interface MessageTableViewCell()
+@interface MessageTableViewCell()<NIMChatManagerDelegate>
 
 @property (nonatomic,weak) UILabel * timeView;
 @property (nonatomic,weak) UIImageView * iconView;
@@ -42,11 +43,11 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
 
 @property (nonatomic,strong) NSArray * sendMessageVoiceAnimationImages;
 @property (nonatomic,strong) NSArray * recvMessageVoiceAnimationImages;
-//@property (nonatomic, strong) UIActivityIndicatorView *activity; // 发送网络状态显示
+@property (nonatomic,strong) UIButton *statusButton; // 消息发送状态指示
+@property (nonatomic, strong) UIActivityIndicatorView *activity; // 发送网络状态显示
+
 //
 //@property (strong, nonatomic) UILabel *nameLabel; // 好友姓名/昵称
-//
-//@property (strong, nonatomic) UIButton *statusButton; // 消息发送状态指示
 //
 //@property (strong, nonatomic) UILabel *hasRead; // 是否已读
 //
@@ -121,60 +122,81 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         // 去掉cell的背景颜色
         self.backgroundColor = [UIColor clearColor];
-
-        // 时间
-        UILabel * timeViwe = [[UILabel alloc] init];
-        timeViwe.backgroundColor = WJRGBColor(195, 195, 195);
-        timeViwe.layer.cornerRadius = 4;
-        timeViwe.layer.masksToBounds = YES;
-        timeViwe.adjustsFontSizeToFitWidth = YES;
-        timeViwe.font = [UIFont systemFontOfSize:12];
-        timeViwe.textColor = [UIColor whiteColor];
-        [self.contentView addSubview:timeViwe];
-        self.timeView = timeViwe;
-        // 设置lable的文字居中(Alignment译为：位置)
-        timeViwe.textAlignment = NSTextAlignmentCenter;
-        // 头像
-        UIImageView *iconView = [[UIImageView alloc] init];
-        [self.contentView addSubview:iconView];
-        _iconView = iconView;
-        _iconView.layer.cornerRadius = 5;
-        _iconView.layer.masksToBounds = YES;
-        _iconView.userInteractionEnabled = YES;
-        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarImageTap:)];
-        [_iconView addGestureRecognizer:tap];
-        
-        // 聊天内容
-        UIButton * contentButton = [[UIButton alloc] init];
-        [self.contentView addSubview:contentButton];
-        _contentBtn = contentButton;
-        [_contentBtn addTarget:self action:@selector(cellContentClick:) forControlEvents:UIControlEventTouchUpInside];
-            // 添加长按手势
-        UILongPressGestureRecognizer * longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(contentCellDidLongPress:)];
-        longPress.minimumPressDuration = 0.5; // 默认 0.5
-        [_contentBtn addGestureRecognizer:longPress];
-            // 语音logo、秒数、小红点
-        UIImageView * voiceView = [[UIImageView alloc] init];
-        self.voiceView = voiceView;
-        UILabel * secLabel = [[UILabel alloc] init];
-        self.secLabel = secLabel;
-        UIImageView * redDot = [[UIImageView alloc] init];
-        redDot.layer.cornerRadius = 4;
-        redDot.layer.masksToBounds = YES;
-        self.redDot = redDot;
-        redDot.backgroundColor = [UIColor redColor];
-        [_contentBtn addSubview:secLabel];
-        [_contentBtn addSubview:voiceView];
-        [_contentBtn addSubview:redDot];
-
-        _contentBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
-        [_contentBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        _contentBtn.titleLabel.numberOfLines = 0;
-        _contentBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+        [self setupSubviews];
         
 
     }
     return self;
+}
+
+-(void)dealloc{
+
+    [[NIMSDK sharedSDK].chatManager removeDelegate:self];
+}
+
+- (void)setupSubviews{
+
+    // 时间
+    UILabel * timeViwe = [[UILabel alloc] init];
+    timeViwe.backgroundColor = WJRGBColor(195, 195, 195);
+    timeViwe.layer.cornerRadius = 4;
+    timeViwe.layer.masksToBounds = YES;
+    timeViwe.adjustsFontSizeToFitWidth = YES;
+    timeViwe.font = [UIFont systemFontOfSize:12];
+    timeViwe.textColor = [UIColor whiteColor];
+    [self.contentView addSubview:timeViwe];
+    self.timeView = timeViwe;
+    // 设置lable的文字居中(Alignment译为：位置)
+    timeViwe.textAlignment = NSTextAlignmentCenter;
+    // 头像
+    UIImageView *iconView = [[UIImageView alloc] init];
+    [self.contentView addSubview:iconView];
+    _iconView = iconView;
+    _iconView.layer.cornerRadius = 5;
+    _iconView.layer.masksToBounds = YES;
+    _iconView.userInteractionEnabled = YES;
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarImageTap:)];
+    [_iconView addGestureRecognizer:tap];
+    
+    // 聊天内容
+    UIButton * contentButton = [[UIButton alloc] init];
+    [self.contentView addSubview:contentButton];
+    _contentBtn = contentButton;
+    [_contentBtn addTarget:self action:@selector(cellContentClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // 添加长按手势
+    UILongPressGestureRecognizer * longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(contentCellDidLongPress:)];
+    longPress.minimumPressDuration = 0.5; // 默认 0.5
+    [_contentBtn addGestureRecognizer:longPress];
+    
+    // 语音logo、秒数、小红点
+    UIImageView * voiceView = [[UIImageView alloc] init];
+    self.voiceView = voiceView;
+    UILabel * secLabel = [[UILabel alloc] init];
+    self.secLabel = secLabel;
+    UIImageView * redDot = [[UIImageView alloc] init];
+    redDot.layer.cornerRadius = 4;
+    redDot.layer.masksToBounds = YES;
+    self.redDot = redDot;
+    redDot.backgroundColor = [UIColor redColor];
+    
+    // 发送状态显示
+    self.activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    
+    [_contentBtn addSubview:self.activity];
+    [_contentBtn addSubview:secLabel];
+    [_contentBtn addSubview:voiceView];
+    [_contentBtn addSubview:redDot];
+    
+    _contentBtn.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+    [_contentBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    _contentBtn.titleLabel.numberOfLines = 0;
+    _contentBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+    
+    [self.activity mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(_contentBtn);
+        make.right.equalTo(self.secLabel.mas_left);
+    }];
 }
 
 #pragma mark - 重写属性的setter方法(给子控件赋值)
@@ -197,7 +219,6 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     }else{
     
         [_iconView sd_setImageWithURL:[NSURL URLWithString:self.user.userInfo.avatarUrl] placeholderImage:[UIImage imageNamed:@"avatar"]];
-
     }
     
     // 消息背景图片
@@ -226,6 +247,29 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
         [self setMessageContent:msg]; // 注意：**需要先给子控件赋值frame 后再给内容赋值
     }
     
+    // 设置消息状态
+    
+    switch (msg.status) {
+        case MessageStatusFailed:
+            // 显示发送失败按钮，点击可以重新发送
+            
+            break;
+        case MessageStatusPending:
+            // 发送未开始
+            break;
+
+        case MessageStatusDelivering:
+            // 正在发送
+            [self.activity startAnimating];
+            break;
+        case MessageStatusSuccessed:
+            // 发送完成
+            [self.activity stopAnimating];
+            break;
+        default:
+            break;
+    }
+
 }
 
 #pragma mark - cell 内容赋值
@@ -274,8 +318,12 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     _contentBtn.layer.cornerRadius = 5;
     _contentBtn.layer.masksToBounds = YES;
 
-    [_contentBtn setBackgroundImage: body.thumbnailImage forState:UIControlStateNormal];
+    if (!body.thumbnailImage) {
+        [_contentBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:body.thumbUrl] forState:UIControlStateNormal];
+    }else{
     
+        [_contentBtn setBackgroundImage: body.thumbnailImage forState:UIControlStateNormal];
+    }
 }
 
 -(void)setVoiceMessageCell:(Message *)message{
@@ -317,16 +365,22 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
         
         self.voiceView.frame = CGRectMake(voiceX, 15, self.voiceView.image.size.width, self.voiceView.image.size.height);
         
-        self.secLabel.frame = CGRectMake(-22, 15, 25, 25);
-        self.secLabel.textAlignment = NSTextAlignmentRight;
+        [self.secLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(_contentBtn);
+            make.right.equalTo(_contentBtn.mas_left);
+        }];
        
     }else{
     
         CGFloat voiceX = _contentBtn.width;
-        self.secLabel.frame = CGRectMake(voiceX, 15, 25, 25);
+        
         self.voiceView.frame = CGRectMake(10, 15, self.voiceView.image.size.width, self.voiceView.image.size.height);
         self.redDot.frame = CGRectMake(voiceX, 0, 8, 8);
-        self.secLabel.textAlignment = NSTextAlignmentLeft;
+        
+        [self.secLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(_contentBtn);
+            make.left.equalTo(_contentBtn.mas_right);
+        }];
         
     }
 
@@ -398,7 +452,7 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
 
 #pragma mark - public 
 
-+(NSString *)cellIdentifierWithModel:(MessageFrame *)model{
++ (NSString *)cellIdentifierWithModel:(MessageFrame *)model{
     
     NSString *cellIdentifier = nil;
     

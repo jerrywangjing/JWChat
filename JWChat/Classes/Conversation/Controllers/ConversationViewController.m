@@ -26,7 +26,7 @@ static NSString * lastTime; // 用于设置是否隐藏cell时间
 static const CGFloat kDefaultPlaySoundInterval = 3.0; // 2次响铃的最小间隔时间
 BOOL canClick = NO; // 连接状态视图是否可以点击
 
-@interface ConversationViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UISearchResultsUpdating,UISearchControllerDelegate,ActivityViewTitleDelegate,NIMChatManagerDelegate>
+@interface ConversationViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UISearchResultsUpdating,UISearchControllerDelegate,ActivityViewTitleDelegate,NIMChatManagerDelegate,NIMLoginManagerDelegate>
 
 @property (nonatomic,strong) NSMutableArray * dataArr; // 存放conversationModel 对象
 @property (nonatomic,weak) UITableView * tableView;
@@ -157,6 +157,7 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"addBtn_bg"] style:UIBarButtonItemStylePlain target:self action:@selector(addBtnClick:)];
     
     [[NIMSDK sharedSDK].chatManager addDelegate:self];
+    [[NIMSDK sharedSDK].loginManager addDelegate:self];
     NSString * cache = NSHomeDirectory();
     NSLog(@"沙盒：%@",cache);
     //[self testMethod];
@@ -165,7 +166,7 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
 - (void)dealloc{
 
     [[NIMSDK sharedSDK].chatManager removeDelegate:self];
-    
+    [[NIMSDK sharedSDK].loginManager removeDelegate:self];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -456,15 +457,19 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
         Message * recvMsg = nil;
         
         switch (msg.messageType) {
-            case NIMMessageTypeText:
-            {
+            case NIMMessageTypeText:{
+                
                 recvMsg = [WJMessageHelper receivedTextMessage:msg.text from:msg.from];
-                NSDate * date = [NSDate dateWithTimeIntervalSince1970:msg.timestamp];
-                recvMsg.timeStr = [date defaultFormattedDate];
-                recvMsg.timestamp = [date defaultFormattedDate];
-                recvMsg.direction = MessageDirectionReceive;
-                recvMsg.isHideTime = [lastTime isEqualToString:recvMsg.timeStr]? YES:NO;
-                lastTime = recvMsg.timeStr;
+            }
+                break;
+            case NIMMessageTypeImage:{
+            
+                NIMImageObject * image = (NIMImageObject *)msg.messageObject;
+                ImageMessageBody * imageBody = [[ImageMessageBody alloc] initWithData:nil localPath:nil];
+                imageBody.thumbUrl = image.thumbUrl;
+                imageBody.url = image.url;
+                
+                
             }
                 break;
                 
@@ -472,10 +477,22 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
                 break;
         }
         
+        NSDate * date = [NSDate dateWithTimeIntervalSince1970:msg.timestamp];
+        recvMsg.timeStr = [date defaultFormattedDate];
+        recvMsg.timestamp = [date defaultFormattedDate];
+        recvMsg.direction = MessageDirectionReceive;
+        recvMsg.isHideTime = [lastTime isEqualToString:recvMsg.timeStr]? YES:NO;
+        lastTime = recvMsg.timeStr;
+        
         [self noticeAndSaveNewMessage:recvMsg fromUserId:msg.from];
     }
 }
 
+#pragma mark - loginManager delegate
+
+- (void)onLogin:(NIMLoginStep)step{
+    
+}
 #pragma mark - private
 
 // 消息提醒及消息缓存

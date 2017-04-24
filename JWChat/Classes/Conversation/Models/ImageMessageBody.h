@@ -27,14 +27,19 @@
 
 ///缩略图的显示名
 
-@property (nonatomic, copy) NSString *imageName;
+@property (nonatomic,copy) NSString *imageName;
 
 ///原图本地路径
 
-@property (nonatomic, copy) NSString *imageLocalPath;
+@property (nonatomic,copy) NSString *imageLocalPath;
 
 /// 缩略图
 @property (nonatomic,copy) UIImage * thumbnailImage;
+
+/// 缩略图远程路径
+@property (nonatomic,copy) NSString *thumbUrl;
+/// 图片远程路径
+@property (nonatomic,copy) NSString *url;
 
 - (instancetype)initWithData:(NSData *)aData
                    localPath:(NSString *)localPath;
