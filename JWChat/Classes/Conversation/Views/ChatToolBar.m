@@ -60,7 +60,7 @@
     _inputView = [[InputView alloc] init];
     
     WJWeakSelf(weakSelf);
-    _inputView.maxLineHeight = 90;
+    _inputView.maxLineHeight = 80;
     _inputView.textHeightChangeBlock = ^(NSString * text,CGFloat textHeight){
         
         [weakSelf mas_updateConstraints:^(MASConstraintMaker *make) {

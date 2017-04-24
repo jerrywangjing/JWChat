@@ -94,7 +94,7 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     }
     return _fileName;
 }
--(UILabel *)fileSize{
+- (UILabel *)fileSize{
 
     if (!_fileSize) {
         UILabel * fileSize = [[UILabel alloc] init];
@@ -103,7 +103,7 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     }
     return _fileSize;
 }
-+(instancetype)messageCellWithTabelView:(UITableView *)tableView andModel:(MessageFrame *)model{
++ (instancetype)messageCellWithTabelView:(UITableView *)tableView andModel:(MessageFrame *)model{
     
     NSString * cellIdentifier = [self cellIdentifierWithModel:model];
     // 首先调用tableView的可重用方法获取已经创建的cell
@@ -181,7 +181,7 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     redDot.backgroundColor = [UIColor redColor];
     
     // 发送状态显示
-    self.activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    self.activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     
     [_contentBtn addSubview:self.activity];
     [_contentBtn addSubview:secLabel];
@@ -193,10 +193,7 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     _contentBtn.titleLabel.numberOfLines = 0;
     _contentBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     
-    [self.activity mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(_contentBtn);
-        make.right.equalTo(self.secLabel.mas_left);
-    }];
+    
 }
 
 #pragma mark - 重写属性的setter方法(给子控件赋值)
@@ -246,6 +243,21 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     @synchronized (self) {
         [self setMessageContent:msg]; // 注意：**需要先给子控件赋值frame 后再给内容赋值
     }
+    
+    // 消息状态指示器布局
+    if (_secLabel.text.length > 0) {
+        [self.activity mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(_contentBtn);
+            make.right.equalTo(self.secLabel.mas_left).offset(-2);
+        }];
+    }else{
+    
+        [self.activity mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(_contentBtn);
+            make.right.equalTo(_contentBtn.mas_left);
+        }];
+    }
+    
     
     // 设置消息状态
     
@@ -317,7 +329,8 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     
     _contentBtn.layer.cornerRadius = 5;
     _contentBtn.layer.masksToBounds = YES;
-
+    
+    
     if (!body.thumbnailImage) {
         [_contentBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:body.thumbUrl] forState:UIControlStateNormal];
     }else{

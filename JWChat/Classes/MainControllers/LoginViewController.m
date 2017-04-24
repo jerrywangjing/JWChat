@@ -63,8 +63,25 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+
+    [super viewWillAppear:animated];
+    
+    [[IQKeyboardManager sharedManager] setEnable:YES];
+    [[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+
+    [super viewWillAppear:animated];
+    
+    [[IQKeyboardManager sharedManager] setEnable:NO];
+    [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
 }
 
@@ -77,14 +94,8 @@
         make.size.mas_equalTo(CGSizeMake(80, 80));
     }];
     
-    [_accountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.top.equalTo(_avatarView.mas_bottom).offset(15);
-        make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH, 30));
-    }];
-    
     [_accountContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_accountLabel.mas_bottom).offset(10);
+        make.top.equalTo(_avatarView.mas_bottom).offset(30);
         make.left.right.equalTo(self.view);
         make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH, 50));
     }];
@@ -125,14 +136,6 @@
 //    _avatarView.layer.masksToBounds = YES;
     _avatarView.image = [UIImage imageNamed:@"avatarBoy"];
     [self.view addSubview:_avatarView];
-    
-    _accountLabel = [[UILabel alloc] init];
-    _accountLabel.font = [UIFont boldSystemFontOfSize:16];
-    _accountLabel.textColor = [UIColor blackColor];
-    _accountLabel.textAlignment = NSTextAlignmentCenter;
-    _accountLabel.text = @"+86 15108496988";
-    [self.view addSubview:_accountLabel];
-    
 
     _accountContainerView = [[UIView alloc] init];
     _accountText = [self creatTextInputFieldWith:@"账号" placeholder:@"请填写账号" containerView: _accountContainerView];

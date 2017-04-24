@@ -354,10 +354,6 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
     ConvarsationListTableViewCell * currentCell = [tableView cellForRowAtIndexPath:indexPath];
     [currentCell.avatarImageView.subviews.firstObject removeFromSuperview]; // 移除小红点
     
-    if (self.searchController.active) {
-        self.searchController.active = NO; // 退出搜索功能
-    }
-    
     // 跳转到聊天页面
     ChatRoomViewController * chatRoom = [[ChatRoomViewController alloc] init];
     chatRoom.hidesBottomBarWhenPushed = YES;
@@ -366,6 +362,10 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
     [[DBManager shareManager] updateConversationWithConversationModel:model];
     chatRoom.conversationModel = model;
     chatRoom.user = model.user;
+    
+    if (self.searchController.active) {
+        self.searchController.active = NO; // 退出搜索功能
+    }
     
     [self.navigationController pushViewController:chatRoom animated:YES];
     
@@ -376,11 +376,11 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
 -(void)updateSearchResultsForSearchController:(UISearchController *)searchController{
     
     // 获取搜索结果数据
-    NSMutableArray *  contactsArr = [NSMutableArray array];
-    for (ConversationModel  * model  in self.dataArr) {
-        ContactsModel * contacts = model.contact;
-        [contactsArr addObject:contacts];
-    }
+//    NSMutableArray *  contactsArr = [NSMutableArray array];
+//    for (ConversationModel  * model  in self.dataArr) {
+//        NIMUserInfo * userInfo = model.user.userInfo;
+//        [contactsArr addObject:user];
+//    }
     
     NSArray * resultArr = [ZYPinYinSearch searchWithOriginalArray: self.dataArr andSearchText:searchController.searchBar.text andSearchByPropertyName:@"conversationId"];
     

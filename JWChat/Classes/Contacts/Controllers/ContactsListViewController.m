@@ -103,6 +103,10 @@ BOOL hasApply = NO; // 是否有申请信息
         hasApply = NO;
     }
     [self.tableView reloadData];
+    
+    if (self.searchController.active) {
+        self.searchController.active = NO;
+    }
 }
 
 -(void)setupTableView{
@@ -491,15 +495,13 @@ BOOL hasApply = NO; // 是否有申请信息
 
 // 跳转到会话列表
 -(void)pushToContactsDetailVc:(NIMUser *)user{
-    // 跳转会话列表之前让搜索控制器关闭
-    self.searchController.active = NO;
     // 跳转到联系人详情页
     
     ContactsDetailViewController * detailVc = [[ContactsDetailViewController alloc] initWithUserId:user.userId];
-//    detailVc.contactModel = user;
     detailVc.previousVc = self;
     detailVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:detailVc animated:YES];
+    
 }
 
 #pragma mark - UISearchDelegate

@@ -34,7 +34,7 @@
 #define emojiBoardH 225
 #define addBoardH emojiBoardH
 #define KeyboardTimeInterval 0.25
-#define ToolbarHeight 49
+#define ToolbarHeight 50
 #define  TransformSize (1024 * 100) // 每次发送100k 数据
 
 static NSInteger LastOffset = 0; //记录上次消息加载数
@@ -56,7 +56,7 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
 @property (strong,nonatomic) AddOtherFuncKeyboard * addKeyboard;
 @property (assign,nonatomic) BOOL switchingKeyboard;
 @property (nonatomic,strong) Message * activeMessage; // 当前点击/长按时的消息对象
-@property (nonatomic,strong)NSIndexPath * menuIndexPath; // 选中的menu 在tableView中的位置
+@property (nonatomic,strong) NSIndexPath * menuIndexPath; // 选中的menu 在tableView中的位置
 
 @property (assign,nonatomic) BOOL showEmojiKeyboardBtn; // 切换键盘
 @property (assign,nonatomic) BOOL showAddKeyboardBtn;
@@ -228,7 +228,7 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
     
     self.navigationItem.title  = self.user.userInfo.nickName;
     self.view.backgroundColor = IMBgColor;
-    [self.view bringSubviewToFront:self.toolBar]; // 让toobar 在最前面
+    [self.view bringSubviewToFront:self.toolBar]; // 让toolbar 在最前面
     UIBarButtonItem * chatInfo = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navbar_info_nor"] style:UIBarButtonItemStylePlain target:self action:@selector(chatInfoBtnClick)];
     self.navigationItem.rightBarButtonItem = chatInfo;
     
@@ -605,7 +605,6 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
     Message * msg = msgF.aMessage;
     
     msg.status = MessageStatusDelivering;
-    NSLog(@"state:%ld",message.deliveryState);
     
     [self.tableView reloadData];
     
@@ -614,8 +613,9 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
 // 消息发送进度
 -(void)sendMessage:(NIMMessage *)message progress:(float)progress{
 
-    NSLog(@"已发送：%.f",progress);
-    NSLog(@"state:%ld",message.deliveryState);
+    int value = progress * 100;
+    NSLog(@"已发送：%d%%",value);
+    
 }
 // 消息已发送完成的回调
 -(void)sendMessage:(NIMMessage *)message didCompleteWithError:(NSError *)error{
@@ -627,7 +627,6 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
         
         msg.status = MessageStatusSuccessed;
         [self.tableView reloadData];
-        NSLog(@"state:%ld",message.deliveryState);
         
     }else{
     
@@ -1125,13 +1124,12 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
 -(void)sendFiles{
 
     NSLog(@"发送文件");
-
 }
 
 // send hospital patients info
 -(void)sendHospitalPatientsInfo{
 
-    NSLog(@"本院本人点击");
+    NSLog(@"发送地理位置");
 }
 // send my consult
 -(void)sendMyConsult{
