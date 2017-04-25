@@ -263,6 +263,7 @@
         //处理业务逻辑
         
         //更新UI
+        
         MainTabBarController * tabBarVc = [[MainTabBarController alloc] init];
         [UIApplication sharedApplication].keyWindow.rootViewController = tabBarVc;
         

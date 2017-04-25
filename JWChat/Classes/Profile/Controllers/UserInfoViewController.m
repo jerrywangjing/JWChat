@@ -14,7 +14,7 @@
 #import "NTESFileLocationHelper.h"
 #import "EditInfoViewController.h"
 
-@interface UserInfoViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface UserInfoViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
 @property (nonatomic,strong) UITableView * tableView;
 @property (nonatomic,strong) NSArray * dataSource;
@@ -260,27 +260,45 @@
 
 - (void)changeAvatar{
 
-    TZImagePickerController * photoPicker = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:nil];
-    photoPicker.autoDismiss = NO;
-    __weak typeof(self) weakSelf = self;
-    __weak typeof(photoPicker) weakPicker = photoPicker;
-    
-    [photoPicker setDidFinishPickingPhotosWithInfosHandle:^(NSArray<UIImage *> * photos, NSArray * assets, BOOL isSelectOriginalPhoto, NSArray<NSDictionary *> * infos) {
-        [weakPicker dismissViewControllerAnimated:NO completion:nil];
+    UIAlertController * alertVc = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction * camera = [UIAlertAction actionWithTitle:@"拍摄" style:0 handler:^(UIAlertAction * _Nonnull action) {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            [self openPhotoLibaryWithType:UIImagePickerControllerSourceTypeCamera];
+        }else{
         
-        TZImagePickerController * cropVc = [[TZImagePickerController alloc] initCropTypeWithAsset:assets.firstObject photo:photos.firstObject completion:^(UIImage *cropImage, id asset) {
-            // 上传图片
-            [weakSelf uploadImage:cropImage];
-        }];
-        [weakSelf presentViewController:cropVc animated:NO completion:nil];
+            [MBProgressHUD showLabelWithText:@"相机不可用"];
+        }
     }];
+    UIAlertAction * photo = [UIAlertAction actionWithTitle:@"从手机相册选择" style:0 handler:^(UIAlertAction * _Nonnull action) {
+        [self openPhotoLibaryWithType:UIImagePickerControllerSourceTypePhotoLibrary];
+    }];;
     
-    [photoPicker setImagePickerControllerDidCancelHandle:^{
-        [weakPicker dismissViewControllerAnimated:YES completion:nil];
+    [alertVc addAction:cancel];
+    [alertVc addAction:camera];
+    [alertVc addAction:photo];
+    
+    [self presentViewController:alertVc animated:YES completion:nil];
+    
+}
+
+- (void)openPhotoLibaryWithType:(UIImagePickerControllerSourceType)type{
+
+    UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = type;
+    picker.allowsEditing = YES;
+    picker.delegate = self;
+    
+    [self presentViewController:picker animated:YES completion:nil];
+    
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+
+    UIImage *image = info[UIImagePickerControllerEditedImage];
+    [picker dismissViewControllerAnimated:YES completion:^{
+        [self uploadImage:image];
     }];
-    
-    [self presentViewController:photoPicker animated:YES completion:nil];
-    
 }
 
 - (void)changeTextInfoWithType:(EditInfoType)type{
