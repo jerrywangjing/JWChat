@@ -14,6 +14,7 @@
 #import "UserInfoViewController.h"
 #import "AboutViewController.h"
 #import "FXBlurView.h"
+#import "WJAlertSheetView.h"
 
 static const CGFloat HeaderHeight = 15;
 
@@ -261,7 +262,7 @@ static const CGFloat HeaderHeight = 15;
     
     if (indexPath.section == 2) {
         // 开启免打扰
-        [self testView];
+        [self openNoborder];
     }
     
     if (indexPath.section == 3) {
@@ -343,43 +344,24 @@ static const CGFloat HeaderHeight = 15;
     
 }
 
-- (void)testView{
-
-    // 弹出sheet 视图
-    
-    FXBlurView * alertSheet = [[FXBlurView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 200)];
-    [alertSheet setBlurEnabled:YES];
-    alertSheet.blurRadius = 10;
-    _alertSheet = alertSheet;
-    _alertSheet.dynamic = NO;
-    _alertSheet.tintColor = [UIColor clearColor];
-    //_alertSheet.backgroundColor = [UIColor whiteColor];
-    
-    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissAlertSheet)];
-    [_alertSheet addGestureRecognizer:tap];
-    
-    [UIView transitionWithView:_alertSheet duration:0.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-        //alertSheet.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.3];
-        
-        _alertSheet.transform = CGAffineTransformMakeTranslation(0, -200);
-        
-    } completion:^(BOOL finished) {
-        NSLog(@"动画结束");
-    }];
-    
-    [[UIApplication sharedApplication].keyWindow addSubview:_alertSheet];
-    
-}
-
-- (void)dismissAlertSheet{
-
-    [UIView transitionWithView:_alertSheet duration:0.2 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        //_alertSheet.alpha = 0;
-        _alertSheet.transform = CGAffineTransformIdentity;
-        
-    } completion:^(BOOL finished) {
-        [_alertSheet removeFromSuperview];
+- (void)openNoborder{
+ 
+    [WJAlertSheetView showAlertSheetViewWithFirstItemTitle:@"开启" secondTitle:@"从00:00到12:00" completion:^(SelectedIndex index) {
+        switch (index) {
+            case SelectedIndexFirst:
+                NSLog(@"first");
+                break;
+            case SelectedIndexSecond:
+                NSLog(@"second");
+                break;
+            case SelectedIndexCancel:
+                NSLog(@"取消");
+                break;
+            default:
+                break;
+        }
     }];
 }
+
 
 @end

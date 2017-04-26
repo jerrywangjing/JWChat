@@ -144,6 +144,7 @@
 		C4C764D31E948AB90093F723 /* MessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C764D01E948AB90093F723 /* MessageModel.m */; };
 		C4C768C41E9CB0110093F723 /* ChatToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C768C31E9CB0110093F723 /* ChatToolBar.m */; };
 		C4EAF2EB1EAFA29100C217E8 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF2EA1EAFA29100C217E8 /* FXBlurView.m */; };
+		C4EAF2EE1EB0D35A00C217E8 /* WJAlertSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF2ED1EB0D35A00C217E8 /* WJAlertSheetView.m */; };
 		C4F470FF1E8D43CB001ED39F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F470FE1E8D43CB001ED39F /* main.m */; };
 		C4F471021E8D43CB001ED39F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F471011E8D43CB001ED39F /* AppDelegate.m */; };
 		C4F4710A1E8D43CB001ED39F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4F471091E8D43CB001ED39F /* Assets.xcassets */; };
@@ -448,6 +449,8 @@
 		C4C768C31E9CB0110093F723 /* ChatToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatToolBar.m; sourceTree = "<group>"; };
 		C4EAF2E91EAFA29100C217E8 /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
 		C4EAF2EA1EAFA29100C217E8 /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
+		C4EAF2EC1EB0D35A00C217E8 /* WJAlertSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WJAlertSheetView.h; path = ../Controllers/WJAlertSheetView.h; sourceTree = "<group>"; };
+		C4EAF2ED1EB0D35A00C217E8 /* WJAlertSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WJAlertSheetView.m; path = ../Controllers/WJAlertSheetView.m; sourceTree = "<group>"; };
 		C4F470FA1E8D43CB001ED39F /* JWChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JWChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4F470FE1E8D43CB001ED39F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C4F471001E8D43CB001ED39F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../../AppDelegate.h; sourceTree = "<group>"; };
@@ -1231,6 +1234,8 @@
 		C4F472B91E932FF0001ED39F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C4EAF2EC1EB0D35A00C217E8 /* WJAlertSheetView.h */,
+				C4EAF2ED1EB0D35A00C217E8 /* WJAlertSheetView.m */,
 				C4680F531EA701A600A57104 /* BaseTableViewCell.h */,
 				C4680F541EA701A600A57104 /* BaseTableViewCell.m */,
 				C4680F501EA7015000A57104 /* UserInfoTableViewCell.h */,
@@ -1693,6 +1698,7 @@
 				C4F471451E8D52DA001ED39F /* MainNavController.m in Sources */,
 				C4F4714B1E8D531E001ED39F /* MainTabBarController.m in Sources */,
 				C4C764D11E948AB90093F723 /* ConversationListModel.m in Sources */,
+				C4EAF2EE1EB0D35A00C217E8 /* WJAlertSheetView.m in Sources */,
 				C4F4730A1E93331E001ED39F /* ChatInformationViewController.m in Sources */,
 				C4C764BC1E9489450093F723 /* CustomIOS7AlertView.m in Sources */,
 				C4F472D21E933109001ED39F /* ContactTableViewCell.m in Sources */,
