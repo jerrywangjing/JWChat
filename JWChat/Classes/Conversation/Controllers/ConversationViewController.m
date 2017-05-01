@@ -18,7 +18,6 @@
 #import "EMCDDeviceManager.h"
 #import "ContactsModel.h"
 #import "AddContactsViewController.h"
-
 #define ConversationCellH 60
 
 static NSInteger unreadCount = 0; //未读消息数
@@ -224,6 +223,8 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
 - (void)addBtnClick:(UIButton *)btn{
 
     AddContactsViewController * addVc = [[AddContactsViewController alloc] init];
+//    PatientInfoItemsViewController * itemsVc = [[PatientInfoItemsViewController alloc] init];
+//    itemsVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:addVc animated:YES];
 }
 // 刷新表格
@@ -581,9 +582,9 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
     
     NSTimeInterval timeInterval = [[NSDate date]
                                    timeIntervalSinceDate:self.lastPlaySoundDate];
+    
     if (timeInterval < kDefaultPlaySoundInterval) {
         //如果距离上次响铃和震动时间太短, 则跳过响铃
-        NSLog(@"间隔时间太短跳过响铃");
         return;
     }
     
