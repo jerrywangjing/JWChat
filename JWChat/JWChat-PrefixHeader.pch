@@ -133,4 +133,12 @@
 // 通知
 
 static NSString * const NTESNotificationLogout = @"NTESNotificationLogout";
+
+// 常量
+
+static NSString * const kAccount = @"account";
+static NSString * const kPassword = @"password";
+static NSString * const kToken = @"token";
+static NSString * const kAvatarUrl = @"avatarUrl";
+
 #endif /* JWChat_PrefixHeader_pch */

@@ -80,7 +80,7 @@
     [imageLayer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *roundedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    
+
     return roundedImage;
 }
 

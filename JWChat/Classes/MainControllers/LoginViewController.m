@@ -9,7 +9,7 @@
 #import "LoginViewController.h"
 #import "MainTabBarController.h"
 #import "LoginManager.h"
-
+#import "ContactsManager.h"
 
 @interface LoginViewController ()<UITextFieldDelegate>
 
@@ -61,6 +61,11 @@
         
         return;
     }
+    
+    // init data
+    
+    [self initData];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -134,9 +139,13 @@
     _avatarView.backgroundColor = [UIColor grayColor];
 //    _avatarView.layer.cornerRadius = 5;
 //    _avatarView.layer.masksToBounds = YES;
-    _avatarView.image = [UIImage imageNamed:@"avatarBoy"];
-    [self.view addSubview:_avatarView];
+    // 添加阴影
+    _avatarView.layer.shadowColor = [UIColor grayColor].CGColor;
+    _avatarView.layer.shadowOffset = CGSizeMake(3, 3);
+    _avatarView.layer.shadowOpacity = 0.8;
 
+    [self.view addSubview:_avatarView];
+    
     _accountContainerView = [[UIView alloc] init];
     _accountText = [self creatTextInputFieldWith:@"账号" placeholder:@"请填写账号" containerView: _accountContainerView];
     _accountText.delegate = self;
@@ -197,6 +206,21 @@
     return textField;
     
 }
+
+#pragma mark - init data
+
+- (void)initData{
+
+    // 用户头像
+    
+    NSString * url = [WJUserDefault objectForKey:kAvatarUrl];
+    
+    [_avatarView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"avatar"]];
+    
+    _accountText.text = [WJUserDefault objectForKey: kAccount];
+    
+}
+
 #pragma mark - testField delegate
 
 - (void)textFieldDidChanged:(UITextField *)textField{

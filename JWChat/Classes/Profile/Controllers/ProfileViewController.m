@@ -78,6 +78,7 @@ static const CGFloat HeaderHeight = 15;
     NSString * userId = [[NIMSDK sharedSDK].loginManager currentAccount];
     NIMUser * user = [[NIMSDK sharedSDK].userManager userInfo:userId];
     _user = user;
+
     
     _dataSource = @[
                     @{

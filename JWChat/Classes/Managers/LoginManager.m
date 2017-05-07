@@ -10,10 +10,6 @@
 #import <SAMKeychain.h>
 
 
-static NSString * const kAccount = @"account";
-static NSString * const kPassword = @"password";
-static NSString * const kToken = @"token";
-
 @implementation LoginManager
 
 +(instancetype)shareManager{
@@ -49,7 +45,12 @@ static NSString * const kToken = @"token";
    
                         //保存登录数据
                         
+                        NSString * userId = [[NIMSDK sharedSDK].loginManager currentAccount];
+                        NIMUser * user = [[NIMSDK sharedSDK].userManager userInfo:userId];
+                        NSString * avatarUrl = [ContactsManager getAvatarUrl:user];
+                        
                         [WJUserDefault setObject:account forKey:kAccount];
+                        [WJUserDefault setObject:avatarUrl forKey:kAvatarUrl];
                         
                         [SAMKeychain setPassword:password forService:kPassword account:account];
                         [SAMKeychain setPassword:token forService:kToken account:account];
@@ -115,7 +116,7 @@ static NSString * const kToken = @"token";
     
     [SAMKeychain deletePasswordForService:kPassword account:account];
     [SAMKeychain deletePasswordForService:kToken account:account];
-    [WJUserDefault setObject:nil forKey:kAccount];
+    //[WJUserDefault setObject:nil forKey:kAccount];
     
     NSLog(@"已清除登录数据");
 }

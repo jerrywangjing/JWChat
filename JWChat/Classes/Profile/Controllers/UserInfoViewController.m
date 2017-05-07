@@ -13,6 +13,7 @@
 #import <TZImagePickerController.h>
 #import "NTESFileLocationHelper.h"
 #import "EditInfoViewController.h"
+#import "WJAlertSheetView.h"
 
 @interface UserInfoViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
