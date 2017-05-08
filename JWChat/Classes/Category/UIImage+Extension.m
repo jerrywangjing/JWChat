@@ -65,24 +65,31 @@
     return scaledImage;
 }
 
-// 图片切圆角
-+(UIImage *)makeRoundedImage:(UIImage *) image
-                      radius: (float) radius;
-{
-    CALayer *imageLayer = [CALayer layer];
-    imageLayer.frame = CGRectMake(0, 0, image.size.width, image.size.height);
-    imageLayer.contents = (id) image.CGImage;
-    
-    imageLayer.masksToBounds = YES;
-    imageLayer.cornerRadius = radius;
-    
-    UIGraphicsBeginImageContext(image.size);
-    [imageLayer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *roundedImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
 
-    return roundedImage;
+// 圆角图片（贝塞尔方式）
+
+- (UIImage * )makeRoundedCornerWithRadius:(float)radius{
+    
+    CGFloat w = self.size.width;
+    CGFloat h = self.size.height;
+    CGFloat scale = [UIScreen mainScreen].scale;
+    // 防止圆角半径小于0，或者大于宽/高中较小值的一半。
+    if (radius < 0)
+        radius = 0;
+    else if (radius > MIN(w/2, h/2))
+        radius = MIN(w, h) / 2.;
+    
+    UIImage *image = nil;
+    CGRect imageFrame = CGRectMake(0., 0., w, h);
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, scale);
+    [[UIBezierPath bezierPathWithRoundedRect:imageFrame cornerRadius:radius] addClip];
+    [self drawInRect:imageFrame];
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
+
 
 + (UIImage* )getAvatarImageWithString:(NSString *)str{
     
