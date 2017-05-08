@@ -28,6 +28,7 @@
 #import <TZImagePickerController.h>
 #import "ChatToolBar.h"
 #import "InputView.h"
+#import "ArtboardViewController.h"
 
 #define CachesDirectory NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject
 #define FILE_PATH [CachesDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",self.conversationId]]
@@ -1017,21 +1018,15 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
              // 视频聊天
             [self openVideo];
             break;
-        case AddKeyboardBtnTypePhoneCall:
-            [self phoneCall];
-            break;
         case AddKeyboardBtnTypeSendFile:
             [self sendFiles];
             break;
-        case AddKeyboardBtnTypePatients:
-            [self sendHospitalPatientsInfo];
+        case AddKeyboardBtnTypeLocation:
+            [self sendLocation];
             break;
-        case AddKeyboardBtnTypeMyConsult:
-            [self sendMyConsult];
-            break;
-        case AddKeyboardBtnTypeHisConsult:
-            [self sendHistoryConsult];
-            break;
+        case AddKeyboardBtnTypeWhiteBoard:
+            [self whiteBoard];
+            break;;
         default:
             break;
     }
@@ -1087,61 +1082,24 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
     
 }
 
-// phone call
-
--(void)phoneCall{
-
-    // TODO:通过http 请求获取对应联系人的号码信息
-    
-    UIAlertController * alertVc = [UIAlertController alertControllerWithTitle:nil message:@"拨打电话或发送短信" preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction * phoneCall = [UIAlertAction actionWithTitle:@"拨打电话：13988888888" style:0 handler:^(UIAlertAction * _Nonnull action) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",@"13988888888"]]];
-    }];
-    UIAlertAction * sendSMS = [UIAlertAction actionWithTitle:@"发送短信：13988888888" style:0 handler:^(UIAlertAction * _Nonnull action) {
-        
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"sms://%@",@"13988888888"]]];
-    }];
-    UIAlertAction * shortPhoneCall = [UIAlertAction actionWithTitle:@"拨短号：666666" style:0 handler:^(UIAlertAction * _Nonnull action) {
-        
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",@"666666"]]];
-    }];
-    UIAlertAction * telCall = [UIAlertAction actionWithTitle:@"打座机：02866666666" style:0 handler:^(UIAlertAction * _Nonnull action) {
-        
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",@"02866666666"]]];
-    }];
-    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    
-    [alertVc addAction:phoneCall];
-    [alertVc addAction:sendSMS];
-    [alertVc addAction:shortPhoneCall];
-    [alertVc addAction:telCall];
-    [alertVc addAction:cancel];
-    
-    [self presentViewController:alertVc animated:YES completion:nil];
-}
-
 // send files
 -(void)sendFiles{
-
     NSLog(@"发送文件");
 }
 
-// send hospital patients info
--(void)sendHospitalPatientsInfo{
+- (void)sendLocation{
 
     NSLog(@"发送地理位置");
 }
-// send my consult
--(void)sendMyConsult{
 
-    NSLog(@"我的咨询者");
+- (void)whiteBoard{
+    
+    ArtboardViewController * artboardVc = [[ArtboardViewController alloc] init];
+    
+    [self presentViewController:artboardVc animated:YES completion:nil];
+    
 }
 
-// send history consult
--(void) sendHistoryConsult{
-
-    NSLog(@"历史咨询");
-}
 
 #pragma  mark - imagePickerVcDelegate
 
@@ -1425,7 +1383,7 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
     ImageMessageBody * imgBody  = (ImageMessageBody *)messageBody;
     
     if (imageDownloadSuccess) {
-        // TODO: 设置已读状态
+
         if (imgBody.origImage) {
             [[MessageReadManager shareManager] showBrowserWithImages:@[imgBody.origImage]];
             
@@ -1434,8 +1392,7 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
             NSLog(@"读取%@图片失败-error:%@",imgBody.imageName,imgBody.imageLocalPath);
         }
     }else{
-    
-        // TODO:如果图片没下在成功，在这里调用聊天管理器单例的下载消息附件方法，下载后再次显示
+        //如果图片没下在成功，在这里调用聊天管理器单例的下载消息附件方法，下载后再次显示
     }
 }
 

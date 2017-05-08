@@ -143,41 +143,8 @@
 
 -(void)btnClick:(UIButton *)btn{
 
-    switch (btn.tag) {
-        case AddKeyboardBtnTypeSendPhoto:
-            [self actionWithBtnType:AddKeyboardBtnTypeSendPhoto];
-            break;
-        case AddKeyboardBtnTypeTakePhoto:
-            [self actionWithBtnType:AddKeyboardBtnTypeTakePhoto];
-            break;
-        case AddKeyboardBtnTypeVideo:
-            [self actionWithBtnType:AddKeyboardBtnTypeVideo];
-            break;
-        case AddKeyboardBtnTypePhoneCall:
-            [self actionWithBtnType:AddKeyboardBtnTypePhoneCall];
-            break;
-        case AddKeyboardBtnTypeSendFile:
-            [self actionWithBtnType:AddKeyboardBtnTypeSendFile];
-            break;
-        case AddKeyboardBtnTypePatients:
-            [self actionWithBtnType:AddKeyboardBtnTypePatients];
-            break;
-        case AddKeyboardBtnTypeMyConsult:
-            [self actionWithBtnType:AddKeyboardBtnTypeMyConsult];
-            break;
-        case AddKeyboardBtnTypeHisConsult:
-            [self actionWithBtnType:AddKeyboardBtnTypeHisConsult];
-            break;
-        default:
-            break;
-    }
-}
-// 发送照片
-
--(void)actionWithBtnType:(AddKeyboardBtnType)btnType{
-
     if ([self.delegate respondsToSelector:@selector(funcKeyboard:didBeginSendPhotosWithType:)]) {
-        [self.delegate funcKeyboard:self didBeginSendPhotosWithType:btnType];
+        [self.delegate funcKeyboard:self didBeginSendPhotosWithType:btn.tag];
     }
 }
 
@@ -188,13 +155,5 @@
     NSInteger correntCount = (scrollView.contentOffset.x + self.width/2)/self.width;
     self.pageControl.currentPage = correntCount;
 }
-
-/*
-    文件消息发送思路：
-        1.点击文件按钮，进去文件选择控制器，使用原工作文件接口获取到本院工作文件数据，当点击后发送后，包装文件消息模型，UI展示存储数据库，当点击此文件消息时跳转到pdf 阅读器中显示。
-        2.接收到文件消息时，UI展示存储数据库，当点击文件消息时下载此文件完成后pdf显示。
- 
- */
-
 
 @end

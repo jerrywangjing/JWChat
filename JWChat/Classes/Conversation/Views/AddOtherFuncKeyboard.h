@@ -8,18 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum {
-
-    AddKeyboardBtnTypeSendPhoto, //发送照片
-    AddKeyboardBtnTypeTakePhoto, // 拍摄照片
-    AddKeyboardBtnTypeVideo,    // 视频聊天
-    AddKeyboardBtnTypePhoneCall, // 拨打电话
-    AddKeyboardBtnTypeSendFile, // 发送文件
-    AddKeyboardBtnTypePatients, // 本院病人
-    AddKeyboardBtnTypeMyConsult, // 我的咨询
-    AddKeyboardBtnTypeHisConsult, // 历史咨询
+typedef NS_ENUM(NSUInteger, AddKeyboardBtnType) {
     
-}AddKeyboardBtnType;
+    AddKeyboardBtnTypeSendPhoto,
+    AddKeyboardBtnTypeTakePhoto,
+    AddKeyboardBtnTypeVideo,
+    AddKeyboardBtnTypeSendFile,
+    AddKeyboardBtnTypeLocation,
+    AddKeyboardBtnTypeWhiteBoard,
+};
+
 
 @protocol AddOtherFuncKeyboardDelegate <NSObject>
 /// 按钮点击事件代理

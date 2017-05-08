@@ -22,19 +22,19 @@
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>拨打电话</string>
-		<key>image</key>
-		<string>calling_nor</string>
-	</dict>
-	<dict>
-		<key>title</key>
 		<string>文件传输</string>
 		<key>image</key>
 		<string>file_icon_nor</string>
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>位置</string>
+		<string>我的位置</string>
+		<key>image</key>
+		<string>patient_icon_nor</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>白板涂鸦</string>
 		<key>image</key>
 		<string>patient_icon_nor</string>
 	</dict>

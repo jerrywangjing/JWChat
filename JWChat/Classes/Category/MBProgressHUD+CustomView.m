@@ -37,6 +37,9 @@
     hud.label.text = title;
     hud.mode = MBProgressHUDModeIndeterminate; // 默认指示器样式
     hud.animationType = MBProgressHUDAnimationFade; // 动画样式
+    hud.label.textColor = [UIColor whiteColor];
+    hud.bezelView.backgroundColor = [UIColor blackColor];
+    hud.bezelView.alpha = 0.6;
     
     //hud.userInteractionEnabled = NO; // 开启后可点击hud外的其他控件
     
@@ -71,6 +74,9 @@
     hud.bezelView.backgroundColor = [UIColor blackColor];
     hud.bezelView.alpha = 0.7;
     hud.animationType = MBProgressHUDAnimationFade;
+    hud.label.textColor = [UIColor whiteColor];
+    hud.bezelView.backgroundColor = [UIColor blackColor];
+    hud.bezelView.alpha = 0.6;
     [hud hideAnimated:YES afterDelay:1.0f];
 }
 
@@ -122,7 +128,7 @@
     hud.label.text = title;
     hud.label.textColor = [UIColor whiteColor];
     hud.bezelView.backgroundColor = [UIColor blackColor];
-    hud.bezelView.alpha = 0.8;
+    hud.bezelView.alpha = 0.6;
     
     [hud hideAnimated:YES afterDelay:1.0f];
 }
