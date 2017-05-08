@@ -21,4 +21,11 @@
 
 + (UIView *)cellTopBorderView;
 + (UIView *)cellBottomBorderView:(CGFloat)cellHeight;
+
+/// UIView 圆角矩形
+- (void)makeRoundedRectWithRadius:(float)radius;
+
+/// UIView 局部圆角
+- (void)makeRoundedRectWithRadius:(float)radius RoundingCorners:(UIRectCorner)roundingCorners;
+
 @end

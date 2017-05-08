@@ -347,20 +347,8 @@ static const CGFloat HeaderHeight = 15;
 
 - (void)openNoborder{
  
-    [WJAlertSheetView showAlertSheetViewWithFirstItemTitle:@"开启" secondTitle:@"从00:00到12:00" completion:^(SelectedIndex index) {
-        switch (index) {
-            case SelectedIndexFirst:
-                NSLog(@"first");
-                break;
-            case SelectedIndexSecond:
-                NSLog(@"second");
-                break;
-            case SelectedIndexCancel:
-                NSLog(@"取消");
-                break;
-            default:
-                break;
-        }
+    [WJAlertSheetView showAlertSheetViewItems:@[@"开启",@"从00:00到12:00"] completion:^(NSInteger index) {
+        NSLog(@"selected index :%ld",index);
     }];
 }
 

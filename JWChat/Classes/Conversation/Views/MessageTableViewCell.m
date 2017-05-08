@@ -123,7 +123,6 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
         // 去掉cell的背景颜色
         self.backgroundColor = [UIColor clearColor];
         [self setupSubviews];
-        
 
     }
     return self;

@@ -17,9 +17,8 @@
 + (UIImage *)imageCompressForSourceImage:(UIImage *)sourceImage targetWidth:(CGFloat)targetWidth;
 /// 等比缩放图片
 + (UIImage *)scaleImage:(UIImage *)image toScale:(float)scaleSize;
-/// 给图片切圆角
-+(UIImage *)makeRoundedImage:(UIImage *) image
-                      radius: (float) radius;
+/// UIImage圆角裁剪
+- (UIImage * )makeRoundedCornerWithRadius:(float)radius;
 /// 获取头像
 + (UIImage* )getAvatarImageWithString:(NSString *)str;
 @end

@@ -8,14 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger, SelectedIndex) {
-    SelectedIndexFirst,
-    SelectedIndexSecond,
-    SelectedIndexCancel,
-};
-
 @interface WJAlertSheetView : UIView
 
-+ (void)showAlertSheetViewWithFirstItemTitle:(NSString *)firstTitle secondTitle:(NSString *)secondTitle completion:(void (^)(SelectedIndex index))completion;
+/**
+ @param items 将要显示的item 标题
+ @param completion 点击后对应item的回调
+ */
++ (void)showAlertSheetViewItems:(NSArray<NSString *> *)items completion:(void (^)(NSInteger index))completion;
 
 @end

@@ -9,144 +9,121 @@
 #import "WJAlertSheetView.h"
 #import "FXBlurView.h"
 
-static const NSInteger itemCount = 3;
-static const CGFloat buttonHeight = 50;
-static const CGFloat gapHeight = 7;
-static const CGFloat gapLineHeight = 0.5;
+static const CGFloat ButtonHeight = 50;
+static const CGFloat GapHeight = 7;
+static const CGFloat GapLineHeight = 0.5;
 
-static const CGFloat blurViewHeight = buttonHeight * itemCount + gapHeight + gapLineHeight;
+typedef void(^SelectedBlock)(NSInteger index);
 
-typedef void(^SelectedBlock)(SelectedIndex index);
 @interface WJAlertSheetView()
 
-@property (nonatomic,weak) UIView * blurView;
-@property (nonatomic,weak) UIButton * firstBtn;
-@property (nonatomic,weak) UIButton * secondBtn;
-
-@property (nonatomic,copy) NSString * firstTitle;
-@property (nonatomic,copy) NSString * secondTitle;
+@property (nonatomic,weak) UIVisualEffectView * blurView;
 @property (nonatomic,copy) SelectedBlock callback;
+@property (nonatomic,assign) CGFloat blurViewHeight;
+@property (nonatomic,strong) NSArray * items;
+
 @end
 
 @implementation WJAlertSheetView
 
-- (instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame items:(NSArray<NSString *> *)items{
 
     if (self = [super initWithFrame:frame]) {
         // init code
+        _items = items;
+        _blurViewHeight = ButtonHeight + GapHeight + items.count * ButtonHeight + (items.count -1) * GapLineHeight;
+        
         [self setupSubviews];
     }
     return self;
 }
 
-
 - (void)setupSubviews{
 
     self.backgroundColor = [UIColor clearColor];
     
-    // btn blur view
+    // blurView
     
-    UIView  * blurView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, blurViewHeight)];
+    UIBlurEffect * blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
+    UIVisualEffectView * blurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    blurView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, _blurViewHeight);
+    
     _blurView = blurView;
-    _blurView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.5];
-//    [_blurView setBlurEnabled:YES];
-//    _blurView.dynamic = NO;
-//    _blurView.tintColor = [UIColor clearColor];
-//    _blurView.blurRadius = 20; // 模糊半径
     
     [self addSubview:_blurView];
+
+    // items
+    
+    for (int i = 0 ; i<_items.count; i++) {
+        
+        CGFloat itemY = i * (ButtonHeight + GapLineHeight);
+        UIButton * item = [UIButton buttonWithType:UIButtonTypeCustom];
+        item.frame = CGRectMake(0, itemY, SCREEN_WIDTH, ButtonHeight);
+        
+        [item setTitle:_items[i] forState:UIControlStateNormal];
+        [item setBackgroundImage:[UIImage createImageWithColor:[UIColor colorWithWhite:1.0 alpha:1.0]] forState:UIControlStateNormal];
+        [item setBackgroundImage:[UIImage createImageWithColor:[UIColor colorWithWhite:1.0 alpha:0.5]] forState:UIControlStateHighlighted];
+        [item setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [item addTarget:self action:@selector(itemDidClick:) forControlEvents:UIControlEventTouchUpInside];
+        item.tag = i;
+        
+        [_blurView.contentView addSubview:item];
+    }
     
     // cancel btn
     
     UIButton * cancel = [UIButton buttonWithType:UIButtonTypeCustom];
-
-    cancel.frame = CGRectMake(0, _blurView.height - (buttonHeight), SCREEN_WIDTH, buttonHeight);
-    [cancel setBackgroundImage:[UIImage createImageWithColor:[UIColor colorWithWhite:1.0 alpha:0.9]] forState:UIControlStateNormal];
-    [cancel setBackgroundImage:[UIImage createImageWithColor:[UIColor colorWithWhite:1.0 alpha:0.7]] forState:UIControlStateHighlighted];
+    
+    cancel.frame = CGRectMake(0, _blurViewHeight - (ButtonHeight), SCREEN_WIDTH, ButtonHeight);
+    [cancel setBackgroundImage:[UIImage createImageWithColor:[UIColor colorWithWhite:1.0 alpha:1.0]] forState:UIControlStateNormal];
+    [cancel setBackgroundImage:[UIImage createImageWithColor:[UIColor colorWithWhite:1.0 alpha:0.5]] forState:UIControlStateHighlighted];
     [cancel setTitle:@"取消" forState:UIControlStateNormal];
     [cancel setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
     [cancel addTarget:self action:@selector(cancelBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    //item 0
-    
-    UIButton * firstBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    firstBtn.frame = CGRectMake(0, 0, SCREEN_WIDTH, buttonHeight);
-
-    [firstBtn setBackgroundImage:[UIImage createImageWithColor:[UIColor colorWithWhite:1.0 alpha:0.9]] forState:UIControlStateNormal];
-    [firstBtn setBackgroundImage:[UIImage createImageWithColor:[UIColor colorWithWhite:1.0 alpha:0.5]] forState:UIControlStateHighlighted];
-    [firstBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
-    [firstBtn addTarget:self action:@selector(firstBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    _firstBtn = firstBtn;
-    
-    // item 1
-    
-    UIButton * secondBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    secondBtn.frame = CGRectMake(0, buttonHeight+0.5, SCREEN_WIDTH, buttonHeight);
-
-    [secondBtn setBackgroundImage:[UIImage createImageWithColor:[UIColor colorWithWhite:1.0 alpha:0.9]] forState:UIControlStateNormal];
-    [secondBtn setBackgroundImage:[UIImage createImageWithColor:[UIColor colorWithWhite:1.0 alpha:0.5]] forState:UIControlStateHighlighted];
-    [secondBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [secondBtn addTarget:self action:@selector(secondBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    _secondBtn = secondBtn;
-    
-    [_blurView addSubview:cancel];
-    [_blurView addSubview:_firstBtn];
-    [_blurView addSubview:_secondBtn];
+    [_blurView.contentView addSubview:cancel];
     
 }
 
-- (void)setFirstTitle:(NSString *)firstTitle{
 
-    _firstTitle = firstTitle;
-    [_firstBtn setTitle:firstTitle forState:UIControlStateNormal];
-}
-
-- (void)setSecondTitle:(NSString *)secondTitle{
-
-    _secondTitle = secondTitle;
-    [_secondBtn setTitle:secondTitle forState:UIControlStateNormal];
-    
-}
+#pragma actions
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self hideView];
 }
 
-#pragma actions
-
 - (void)cancelBtnClick:(UIButton *)btn{
-
-    _callback(SelectedIndexCancel);
     [self hideView];
 }
 
-- (void)firstBtnClick:(UIButton *)btn{
-    _callback(SelectedIndexFirst);
-    [self hideView];
-}
+- (void)itemDidClick:(UIButton *)btn{
 
-- (void)secondBtnClick:(UIButton *)btn{
-    _callback(SelectedIndexSecond);
+    _callback(btn.tag);
     [self hideView];
 }
 
 #pragma mark - public
 
-+ (void)showAlertSheetViewWithFirstItemTitle:(NSString *)firstTitle secondTitle:(NSString *)secondTitle completion:(void (^)(SelectedIndex index))completion{
++ (void)showAlertSheetViewItems:(NSArray<NSString *> *)items completion:(void (^)(NSInteger index))completion{
 
-    WJAlertSheetView * sheetView = [[WJAlertSheetView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    sheetView.firstTitle = firstTitle;
-    sheetView.secondTitle = secondTitle;
-    sheetView.callback = ^(SelectedIndex index) {
+    if (!items) {
+        if (items.count <= 0) {
+            NSLog(@"item's count could not zero");
+            return;
+        }
+        return;
+    }
+    
+    WJAlertSheetView * sheetView = [[WJAlertSheetView alloc] initWithFrame:[UIScreen mainScreen].bounds items:items];
+
+    sheetView.callback = ^(NSInteger index) {
         completion(index);
     };
     
     [sheetView showView];
 }
+
 
 #pragma mark - private
 
@@ -154,8 +131,8 @@ typedef void(^SelectedBlock)(SelectedIndex index);
 
     [UIView transitionWithView:_blurView duration:0.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
         
-        self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
-        _blurView.transform = CGAffineTransformMakeTranslation(0, -blurViewHeight);
+        self.backgroundColor = WJRGBAColor(0, 0, 0, 0.4);// apple 标准背景色
+        _blurView.transform = CGAffineTransformMakeTranslation(0, -_blurViewHeight);
         
     } completion:nil];
     

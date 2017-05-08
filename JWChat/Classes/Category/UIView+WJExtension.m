@@ -120,4 +120,33 @@
     view.backgroundColor = [UIColor lightGrayColor];
     return view;
 }
+
+/// UIImageView 圆角矩形
+
+- (void)makeRoundedRectWithRadius:(float)radius{
+    
+    [self makeRoundedRectWithRadius:radius RoundingCorners:UIRectCornerAllCorners];
+}
+
+- (void)makeRoundedRectWithRadius:(float)radius RoundingCorners:(UIRectCorner)roundingCorners{
+    
+    CGFloat w = self.size.width;
+    CGFloat h = self.size.height;
+    
+    // 防止圆角半径小于0，或者大于宽/高中较小值的一半。
+    if (radius < 0)
+        radius = 0;
+    else if (radius > MIN(w/2, h/2))
+        radius = MIN(w, h) / 2.;
+    
+    UIBezierPath * maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:roundingCorners cornerRadii:CGSizeMake(radius, radius)];
+    
+    CAShapeLayer * maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = self.bounds;
+    maskLayer.path = maskPath.CGPath;
+    
+    self.layer.mask = maskLayer;
+    
+}
+
 @end

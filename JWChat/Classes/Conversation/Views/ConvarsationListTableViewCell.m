@@ -25,6 +25,7 @@
     if (!cell) {
         cell = [[NSBundle mainBundle] loadNibNamed:@"ConvarsationListTableViewCell" owner:nil options:nil].lastObject;
         cell.backgroundColor = [UIColor clearColor];
+        
     }
     
     return cell;
@@ -34,11 +35,10 @@
 
     _conversationData = model;
     
+    [_avatarImageView makeRoundedRectWithRadius:5];
+    
     [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:model.user.userInfo.avatarUrl] placeholderImage:[UIImage imageNamed:@"avatar"]];
     
-//    UIImage * avatarImage = _avatarImageView.image;
-//    
-//    _avatarImageView.image = [UIImage makeRoundedImage: avatarImage radius:10];
     
     _userName.text = [ContactsManager getUserName:model.user];
     
