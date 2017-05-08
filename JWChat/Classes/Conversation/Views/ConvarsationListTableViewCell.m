@@ -35,12 +35,8 @@
 
     _conversationData = model;
     
-    [_avatarImageView makeRoundedRectWithRadius:5];
-    
     [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:model.user.userInfo.avatarUrl] placeholderImage:[UIImage imageNamed:@"avatar"]];
-    
-    
-    _userName.text = [ContactsManager getUserName:model.user];
+    [_avatarImageView.image makeRoundedCornerWithScale:0.2];
     
     // 获取最近的一条消息
     Message * latestMsg = model.conversation.latestMessage;

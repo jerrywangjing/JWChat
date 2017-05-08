@@ -7,7 +7,6 @@
 //
 
 #import "WJAlertSheetView.h"
-#import "FXBlurView.h"
 
 static const CGFloat ButtonHeight = 50;
 static const CGFloat GapHeight = 7;

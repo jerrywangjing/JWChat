@@ -21,4 +21,11 @@
 - (UIImage * )makeRoundedCornerWithRadius:(float)radius;
 /// 获取头像
 + (UIImage* )getAvatarImageWithString:(NSString *)str;
+
+/**
+ @param scale 切角比例，取值0-1
+ @return 圆角图片
+ */
+- (UIImage * )makeRoundedCornerWithScale:(CGFloat)scale;
+
 @end

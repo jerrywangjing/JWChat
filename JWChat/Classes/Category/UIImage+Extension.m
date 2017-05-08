@@ -90,6 +90,28 @@
     return image;
 }
 
+// 更加百分比来设置圆角,scale取值范围：0-1
+- (UIImage * )makeRoundedCornerWithScale:(CGFloat)scale{
+    
+    CGFloat w = self.size.width;
+    CGFloat h = self.size.height;
+    CGFloat screenScale = [UIScreen mainScreen].scale;
+    
+    if (scale < 0 ) {
+        scale = 0;
+    }
+    CGFloat radius = w/2 * scale;
+    
+    UIImage *image = nil;
+    CGRect imageFrame = CGRectMake(0., 0., w, h);
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, screenScale);
+    [[UIBezierPath bezierPathWithRoundedRect:imageFrame cornerRadius:radius] addClip];
+    [self drawInRect:imageFrame];
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
 
 + (UIImage* )getAvatarImageWithString:(NSString *)str{
     

@@ -260,26 +260,52 @@
 }
 
 - (void)changeAvatar{
+    
+    [WJAlertSheetView showAlertSheetViewItems:@[@"拍摄",@"从手机相册选择"] completion:^(NSInteger index) {
+        switch (index) {
+            case 0:
+            {
+            
+                if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                    [self openPhotoLibaryWithType:UIImagePickerControllerSourceTypeCamera];
+                }else{
+                    
+                    [MBProgressHUD showLabelWithText:@"相机不可用"];
+                }
 
-    UIAlertController * alertVc = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction * camera = [UIAlertAction actionWithTitle:@"拍摄" style:0 handler:^(UIAlertAction * _Nonnull action) {
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            [self openPhotoLibaryWithType:UIImagePickerControllerSourceTypeCamera];
-        }else{
-        
-            [MBProgressHUD showLabelWithText:@"相机不可用"];
+            }
+                break;
+            case 1:
+            {
+                [self openPhotoLibaryWithType:UIImagePickerControllerSourceTypePhotoLibrary];
+                
+            }
+                
+                break;
+            default:
+                break;
         }
     }];
-    UIAlertAction * photo = [UIAlertAction actionWithTitle:@"从手机相册选择" style:0 handler:^(UIAlertAction * _Nonnull action) {
-        [self openPhotoLibaryWithType:UIImagePickerControllerSourceTypePhotoLibrary];
-    }];;
     
-    [alertVc addAction:cancel];
-    [alertVc addAction:camera];
-    [alertVc addAction:photo];
-    
-    [self presentViewController:alertVc animated:YES completion:nil];
+//    UIAlertController * alertVc = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+//    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+//    UIAlertAction * camera = [UIAlertAction actionWithTitle:@"拍摄" style:0 handler:^(UIAlertAction * _Nonnull action) {
+//        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+//            [self openPhotoLibaryWithType:UIImagePickerControllerSourceTypeCamera];
+//        }else{
+//        
+//            [MBProgressHUD showLabelWithText:@"相机不可用"];
+//        }
+//    }];
+//    UIAlertAction * photo = [UIAlertAction actionWithTitle:@"从手机相册选择" style:0 handler:^(UIAlertAction * _Nonnull action) {
+//        [self openPhotoLibaryWithType:UIImagePickerControllerSourceTypePhotoLibrary];
+//    }];;
+//    
+//    [alertVc addAction:cancel];
+//    [alertVc addAction:camera];
+//    [alertVc addAction:photo];
+//    
+//    [self presentViewController:alertVc animated:YES completion:nil];
     
 }
 
