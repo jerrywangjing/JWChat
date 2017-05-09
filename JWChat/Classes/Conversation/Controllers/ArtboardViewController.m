@@ -10,6 +10,8 @@
 #import "ArtBoardBezierView.h"
 #import "WJAlertSheetView.h"
 
+#define BottomBarH 80
+
 @interface ArtboardViewController ()<ArtBoardBezierViewDelegate>
 
 @property (nonatomic,strong) ArtBoardBezierView * artboardView;
@@ -17,6 +19,9 @@
 
 @property (nonatomic,weak) UIButton * backBtn;
 @property (nonatomic,weak) UIButton * forwordBtn;
+
+@property (nonatomic,weak) UIButton * lastSelectedBtn; // 记录上次选中的颜色btn
+@property (nonatomic,weak) UIButton * lastSelectedPencil; // 记录上次选中的铅笔
 @end
 
 @implementation ArtboardViewController
@@ -34,7 +39,7 @@
     [super loadView];
     
     // artboard
-    _artboardView = [[ArtBoardBezierView alloc] initWithFrame:CGRectMake(0, NavBarH, SCREEN_WIDTH, SCREEN_HEIGHT-NavBarH)];
+    _artboardView = [[ArtBoardBezierView alloc] initWithFrame:CGRectMake(0, NavBarH, SCREEN_WIDTH, SCREEN_HEIGHT-(NavBarH+BottomBarH))];
     _artboardView.backgroundColor = [UIColor whiteColor];
     _artboardView.delegate = self;
     [self.view addSubview:_artboardView];
@@ -105,12 +110,85 @@
         make.bottom.equalTo(doneBtn);
     }];
     [deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(saveBtn.mas_left).offset(-20);
+        make.right.equalTo(saveBtn.mas_left).offset(-10);
         make.bottom.equalTo(_toolbar).offset(-10);
     }];
     
+    
+    // bottom toolbar
+    
+    UIView * bottomToolbar = [[UIView alloc] init];
+    bottomToolbar.backgroundColor = [UIColor whiteColor];
+    UIView * bottomToolbarLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.5)];
+    bottomToolbarLine.backgroundColor = [UIColor lightGrayColor];
+    
+    [bottomToolbar addSubview:bottomToolbarLine];
+    
+    // color btns
+    
+    NSArray * colorsOfNor = @[@"black_nor",@"blue_nor",@"green_nor",@"yellow_nor",@"orange_nor",@"purple_nor"];
+    colorsOfNor = [[colorsOfNor reverseObjectEnumerator] allObjects]; // 倒序排序
+    
+    NSArray * colorsOfHlt = @[@"black_hlt",@"blue_hlt",@"green_hlt",@"yellow_hlt",@"orange_hlt",@"purple_hlt"];
+    colorsOfHlt = [[colorsOfHlt reverseObjectEnumerator] allObjects];
+    
+    for (NSInteger i = 0; i<colorsOfHlt.count; i++) {
+        
+        UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.tag = i;
+        [btn setImage:[UIImage imageNamed:colorsOfNor[i]] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:colorsOfHlt[i]] forState:UIControlStateSelected];
+        btn.adjustsImageWhenHighlighted = NO;
+        [btn addTarget:self action:@selector(colorBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [bottomToolbar addSubview:btn];
+        
+        if (i == colorsOfHlt.count-1) {
+            btn.selected = YES;
+            self.lastSelectedBtn = btn;
+        }
+        // 布局
+        
+        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(bottomToolbar.mas_right).offset(-20 -i*btn.currentImage.size.width -i*2);
+            make.centerY.equalTo(bottomToolbar);
+        }];
+    }
+    
+    // 画笔
+    
+    NSArray * pencils = @[@"pen",@"brush",@"pencil"];
+    for (NSInteger i = 0; i<pencils.count; i++) {
+        
+        UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.tag = i;
+        [btn setImage:[UIImage imageNamed:pencils[i]] forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(pencilClick:) forControlEvents:UIControlEventTouchUpInside];
+        btn.adjustsImageWhenHighlighted = NO;
+        [bottomToolbar addSubview:btn];
+        
+        if (i == 0) {
+            [UIView animateWithDuration:0.2 animations:^{
+                btn.transform = CGAffineTransformMakeTranslation(0, -15);
+            }];
+            self.lastSelectedPencil = btn; // 设置默认选中画笔
+        }
+        // 布局
+        
+        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(bottomToolbar).offset(30 + i*btn.currentImage.size.width + i*20);
+            make.bottom.equalTo(bottomToolbar).offset(30);
+        }];
+    }
+    
     [_toolbar addSubview:bottomLine];
     [self.view addSubview:_toolbar];
+    [self.view addSubview:bottomToolbar];
+    
+    // 布局 bottom bar
+    [bottomToolbar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view);
+        make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH, BottomBarH));
+    }];
 }
 
 
@@ -150,6 +228,58 @@
     }];
 }
 
+- (void)colorBtnClick:(UIButton *)btn{
+
+    if (_lastSelectedBtn.selected) {
+        _lastSelectedBtn.selected = NO;
+    }
+    btn.selected = !btn.selected;
+    
+    _lastSelectedBtn = btn;
+    
+    // 设置画笔颜色
+    switch (btn.tag) {
+        case 0:
+            self.artboardView.lineColor = [UIColor purpleColor];
+            break;
+        case 1:
+            self.artboardView.lineColor = [UIColor orangeColor];
+            break;
+        case 2:
+            self.artboardView.lineColor = [UIColor yellowColor];
+            break;
+        case 3:
+            self.artboardView.lineColor = [UIColor greenColor];
+            break;
+        case 4:
+            self.artboardView.lineColor = [UIColor blueColor];
+            break;
+        case 5:
+            self.artboardView.lineColor = [UIColor blackColor];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)pencilClick:(UIButton *)btn{
+    
+    self.artboardView.pencilType = btn.tag;
+    
+    if (self.lastSelectedPencil) {
+        [UIView animateWithDuration:0.2 animations:^{
+            self.lastSelectedPencil.transform = CGAffineTransformIdentity;
+        }];
+    }
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        btn.transform = CGAffineTransformMakeTranslation(0, -15);
+    }];
+    
+    self.lastSelectedPencil = btn;
+    
+}
 #pragma mark - delegate
 
 - (void)artboard:(ArtBoardBezierView *)artboard didStartedDraw:(NSInteger)lineCount{

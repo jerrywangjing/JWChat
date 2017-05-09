@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, ArtboardPencilType) {
+    ArtboardPencilTypePen, // 圆珠笔
+    ArtboardPencilTypeBrush, // 笔刷
+    ArtboardPencilTypePencil, // 铅笔
+};
+
 @class ArtBoardBezierView;
 
 @protocol  ArtBoardBezierViewDelegate <NSObject>
@@ -19,6 +25,7 @@
 @interface ArtBoardBezierView : UIView
 
 @property (nonatomic,strong) UIColor * lineColor;
+@property (nonatomic,assign) ArtboardPencilType pencilType;
 
 @property (nonatomic,weak)id<ArtBoardBezierViewDelegate> delegate;
 

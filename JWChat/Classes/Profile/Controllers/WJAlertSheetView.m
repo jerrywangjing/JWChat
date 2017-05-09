@@ -108,7 +108,7 @@ typedef void(^SelectedBlock)(NSInteger index);
 
     if (!items) {
         if (items.count <= 0) {
-            NSLog(@"item's count could not zero");
+            NSLog(@"item's count could not is zero");
             return;
         }
         return;
