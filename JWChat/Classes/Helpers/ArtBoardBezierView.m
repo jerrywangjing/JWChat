@@ -18,7 +18,6 @@
 @property (nonatomic,strong) NSMutableArray * colorsOfForword; // 记录可反悔的线条颜色
 @property (nonatomic,strong) NSMutableArray * widthsOfForword; // 记录可反悔的线条颜色
 
-
 @end
 
 @implementation ArtBoardBezierView
@@ -169,7 +168,7 @@
     
 }
 
-#pragma mark - actions
+#pragma mark - public
 
 
 - (void)clearScreen{
@@ -177,6 +176,7 @@
     [self.pathsOfAllLine removeAllObjects];
     [self.colorsOfLine removeAllObjects];
     [self.widthsOfLine removeAllObjects];
+    [self.pathsOfForword removeAllObjects];
     
     [self setNeedsDisplay];
     
@@ -219,20 +219,35 @@
 
 - (void)saveAsImage{
     
-    // 保存截图到相册中
+    // 获取图片
     
-    UIGraphicsBeginImageContext(self.frame.size);
-    
-    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
-    
-    UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext(); // 一定记得要结束位图上下文
-    
-    // 保存图片
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
+    [self getImageObject:^(UIImage * image){
+        //保存图片
         UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+    }];
+    
+}
+
+- (void)getImageObject:(void (^)(UIImage *))completion{
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        // 生成UIImage 对象
+        
+        UIGraphicsBeginImageContext(self.frame.size);
+        
+        [self.layer renderInContext: UIGraphicsGetCurrentContext()];
+        
+        UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
+        
+        UIGraphicsEndImageContext(); // 一定记得要结束位图上下文
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            if (completion) {
+                completion(image);
+            }
+        });
     });
     
 }
@@ -261,6 +276,7 @@
         ;
     }
 }
+
 
 
 @end

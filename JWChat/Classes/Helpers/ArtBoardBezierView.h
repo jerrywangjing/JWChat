@@ -33,5 +33,6 @@ typedef NS_ENUM(NSUInteger, ArtboardPencilType) {
 - (void)back;
 - (void)forword;
 - (void)saveAsImage;
+- (void)getImageObject:(void(^)(UIImage *))completion;
 
 @end

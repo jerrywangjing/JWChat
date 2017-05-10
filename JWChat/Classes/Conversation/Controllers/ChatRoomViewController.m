@@ -218,8 +218,6 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
     
     LastOffset = 0; // 设置消息加载偏移值为初始值 0
     [[NIMSDK sharedSDK].chatManager removeDelegate:self];
-    
-//    NSLog(@"销毁了聊天页面%s",__func__);
 }
 
 #pragma mark - ViewDidLoad
@@ -1025,7 +1023,7 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
             [self sendLocation];
             break;
         case AddKeyboardBtnTypeWhiteBoard:
-            [self whiteBoard];
+            [self openArtBoard];
             break;;
         default:
             break;
@@ -1092,9 +1090,21 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
     NSLog(@"发送地理位置");
 }
 
-- (void)whiteBoard{
+
+- (void)openArtBoard{
     
     ArtboardViewController * artboardVc = [[ArtboardViewController alloc] init];
+    
+    WJWeakSelf(weakSelf);
+    artboardVc.completion = ^(UIImage *image) {
+        
+        NSData * imageData = UIImagePNGRepresentation(image);
+        NSString * imageName = [NSString stringWithFormat:@"%@_%@",[NSDate date],self.conversationId];
+        NSString * imagePath = [[MessageReadManager shareManager] saveMsgAttachWithData:imageData attachType:MessageBodyTypeImage andAttachName:imageName];
+        
+        [weakSelf sendImageMessageWithData:imageData localPath:imagePath];
+        
+    };
     
     [self presentViewController:artboardVc animated:YES completion:nil];
     

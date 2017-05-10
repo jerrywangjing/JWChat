@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^CompletionHandler)(UIImage *);
+
 @interface ArtboardViewController : UIViewController
+
+@property (nonatomic,copy) CompletionHandler completion;
 
 @end

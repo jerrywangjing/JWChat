@@ -206,7 +206,34 @@
 
 - (void)doneBtnClick:(UIButton *)btn{
 
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (_backBtn.isEnabled) { // 只有当前画板有线条时，才提示是否发送
+        
+        [WJAlertSheetView showAlertSheetViewWithTips:@"是否将涂鸦发送给对方？" items:@[@"发送"] completion:^(NSInteger index) {
+            
+            if (index == 0) { // 取消按钮点击
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+            if (index == 1) { // 第一个item 点击
+                WJWeakSelf(weakSelf);
+                [MBProgressHUD showHUD];
+                
+                [self.artboardView getImageObject:^(UIImage *image) {
+                    
+                    [MBProgressHUD hideHUD];
+                    
+                    if (weakSelf.completion) {
+                        weakSelf.completion(image);
+                    }
+                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                }];
+            }
+            
+        }];
+    }else{
+    
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+
 }
 
 - (void)deleteBtnClick:(UIButton *)btn{
@@ -221,7 +248,8 @@
 }
 - (void)saveBtnClick:(UIButton *)btn{
 
-    [WJAlertSheetView showAlertSheetViewItems:@[@"涂鸦将保存到手机相册中是否继续？",@"保存到相册"] completion:^(NSInteger index) {
+    [WJAlertSheetView showAlertSheetViewWithTips:@"涂鸦将保存到手机相册中,是否继续？" items:@[@"保存到相册"] completion:^(NSInteger index) {
+
         if (index == 1) {
             [self.artboardView saveAsImage];
         }

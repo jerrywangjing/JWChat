@@ -347,7 +347,7 @@ static const CGFloat HeaderHeight = 15;
 
 - (void)openNoborder{
  
-    [WJAlertSheetView showAlertSheetViewItems:@[@"开启",@"从00:00到12:00"] completion:^(NSInteger index) {
+    [WJAlertSheetView showAlertSheetViewWithTips:nil items:@[@"开启",@"从00:00到12:00"] completion:^(NSInteger index) {
         NSLog(@"selected index :%ld",index);
     }];
 }

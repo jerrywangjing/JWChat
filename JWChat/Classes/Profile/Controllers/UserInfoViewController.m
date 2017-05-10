@@ -261,21 +261,24 @@
 
 - (void)changeAvatar{
     
-    [WJAlertSheetView showAlertSheetViewItems:@[@"拍摄",@"从手机相册选择"] completion:^(NSInteger index) {
+    [WJAlertSheetView showAlertSheetViewWithTips:nil items:@[@"拍摄",@"从手机相册选择"] completion:^(NSInteger index) {
         switch (index) {
             case 0:
+                // 取消按钮点击
+                break;
+            case 1:
             {
-            
                 if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
                     [self openPhotoLibaryWithType:UIImagePickerControllerSourceTypeCamera];
                 }else{
                     
                     [MBProgressHUD showLabelWithText:@"相机不可用"];
                 }
-
+                
             }
+                
                 break;
-            case 1:
+            case 2:
             {
                 [self openPhotoLibaryWithType:UIImagePickerControllerSourceTypePhotoLibrary];
                 
