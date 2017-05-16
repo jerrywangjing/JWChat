@@ -27,5 +27,6 @@
  @return 圆角图片
  */
 - (UIImage * )makeRoundedCornerWithScale:(CGFloat)scale;
-
+/// image -> base64 字符串
++ (NSString *) image2DataURL: (UIImage *) image;
 @end

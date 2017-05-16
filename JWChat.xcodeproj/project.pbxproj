@@ -14,6 +14,7 @@
 		C41D05611EAA0A3B00C06E34 /* UIView+NTES.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D05601EAA0A3B00C06E34 /* UIView+NTES.m */; };
 		C43A228F1EC0BB4A0007D642 /* ArtBoardBezierView.m in Sources */ = {isa = PBXBuildFile; fileRef = C43A228C1EC0BB4A0007D642 /* ArtBoardBezierView.m */; };
 		C43A22931EC0C1600007D642 /* ArtboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C43A22921EC0C1600007D642 /* ArtboardViewController.m */; };
+		C43A22971EC489DB0007D642 /* SubmitRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C43A22961EC489DB0007D642 /* SubmitRecordViewController.m */; };
 		C4680F461EA46B9200A57104 /* NTESDemoConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C4680F451EA46B9200A57104 /* NTESDemoConfig.m */; };
 		C4680F491EA46CC700A57104 /* NSDictionary+NTESJson.m in Sources */ = {isa = PBXBuildFile; fileRef = C4680F481EA46CC700A57104 /* NSDictionary+NTESJson.m */; };
 		C4680F4F1EA4710300A57104 /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4680F4E1EA4710300A57104 /* LoginManager.m */; };
@@ -145,6 +146,7 @@
 		C4C764D21E948AB90093F723 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C764CE1E948AB90093F723 /* DBManager.m */; };
 		C4C764D31E948AB90093F723 /* MessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C764D01E948AB90093F723 /* MessageModel.m */; };
 		C4C768C41E9CB0110093F723 /* ChatToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C768C31E9CB0110093F723 /* ChatToolBar.m */; };
+		C4EA05661EC9E9F60042073E /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EA05651EC9E9F60042073E /* MapViewController.m */; };
 		C4EAF2EB1EAFA29100C217E8 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF2EA1EAFA29100C217E8 /* FXBlurView.m */; };
 		C4EAF2EE1EB0D35A00C217E8 /* WJAlertSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF2ED1EB0D35A00C217E8 /* WJAlertSheetView.m */; };
 		C4EAF30C1EB6D1A000C217E8 /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF30B1EB6D19F00C217E8 /* NSString+Hash.m */; };
@@ -268,6 +270,8 @@
 		C43A228C1EC0BB4A0007D642 /* ArtBoardBezierView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtBoardBezierView.m; sourceTree = "<group>"; };
 		C43A22911EC0C1600007D642 /* ArtboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtboardViewController.h; sourceTree = "<group>"; };
 		C43A22921EC0C1600007D642 /* ArtboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtboardViewController.m; sourceTree = "<group>"; };
+		C43A22951EC489DB0007D642 /* SubmitRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitRecordViewController.h; sourceTree = "<group>"; };
+		C43A22961EC489DB0007D642 /* SubmitRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitRecordViewController.m; sourceTree = "<group>"; };
 		C4680F441EA46B9200A57104 /* NTESDemoConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESDemoConfig.h; sourceTree = "<group>"; };
 		C4680F451EA46B9200A57104 /* NTESDemoConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESDemoConfig.m; sourceTree = "<group>"; };
 		C4680F471EA46CC700A57104 /* NSDictionary+NTESJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NTESJson.h"; sourceTree = "<group>"; };
@@ -454,6 +458,8 @@
 		C4C764D01E948AB90093F723 /* MessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageModel.m; sourceTree = "<group>"; };
 		C4C768C21E9CB0110093F723 /* ChatToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatToolBar.h; sourceTree = "<group>"; };
 		C4C768C31E9CB0110093F723 /* ChatToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatToolBar.m; sourceTree = "<group>"; };
+		C4EA05641EC9E9F60042073E /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		C4EA05651EC9E9F60042073E /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		C4EAF2E91EAFA29100C217E8 /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
 		C4EAF2EA1EAFA29100C217E8 /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
 		C4EAF2EC1EB0D35A00C217E8 /* WJAlertSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WJAlertSheetView.h; path = ../Profile/Controllers/WJAlertSheetView.h; sourceTree = "<group>"; };
@@ -687,6 +693,15 @@
 				C43A228C1EC0BB4A0007D642 /* ArtBoardBezierView.m */,
 			);
 			name = ArtBoard;
+			sourceTree = "<group>";
+		};
+		C43A22941EC489C10007D642 /* testFiles */ = {
+			isa = PBXGroup;
+			children = (
+				C43A22951EC489DB0007D642 /* SubmitRecordViewController.h */,
+				C43A22961EC489DB0007D642 /* SubmitRecordViewController.m */,
+			);
+			name = testFiles;
 			sourceTree = "<group>";
 		};
 		C4680F391EA469CF00A57104 /* NIMUtils */ = {
@@ -1103,6 +1118,9 @@
 				C4F473091E93331E001ED39F /* ChatInformationViewController.m */,
 				C43A22911EC0C1600007D642 /* ArtboardViewController.h */,
 				C43A22921EC0C1600007D642 /* ArtboardViewController.m */,
+				C4EA05641EC9E9F60042073E /* MapViewController.h */,
+				C4EA05651EC9E9F60042073E /* MapViewController.m */,
+				C43A22941EC489C10007D642 /* testFiles */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1618,7 +1636,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		848EC5441E85846C54F4459F /* [CP] Check Pods Manifest.lock */ = {
@@ -1633,7 +1651,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		9EF5EC5A6042685493EF9AA1 /* [CP] Copy Pods Resources */ = {
@@ -1764,6 +1782,7 @@
 				C4F4745A1E93385F001ED39F /* NSDate+FormatTime.m in Sources */,
 				C4C764BD1E9489450093F723 /* EmotionImageFormateTool.m in Sources */,
 				C4C764B11E9489270093F723 /* ZYPinYinSearch.m in Sources */,
+				C43A22971EC489DB0007D642 /* SubmitRecordViewController.m in Sources */,
 				C4C7648E1E9488BD0093F723 /* WJHttpTool.m in Sources */,
 				C4C764BF1E9489450093F723 /* LiuqsTextAttachment.m in Sources */,
 				C4680F521EA7015000A57104 /* UserInfoTableViewCell.m in Sources */,
@@ -1777,6 +1796,7 @@
 				C4C764A71E9489270093F723 /* HCSortString.m in Sources */,
 				C4F4745C1E93385F001ED39F /* NSString+WJExtension.m in Sources */,
 				C4C764A91E9489270093F723 /* ChineseInclude.m in Sources */,
+				C4EA05661EC9E9F60042073E /* MapViewController.m in Sources */,
 				C4F4745E1E93385F001ED39F /* UIImage+GIF.m in Sources */,
 				C4C75F191E8F44300093F723 /* ProfileViewController.m in Sources */,
 				C4F472E91E933268001ED39F /* ApplyNoticeTableViewCell.m in Sources */,

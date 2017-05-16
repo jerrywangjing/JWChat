@@ -11,7 +11,7 @@
 @implementation UIImage (Extension)
 
 
-+(instancetype)resizeImage:(NSString *)imgName{
++ (instancetype)resizeImage:(NSString *)imgName{
 
     UIImage *bgImage = [UIImage imageNamed:imgName];
     bgImage = [bgImage stretchableImageWithLeftCapWidth:bgImage.size.width/2  topCapHeight:bgImage.size.height/2   ];
@@ -124,5 +124,33 @@
     UIImage * avatarImg = [UIImage imageNamed:str];
     
     return avatarImg;
+}
+
+//UIImage -> Base64图片
++ (BOOL) imageHasAlpha: (UIImage *) image
+{
+    CGImageAlphaInfo alpha = CGImageGetAlphaInfo(image.CGImage);
+    return (alpha == kCGImageAlphaFirst ||
+            alpha == kCGImageAlphaLast ||
+            alpha == kCGImageAlphaPremultipliedFirst ||
+            alpha == kCGImageAlphaPremultipliedLast);
+}
+
++ (NSString *) image2DataURL: (UIImage *) image
+{
+    NSData *imageData = nil;
+    NSString *mimeType = nil;
+    
+    if ([self imageHasAlpha: image]) {
+        imageData = UIImagePNGRepresentation(image);
+        mimeType = @"image/png";
+    } else {
+        imageData = UIImageJPEGRepresentation(image, 1.0f);
+        mimeType = @"image/jpeg";
+    }
+    
+    return [NSString stringWithFormat:@"data:%@;base64,%@", mimeType,
+            [imageData base64EncodedStringWithOptions: 0]];
+    
 }
 @end

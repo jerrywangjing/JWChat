@@ -29,6 +29,8 @@
 #import "ChatToolBar.h"
 #import "InputView.h"
 #import "ArtboardViewController.h"
+#import "MainNavController.h"
+#import "MapViewController.h"
 
 #define CachesDirectory NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject
 #define FILE_PATH [CachesDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",self.conversationId]]
@@ -1088,6 +1090,12 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
 - (void)sendLocation{
 
     NSLog(@"发送地理位置");
+    
+    MapViewController * mapVc = [[MapViewController alloc] init];
+    
+    MainNavController * nav = [[MainNavController alloc] initWithRootViewController:mapVc];
+    
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 

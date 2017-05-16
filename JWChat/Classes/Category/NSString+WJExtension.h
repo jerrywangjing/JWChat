@@ -20,4 +20,12 @@
 + (NSString *)Md5StringWithString:(NSString *)str;
 /// 统计字符串中的字符数
 + (int)countWord:(NSString *)str;
+/**
+ *  富文本转html字符串
+ */
++ (NSString *)attriToStrWithAttri:(NSAttributedString *)attri;
+/**
+ *  html字符串转富文本
+ */
++ (NSAttributedString *)strToAttriWithStr:(NSString *)htmlStr;
 @end

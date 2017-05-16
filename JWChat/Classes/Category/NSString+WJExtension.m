@@ -83,4 +83,27 @@
     if(a==0 && l==0) return 0;
     return l+(int)ceilf((float)(a+b)/2.0);
 }
+
+/**
+ *  富文本转html字符串
+ */
++ (NSString *)attriToStrWithAttri:(NSAttributedString *)attri{
+    NSDictionary *tempDic = @{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType,
+                              NSCharacterEncodingDocumentAttribute:[NSNumber numberWithInt:NSUTF8StringEncoding]};
+    NSData *htmlData = [attri dataFromRange:NSMakeRange(0, attri.length)
+                         documentAttributes:tempDic
+                                      error:nil];
+    return [[NSString alloc] initWithData:htmlData
+                                 encoding:NSUTF8StringEncoding];
+}
+
+/**
+ *  html字符串转富文本
+ */
++ (NSAttributedString *)strToAttriWithStr:(NSString *)htmlStr{
+    return [[NSAttributedString alloc] initWithData:[htmlStr dataUsingEncoding:NSUnicodeStringEncoding]
+                                            options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType}
+                                 documentAttributes:nil
+                                              error:nil];
+}
 @end

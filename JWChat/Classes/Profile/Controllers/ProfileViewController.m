@@ -297,8 +297,8 @@ static const CGFloat HeaderHeight = 15;
 
 - (void)logout{
 
-    [self showAlertViewWithTitle:@"退出当前账号？" message:nil style: UIAlertControllerStyleAlert completion:^(UIAlertAction *action) {
-        if ([action.title isEqualToString:@"确定"]) {
+    [WJAlertSheetView showAlertSheetViewWithTips:@"退出当前账号？" items:@[@"确定"] completion:^(NSInteger index) {
+        if (index == 1) {
             
             [MBProgressHUD showHUD];
             [[NIMSDK sharedSDK].loginManager logout:^(NSError * _Nullable error) {
@@ -310,16 +310,22 @@ static const CGFloat HeaderHeight = 15;
                     NSLog(@"注销失败");
                 }
             }];
-            
+
         }
     }];
+    
+//    [self showAlertViewWithTitle:@"退出当前账号？" message:nil style: UIAlertControllerStyleAlert completion:^(UIAlertAction *action) {
+//        if ([action.title isEqualToString:@"确定"]) {
+//            
+//            
+//        }
+//    }];
 }
 
 - (void)clearAllChatRecord{
 
-    [self showAlertViewWithTitle:nil message:@"确认清空所有聊天记录？" style:UIAlertControllerStyleAlert completion:^(UIAlertAction *action) {
-        [MBProgressHUD showHUD];
-        if ([action.title isEqualToString:@"确定"]) {
+    [WJAlertSheetView showAlertSheetViewWithTips:@"确认清空所有聊天记录？清空后将无法恢复" items:@[@"确定"] completion:^(NSInteger index) {
+        if (index == 1) {
             BOOL success = [[DBManager shareManager] deleteAllMessageRecord];
             [MBProgressHUD hideHUD];
             if (!success) {
@@ -329,6 +335,13 @@ static const CGFloat HeaderHeight = 15;
             }
         }
     }];
+    
+//    [self showAlertViewWithTitle:nil message:@"确认清空所有聊天记录？" style:UIAlertControllerStyleAlert completion:^(UIAlertAction *action) {
+//        [MBProgressHUD showHUD];
+//        if ([action.title isEqualToString:@"确定"]) {
+//            
+//        }
+//    }];
 }
 
 - (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)msg style:(UIAlertControllerStyle)style completion:(void(^)(UIAlertAction * action))completion{

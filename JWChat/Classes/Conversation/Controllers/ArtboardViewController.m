@@ -98,7 +98,7 @@
     }];
     [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(_toolbar).offset(-10);
-        make.left.equalTo(doneBtn.mas_right).offset(20);
+        make.left.equalTo(doneBtn.mas_right).offset(30);
     }];
     [forwordBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(_toolbar).offset(-10);
@@ -110,7 +110,7 @@
         make.bottom.equalTo(doneBtn);
     }];
     [deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(saveBtn.mas_left).offset(-10);
+        make.right.equalTo(saveBtn.mas_left).offset(-20);
         make.bottom.equalTo(_toolbar).offset(-10);
     }];
     

@@ -6,37 +6,37 @@
 		<key>title</key>
 		<string>照片</string>
 		<key>image</key>
-		<string>pic_icon_nor</string>
+		<string>photos</string>
 	</dict>
 	<dict>
 		<key>title</key>
 		<string>拍摄</string>
 		<key>image</key>
-		<string>photo_icon_nor</string>
+		<string>takePhoto</string>
 	</dict>
 	<dict>
 		<key>title</key>
 		<string>视频聊天</string>
 		<key>image</key>
-		<string>video_icon_nor</string>
+		<string>video</string>
 	</dict>
 	<dict>
 		<key>title</key>
 		<string>文件传输</string>
 		<key>image</key>
-		<string>file_icon_nor</string>
+		<string>file</string>
 	</dict>
 	<dict>
 		<key>title</key>
 		<string>我的位置</string>
 		<key>image</key>
-		<string>patient_icon_nor</string>
+		<string>location</string>
 	</dict>
 	<dict>
 		<key>title</key>
 		<string>白板涂鸦</string>
 		<key>image</key>
-		<string>patient_icon_nor</string>
+		<string>artboard</string>
 	</dict>
 </array>
 </plist>

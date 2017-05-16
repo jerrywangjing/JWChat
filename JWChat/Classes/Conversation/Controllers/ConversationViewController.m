@@ -18,6 +18,7 @@
 #import "EMCDDeviceManager.h"
 #import "ContactsModel.h"
 #import "AddContactsViewController.h"
+#import "SubmitRecordViewController.h"
 #define ConversationCellH 60
 
 static NSInteger unreadCount = 0; //未读消息数
@@ -222,10 +223,10 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
 #pragma mark - barButtonItem actions
 - (void)addBtnClick:(UIButton *)btn{
 
-    AddContactsViewController * addVc = [[AddContactsViewController alloc] init];
-//    PatientInfoItemsViewController * itemsVc = [[PatientInfoItemsViewController alloc] init];
+    //AddContactsViewController * addVc = [[AddContactsViewController alloc] init];
+    SubmitRecordViewController * submit = [SubmitRecordViewController new];
 //    itemsVc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:addVc animated:YES];
+    [self.navigationController pushViewController:submit animated:YES];
 }
 // 刷新表格
 -(void)refreshTableView:(UIRefreshControl *)refresh{

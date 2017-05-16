@@ -13,6 +13,8 @@
 #import "NTESDemoConfig.h"
 #import "LoginManager.h"
 #import "NTESSDKConfigDelegate.h"
+#import <AMapFoundationKit/AMapFoundationKit.h>
+#import <AMapSearchKit/AMapSearchKit.h>
 
 @interface AppDelegate ()<NIMLoginManagerDelegate>
 
@@ -40,10 +42,11 @@
     
     [[NIMSDK sharedSDK] registerWithAppID:appKey cerName:cerName];
     
-    
     // 设置相关服务
     
     [self commonInitListenEvents];
+    // 初始化高德地图
+    [AMapServices sharedServices].apiKey = @"6a4c0757dfbf18d2a2b52167b59d8f3f";
     
     // 初始化window
     _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
