@@ -23,6 +23,8 @@
 
 @property (nonatomic,strong) AMapReGeocode * reGeocode; // 当前反地理编码对象
 @property (nonatomic,getter=isAllowUpdateLocation) BOOL allowUpdateLocation; // 允许更新位置信息
+@property (nonatomic,weak) UIActivityIndicatorView *indicator;
+
 @end
 
 @implementation MapViewController
@@ -120,17 +122,30 @@
     
     [_mapView addAnnotation:_centerPin];
     
-    // location tableViwe
+    // location tableView
     
     UITableView * locationView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_mapView.frame), SCREEN_WIDTH, SCREEN_HEIGHT-(NavBarH+CGRectGetHeight(_mapView.frame))) style:UITableViewStylePlain];
     _locationsView = locationView;
     _locationsView.dataSource = self;
     _locationsView.delegate = self;
     _locationsView.backgroundColor = [UIColor whiteColor];
+    _locationsView.tableFooterView = [UIView new];
+    
+    UIActivityIndicatorView * indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    _indicator = indicator;
+    [_indicator startAnimating];
+    
+    [_locationsView addSubview:indicator];
+    
+    [_indicator mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_locationsView);
+        make.top.mas_equalTo(15);
+    }];
     
     [self.view addSubview:_locationsView];
     
 }
+
 #pragma mark - actions
 
 - (void)sendBtnClick:(UIButton *)btn{
@@ -216,6 +231,8 @@
 
     NSLog(@"查询结果：%@",response.regeocode.formattedAddress);
     _reGeocode = response.regeocode;
+    [_indicator stopAnimating];
+    
     [self.locationsView reloadData];
 }
 

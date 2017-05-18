@@ -15,8 +15,10 @@
 #import "AboutViewController.h"
 #import "FXBlurView.h"
 #import "WJAlertSheetView.h"
+#import "WJWebViewController.h"
 
 static const CGFloat HeaderHeight = 15;
+static NSString * const GitHub_WJ = @"https://github.com/jerrywangjing";
 
 @interface ProfileViewController ()<UITableViewDelegate,UITableViewDataSource,NIMUserManagerDelegate>
 
@@ -133,6 +135,10 @@ static const CGFloat HeaderHeight = 15;
                                 @{
                                     
                                     Title : @"关于",
+                                    SubTitle : @""
+                                    },
+                                @{
+                                    Title : @"开发者网站",
                                     SubTitle : @""
                                     }
                                 ],
@@ -277,6 +283,13 @@ static const CGFloat HeaderHeight = 15;
             about.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:about animated:YES];
         }
+        if (indexPath.row == 2) {
+            // 开发者网站
+            WJWebViewController * webView = [[WJWebViewController alloc] init];
+            webView.url = GitHub_WJ;
+            webView.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:webView animated:YES];
+        }
     }
     
     if (indexPath.section == 4) {
@@ -310,16 +323,9 @@ static const CGFloat HeaderHeight = 15;
                     NSLog(@"注销失败");
                 }
             }];
-
         }
     }];
     
-//    [self showAlertViewWithTitle:@"退出当前账号？" message:nil style: UIAlertControllerStyleAlert completion:^(UIAlertAction *action) {
-//        if ([action.title isEqualToString:@"确定"]) {
-//            
-//            
-//        }
-//    }];
 }
 
 - (void)clearAllChatRecord{
@@ -336,12 +342,6 @@ static const CGFloat HeaderHeight = 15;
         }
     }];
     
-//    [self showAlertViewWithTitle:nil message:@"确认清空所有聊天记录？" style:UIAlertControllerStyleAlert completion:^(UIAlertAction *action) {
-//        [MBProgressHUD showHUD];
-//        if ([action.title isEqualToString:@"确定"]) {
-//            
-//        }
-//    }];
 }
 
 - (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)msg style:(UIAlertControllerStyle)style completion:(void(^)(UIAlertAction * action))completion{

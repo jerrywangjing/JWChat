@@ -19,8 +19,9 @@
 + (UIImage *)scaleImage:(UIImage *)image toScale:(float)scaleSize;
 /// UIImage圆角裁剪
 - (UIImage * )makeRoundedCornerWithRadius:(float)radius;
-/// 获取头像
-+ (UIImage* )getAvatarImageWithString:(NSString *)str;
+
+/// 获取base64编码头像
+- (UIImage *)getImageWithBase64:(NSString *)base64;
 
 /**
  @param scale 切角比例，取值0-1

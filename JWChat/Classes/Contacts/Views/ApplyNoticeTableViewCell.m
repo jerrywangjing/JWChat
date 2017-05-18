@@ -28,7 +28,7 @@
 -(void)setCellData:(ContactsModel *)cellData{
 
     _cellData = cellData;
-    _avatarImage.image = [UIImage getAvatarImageWithString:cellData.avatarImageUrl];
+    [_avatarImage sd_setImageWithURL:[NSURL URLWithString:cellData.avatarImageUrl]];
     _userName.text = cellData.userName;
     _verifyMsg.text = @"请求添加你为好友";
 

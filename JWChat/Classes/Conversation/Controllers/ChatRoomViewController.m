@@ -42,6 +42,7 @@
 
 static NSInteger LastOffset = 0; //记录上次消息加载数
 static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
+static NSInteger lastMessageCount; // 记录上次已加载的消息数
 
 @interface ChatRoomViewController ()<UITableViewDataSource,UITableViewDelegate,EmojiKeyboardViewDelegate,AddOtherFuncKeyboardDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,MessageTableViewCellDelegate,TZImagePickerControllerDelegate,ChatToolBarDelegate,NIMChatManagerDelegate>
 
@@ -332,10 +333,13 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
     _tableView.allowsSelection = NO;//不能选中
     _tableView.backgroundColor = IMBgColor;
 
-    UIRefreshControl * refresh = [[UIRefreshControl alloc] initWithFrame:CGRectZero];
-    [refresh addTarget:self action:@selector(refreshToLoadMessages:) forControlEvents:UIControlEventValueChanged];
-    [_tableView addSubview:refresh];
+//    // 添加下拉刷新
+    MJRefreshNormalHeader * refresh = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshToLoadMessages:)];
     
+    refresh.lastUpdatedTimeLabel.hidden = YES;
+    refresh.stateLabel.hidden = YES;
+    _tableView.mj_header = refresh;
+
     [self.view addSubview:_tableView];
 
 }
@@ -360,8 +364,11 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
         // 追加新消息的数组最前面
         [self updateMessagesFromDBWithCompletion:^{
             
-            [refresh endRefreshing];
+            // 滚动tableView到恰当的位置
+            NSIndexPath * lastIndexPath = [NSIndexPath indexPathForRow:lastMessageCount inSection:0];
+            [self.tableView scrollToRowAtIndexPath:lastIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
         }];
+        [refresh endRefreshing];
     }
 }
 // 加载/更新消息
@@ -374,6 +381,8 @@ static NSString * lastTime = nil; // 用于设置是否隐藏cell时间
             LastOffset = lastOffset;
         }];
 
+        lastMessageCount = dataArr.count; // 记录消息加载数
+        
         NSMutableArray * tempArr = [NSMutableArray array];
         
         for (MessageModel * model in dataArr) {

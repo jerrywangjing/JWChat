@@ -314,7 +314,7 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     _contentBtn.adjustsImageWhenHighlighted = NO;
     
     // 转字符串为富文本字符串
-    UIColor * attriStrColor = message.direction == MessageDirectionSend ? [UIColor whiteColor]: WJRGBColor(70, 96, 114);
+    UIColor * attriStrColor = message.direction == MessageDirectionSend ? [UIColor blackColor]: WJRGBColor(70, 96, 114);
     NSMutableAttributedString * attributText = [EmotionImageFormateTool replacedEmotionStrWithStr:body.text strFont:[UIFont systemFontOfSize:FontSize] textColor:attriStrColor];
     
     [_contentBtn setAttributedTitle:attributText forState:UIControlStateNormal];

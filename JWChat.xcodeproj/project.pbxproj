@@ -37,6 +37,7 @@
 		C4870B081E93B104009650B9 /* wav.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4870AF61E93B104009650B9 /* wav.mm */; };
 		C4870B091E93B104009650B9 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4870AFA1E93B104009650B9 /* libopencore-amrnb.a */; };
 		C4870B0A1E93B104009650B9 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4870AFE1E93B104009650B9 /* libopencore-amrwb.a */; };
+		C4A086661ECD9EF9007971C5 /* WJWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A086651ECD9EF9007971C5 /* WJWebViewController.m */; };
 		C4B447601EA8FFC000104CFB /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B4475F1EA8FFC000104CFB /* AboutViewController.m */; };
 		C4C75F131E8F44000093F723 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C75F121E8F44000093F723 /* ConversationViewController.m */; };
 		C4C75F191E8F44300093F723 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C75F181E8F44300093F723 /* ProfileViewController.m */; };
@@ -146,6 +147,7 @@
 		C4C764D21E948AB90093F723 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C764CE1E948AB90093F723 /* DBManager.m */; };
 		C4C764D31E948AB90093F723 /* MessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C764D01E948AB90093F723 /* MessageModel.m */; };
 		C4C768C41E9CB0110093F723 /* ChatToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C768C31E9CB0110093F723 /* ChatToolBar.m */; };
+		C4DBF0331ECD743700126734 /* UIImageView+Base64ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DBF0321ECD743700126734 /* UIImageView+Base64ImageCache.m */; };
 		C4EA05661EC9E9F60042073E /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EA05651EC9E9F60042073E /* MapViewController.m */; };
 		C4EAF2EB1EAFA29100C217E8 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF2EA1EAFA29100C217E8 /* FXBlurView.m */; };
 		C4EAF2EE1EB0D35A00C217E8 /* WJAlertSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF2ED1EB0D35A00C217E8 /* WJAlertSheetView.m */; };
@@ -322,6 +324,8 @@
 		C4870AFC1E93B104009650B9 /* dec_if.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dec_if.h; sourceTree = "<group>"; };
 		C4870AFD1E93B104009650B9 /* if_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
 		C4870AFE1E93B104009650B9 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
+		C4A086641ECD9EF9007971C5 /* WJWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJWebViewController.h; sourceTree = "<group>"; };
+		C4A086651ECD9EF9007971C5 /* WJWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJWebViewController.m; sourceTree = "<group>"; };
 		C4B4475E1EA8FFC000104CFB /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		C4B4475F1EA8FFC000104CFB /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		C4C75F111E8F44000093F723 /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
@@ -458,6 +462,8 @@
 		C4C764D01E948AB90093F723 /* MessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageModel.m; sourceTree = "<group>"; };
 		C4C768C21E9CB0110093F723 /* ChatToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatToolBar.h; sourceTree = "<group>"; };
 		C4C768C31E9CB0110093F723 /* ChatToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatToolBar.m; sourceTree = "<group>"; };
+		C4DBF0311ECD743700126734 /* UIImageView+Base64ImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Base64ImageCache.h"; sourceTree = "<group>"; };
+		C4DBF0321ECD743700126734 /* UIImageView+Base64ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Base64ImageCache.m"; sourceTree = "<group>"; };
 		C4EA05641EC9E9F60042073E /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		C4EA05651EC9E9F60042073E /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		C4EAF2E91EAFA29100C217E8 /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
@@ -1058,6 +1064,8 @@
 				C4F474521E93385F001ED39F /* UIImage+GIF.m */,
 				C4F474531E93385F001ED39F /* UIImageView+PlayGIF.h */,
 				C4F474541E93385F001ED39F /* UIImageView+PlayGIF.m */,
+				C4DBF0311ECD743700126734 /* UIImageView+Base64ImageCache.h */,
+				C4DBF0321ECD743700126734 /* UIImageView+Base64ImageCache.m */,
 				C4F474551E93385F001ED39F /* UIView+WJExtension.h */,
 				C4F474561E93385F001ED39F /* UIView+WJExtension.m */,
 				C4F474571E93385F001ED39F /* UIViewController+WJExtension.h */,
@@ -1164,6 +1172,8 @@
 				C4B4475F1EA8FFC000104CFB /* AboutViewController.m */,
 				C41D05591EA9ABBF00C06E34 /* EditInfoViewController.h */,
 				C41D055A1EA9ABBF00C06E34 /* EditInfoViewController.m */,
+				C4A086641ECD9EF9007971C5 /* WJWebViewController.h */,
+				C4A086651ECD9EF9007971C5 /* WJWebViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1739,6 +1749,7 @@
 				C4F4745F1E93385F001ED39F /* UIImageView+PlayGIF.m in Sources */,
 				C4F474601E93385F001ED39F /* UIView+WJExtension.m in Sources */,
 				C4F4757F1E9398D8001ED39F /* MWCaptionView.m in Sources */,
+				C4A086661ECD9EF9007971C5 /* WJWebViewController.m in Sources */,
 				C4F473161E933372001ED39F /* ApplyAndNoticesViewController.m in Sources */,
 				C41D05611EAA0A3B00C06E34 /* UIView+NTES.m in Sources */,
 				C4F475811E9398D8001ED39F /* MWGridViewController.m in Sources */,
@@ -1764,6 +1775,7 @@
 				C4C764AC1E9489270093F723 /* NSString+PinYin4Cocoa.m in Sources */,
 				C4F4730F1E93334F001ED39F /* ContactsDetailViewController.m in Sources */,
 				C4F4745D1E93385F001ED39F /* UIImage+Extension.m in Sources */,
+				C4DBF0331ECD743700126734 /* UIImageView+Base64ImageCache.m in Sources */,
 				C4EAF2EB1EAFA29100C217E8 /* FXBlurView.m in Sources */,
 				C41D055E1EAA094400C06E34 /* NTESBirthPickerView.m in Sources */,
 				C4F473051E9332D8001ED39F /* VoiceMessageBody.m in Sources */,

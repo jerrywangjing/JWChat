@@ -7,6 +7,7 @@
 //
 
 #import "UIImage+Extension.h"
+#import <SDImageCache.h>
 
 @implementation UIImage (Extension)
 
@@ -113,17 +114,30 @@
     return image;
 }
 
-+ (UIImage* )getAvatarImageWithString:(NSString *)str{
+- (UIImage *)getImageWithBase64:(NSString *)base64{
+
+    if (!base64 || [base64 isEqualToString:@""]) {
+        return nil;
+    }
     
-//    NSData * imgData = nil;
-//    if (![str isKindOfClass:[NSNull class]] && str != nil) {
-//        imgData = [[NSData alloc] initWithBase64EncodedString:str options:0];
-//    }
-//    
-//    UIImage * avatarImg = imgData == nil?[UIImage imageNamed:@"avatar_man"]:[[UIImage alloc] initWithData:imgData];
-    UIImage * avatarImg = [UIImage imageNamed:str];
+    //取base64字符串后32个字符作为缓存的key
+    NSString * cacheKey = base64.length > 32 ? [base64 substringFromIndex:base64.length-32] : base64;
+    SDImageCache * cacheManager = [SDImageCache sharedImageCache];
     
-    return avatarImg;
+    // 从内存、磁盘获取缓存，如未获取到则重新加载
+    UIImage * image = [cacheManager imageFromMemoryCacheForKey:cacheKey];
+    
+    if (!image) {
+        image = [cacheManager imageFromDiskCacheForKey:cacheKey];
+    }
+    if (!image) {
+        NSData * imgData = [[NSData alloc] initWithBase64EncodedString:base64 options:0];
+        image = [UIImage imageWithData:imgData];
+        [cacheManager storeImage:image forKey:cacheKey];
+    }
+    
+    return image;
+
 }
 
 //UIImage -> Base64图片
