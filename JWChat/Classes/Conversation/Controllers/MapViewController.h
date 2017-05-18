@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@class AMapGeoPoint;
+
+typedef void(^MapCompletionBlock)(UIImage *image,NSString *address,NSString *roadName,AMapGeoPoint *coordinate);
 
 @interface MapViewController : UIViewController
+
+@property (nonatomic,copy)MapCompletionBlock completion;
 
 @end

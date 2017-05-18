@@ -171,18 +171,6 @@
             
             user.verifyMsg = verifyMsg;
             
-//            [ContactsManager applyAddContact:user.userId message:nil completion:^(NSString *aUsername, NSError *aError) {
-//                
-//                if (!aError) {
-//                    // 给出提示
-//                    [MBProgressHUD showLabel:@"发送成功" toView:weakself.tableView];
-//                    
-//                    //更新btn状态
-//                    [weakself.btnStateDic setObject:@"已发送" forKey:@(btn.tag)];
-//                    [weakself.tableView reloadData];
-//                }
-//            }];
-            
         });
         
     }];

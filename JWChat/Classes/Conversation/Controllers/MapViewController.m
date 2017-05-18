@@ -24,6 +24,7 @@
 @property (nonatomic,strong) AMapReGeocode * reGeocode; // 当前反地理编码对象
 @property (nonatomic,getter=isAllowUpdateLocation) BOOL allowUpdateLocation; // 允许更新位置信息
 @property (nonatomic,weak) UIActivityIndicatorView *indicator;
+@property (nonatomic,assign) NSInteger selectedRow; // 记录选中的行（防止cell重用）
 
 @end
 
@@ -46,15 +47,19 @@
     [super loadView];
     
     [self initMapView];
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     _allowUpdateLocation = YES;
+    self.selectedRow = 0; // 默认选中第0行
     
     [self configNavBarItem];
     [self setupSubviews];
+    
+    
 }
 
 - (void)dealloc{
@@ -114,7 +119,7 @@
         
     }];
     
-    // moved annotation
+    // moved annotation (可移动标注点)
     
     _centerPin = [[MAPointAnnotation alloc] init];
     _centerPin.lockedScreenPoint = CGPointMake(SCREEN_WIDTH/2, _mapView.height/2);
@@ -149,20 +154,39 @@
 #pragma mark - actions
 
 - (void)sendBtnClick:(UIButton *)btn{
-
-    NSLog(@"发送");
     
     CGRect rect = CGRectMake((_mapView.width-200)/2, (_mapView.height-100)/2, 200, 100);
+    
+    WJWeakSelf(weakSelf);
     
     [_mapView takeSnapshotInRect:rect withCompletionBlock:^(UIImage *resultImage, CGRect rect) {
         
         UIImage * image = resultImage;
-        CGRect imageRect = rect;
         
-        NSString * address = _reGeocode.formattedAddress;
+        NSString * address = nil;
+        NSString * roadName = nil;
+        AMapGeoPoint * geoPoint = nil;
         
-        NSLog(@"地址：%@",address);
-        // 回调发送一个地理位置信息
+        if (weakSelf.selectedRow == 0) {
+            address = _reGeocode.formattedAddress;
+            roadName = address;
+            geoPoint = [AMapGeoPoint locationWithLatitude:_centerPin.coordinate.latitude longitude:_centerPin.coordinate.longitude];
+        }else{
+            AMapPOI * poi = _reGeocode.pois[weakSelf.selectedRow-1];
+            address = poi.name;
+            roadName = poi.address;
+            geoPoint = poi.location;
+        }
+        
+        // 回调发送一个地理位置消息
+        
+        if (weakSelf.completion) {
+            
+            [weakSelf dismissViewControllerAnimated:YES completion:^{
+                weakSelf.completion(image, address, roadName, geoPoint);
+            }];
+            
+        }
     }];
 }
 - (void)cancelBtnClick:(UIButton *)btn{
@@ -229,10 +253,9 @@
 // 反地理编码查询
 - (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response{
 
-    NSLog(@"查询结果：%@",response.regeocode.formattedAddress);
     _reGeocode = response.regeocode;
     [_indicator stopAnimating];
-    
+    self.selectedRow = 0; // 重新加载地址列表后，恢复选中为0
     [self.locationsView reloadData];
 }
 
@@ -254,11 +277,17 @@
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
+        
+        // arrow view
+        UIImageView * arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"check_nor"]];
+        cell.accessoryView = arrow;
+        cell.accessoryView.hidden = YES;
     }
     
     if (indexPath.row == 0) {
         cell.textLabel.text = _reGeocode.formattedAddress;
         cell.detailTextLabel.text = nil;
+        cell.accessoryView.hidden = indexPath.row == self.selectedRow ? NO :YES;
         return cell;
     }
     
@@ -266,6 +295,7 @@
     cell.textLabel.text = poi.name;
     cell.detailTextLabel.text = poi.address;
     cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+    cell.accessoryView.hidden = indexPath.row == self.selectedRow ? NO :YES;
     
     return cell;
 }
@@ -273,6 +303,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    self.selectedRow = indexPath.row;
+    [tableView reloadData];
     
     // 更新地图数据
     

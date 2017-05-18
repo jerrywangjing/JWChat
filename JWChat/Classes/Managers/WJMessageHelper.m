@@ -54,6 +54,10 @@
     return msg;
 }
 
++ (Message *)sendLocationMessageWithAddress:(NSString *)address road:(NSString *)road screenshot:(UIImage *)screenshot coordinate:(AMapGeoPoint *)coordinate to:(NSString *)toUser{
+
+    return nil;
+}
 
 #pragma mark - received message
 

@@ -719,6 +719,15 @@ static NSInteger lastMessageCount; // 记录上次已加载的消息数
     [self sendMessage:message messageDirection:MessageDirectionSend];
 }
 
+#pragma mark - 发送地理位置消息
+
+- (void)sendLocationMessageWithAddress:(NSString *)address road:(NSString *)road screenshot:(UIImage *)screenshot coordinate:(AMapGeoPoint *)coordinate{
+
+    Message *message = [WJMessageHelper sendLocationMessageWithAddress:address road:road screenshot:screenshot coordinate:coordinate to:self.conversationId];
+    [self sendMessage:message messageDirection:MessageDirectionSend];
+    
+}
+
 #pragma mark - 接收到新消息回调
 // 接收消息
 -(void)receivedNewMessages:(NSArray *)messages{
@@ -1101,6 +1110,11 @@ static NSInteger lastMessageCount; // 记录上次已加载的消息数
     NSLog(@"发送地理位置");
     
     MapViewController * mapVc = [[MapViewController alloc] init];
+    WJWeakSelf(weakSelf);
+    
+    mapVc.completion = ^(UIImage *image, NSString *address, NSString *roadName, AMapGeoPoint *coordinate) {
+        [weakSelf sendLocationMessageWithAddress:address road:roadName screenshot:image coordinate:coordinate];
+    };
     
     MainNavController * nav = [[MainNavController alloc] initWithRootViewController:mapVc];
     
