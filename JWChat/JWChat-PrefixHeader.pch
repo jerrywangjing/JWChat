@@ -51,6 +51,7 @@
 #import "EMCDDeviceManager.h"
 #import "MessageReadManager.h"
 #import "ContactsManager.h"
+#import <AMapSearchKit/AMapCommonObj.h>
 
 #import "Message.h"
 #import "MessageBody.h"
@@ -58,6 +59,7 @@
 #import "TextMessageBody.h"
 #import "ImageMessageBody.h"
 #import "VoiceMessageBody.h"
+#import "LocationMessageBody.h"
 #import "Conversation.h"
 #import "ConversationModel.h"
 #import "EmotionImageFormateTool.h"
@@ -72,6 +74,7 @@
 #define kMessagesListName @"t_messages_list" // 好友消息表
 #define kImageRelativePath @"/Library/appdata/imagebuffer"  // 图片消息缓存路径
 #define kVoiceRelativePath @"/Library/appdata/chatbuffer"   // 语音数据缓存路径
+#define kLocationRelativePath @"/Library/appdata/locationbuffer" // 位置消息缓存路径
 #define WJUserDefault [NSUserDefaults standardUserDefaults]
 #define MsgNoticeKey @"msgNoticeState"
 #define ContactsStateNoVerify @"等待验证" // 联系人状态

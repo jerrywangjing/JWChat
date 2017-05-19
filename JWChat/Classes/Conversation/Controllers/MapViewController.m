@@ -182,8 +182,9 @@
         
         if (weakSelf.completion) {
             
+            weakSelf.completion(image, address, roadName, geoPoint);
             [weakSelf dismissViewControllerAnimated:YES completion:^{
-                weakSelf.completion(image, address, roadName, geoPoint);
+                
             }];
             
         }

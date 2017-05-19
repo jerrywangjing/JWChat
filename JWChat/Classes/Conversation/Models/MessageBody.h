@@ -10,14 +10,14 @@
 
 /// 消息类型
 
-typedef enum{
+typedef NS_ENUM(NSUInteger, MessageBodyType) {
     
-    MessageBodyTypeText,    // 文本类型
-    MessageBodyTypeImage,   // 图片类型
-    MessageBodyTypeVoice,   // 语言类型
-    MessageBodyTypeFile,    // 文件类型
-
-}MessageBodyType;
+    MessageBodyTypeText,        // 文本类型
+    MessageBodyTypeImage,       // 图片类型
+    MessageBodyTypeVoice,       // 语言类型
+    MessageBodyTypeFile,        // 文件类型
+    MessageBodyTypeLocation,    // 位置类型
+};
 
 
 @interface MessageBody : NSObject

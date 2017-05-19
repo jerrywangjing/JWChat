@@ -229,6 +229,9 @@ static MessageReadManager * manager = nil;
             path = [NSHomeDirectory() stringByAppendingString:kVoiceRelativePath];
             relativePath = [kVoiceRelativePath stringByAppendingPathComponent:fileName];
             break;
+        case MessageBodyTypeLocation:
+            path = [NSHomeDirectory() stringByAppendingString:kLocationRelativePath];
+            relativePath = [kLocationRelativePath stringByAppendingPathComponent:fileName];
         default:
             break;
     }

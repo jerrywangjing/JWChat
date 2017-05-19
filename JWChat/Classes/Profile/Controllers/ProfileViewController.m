@@ -134,11 +134,11 @@ static NSString * const GitHub_WJ = @"https://github.com/jerrywangjing";
                                     },
                                 @{
                                     
-                                    Title : @"关于",
+                                    Title : @"开发者网站",
                                     SubTitle : @""
                                     },
                                 @{
-                                    Title : @"开发者网站",
+                                    Title : @"关于",
                                     SubTitle : @""
                                     }
                                 ],
@@ -277,18 +277,19 @@ static NSString * const GitHub_WJ = @"https://github.com/jerrywangjing";
             // 清空聊天记录
             [self clearAllChatRecord];
         }
+        
         if (indexPath.row == 1) {
-            // 关于页面
-            AboutViewController * about = [AboutViewController new];
-            about.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:about animated:YES];
-        }
-        if (indexPath.row == 2) {
             // 开发者网站
             WJWebViewController * webView = [[WJWebViewController alloc] init];
             webView.url = GitHub_WJ;
             webView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:webView animated:YES];
+        }
+        if (indexPath.row == 2) {
+            // 关于页面
+            AboutViewController * about = [AboutViewController new];
+            about.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:about animated:YES];
         }
     }
     

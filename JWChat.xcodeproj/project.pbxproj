@@ -38,6 +38,7 @@
 		C4870B091E93B104009650B9 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4870AFA1E93B104009650B9 /* libopencore-amrnb.a */; };
 		C4870B0A1E93B104009650B9 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4870AFE1E93B104009650B9 /* libopencore-amrwb.a */; };
 		C4A086661ECD9EF9007971C5 /* WJWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A086651ECD9EF9007971C5 /* WJWebViewController.m */; };
+		C4A1A5FF1ECE9528004C053B /* LocationMessageBody.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1A5FE1ECE9528004C053B /* LocationMessageBody.m */; };
 		C4B447601EA8FFC000104CFB /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B4475F1EA8FFC000104CFB /* AboutViewController.m */; };
 		C4C75F131E8F44000093F723 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C75F121E8F44000093F723 /* ConversationViewController.m */; };
 		C4C75F191E8F44300093F723 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C75F181E8F44300093F723 /* ProfileViewController.m */; };
@@ -324,8 +325,10 @@
 		C4870AFC1E93B104009650B9 /* dec_if.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dec_if.h; sourceTree = "<group>"; };
 		C4870AFD1E93B104009650B9 /* if_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
 		C4870AFE1E93B104009650B9 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
-		C4A086641ECD9EF9007971C5 /* WJWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJWebViewController.h; sourceTree = "<group>"; };
-		C4A086651ECD9EF9007971C5 /* WJWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJWebViewController.m; sourceTree = "<group>"; };
+		C4A086641ECD9EF9007971C5 /* WJWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WJWebViewController.h; path = ../Profile/Controllers/WJWebViewController.h; sourceTree = "<group>"; };
+		C4A086651ECD9EF9007971C5 /* WJWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WJWebViewController.m; path = ../Profile/Controllers/WJWebViewController.m; sourceTree = "<group>"; };
+		C4A1A5FD1ECE9528004C053B /* LocationMessageBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationMessageBody.h; sourceTree = "<group>"; };
+		C4A1A5FE1ECE9528004C053B /* LocationMessageBody.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationMessageBody.m; sourceTree = "<group>"; };
 		C4B4475E1EA8FFC000104CFB /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		C4B4475F1EA8FFC000104CFB /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		C4C75F111E8F44000093F723 /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
@@ -677,6 +680,7 @@
 		C43A22881EC0BAF50007D642 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				C4A1A5FC1ECE854C004C053B /* WJWebview */,
 				C43A228A1EC0BB370007D642 /* ArtBoard */,
 				C43A22891EC0BB260007D642 /* WJAlertSheetView */,
 			);
@@ -806,6 +810,15 @@
 				C4870AFE1E93B104009650B9 /* libopencore-amrwb.a */,
 			);
 			path = "opencore-amrwb";
+			sourceTree = "<group>";
+		};
+		C4A1A5FC1ECE854C004C053B /* WJWebview */ = {
+			isa = PBXGroup;
+			children = (
+				C4A086641ECD9EF9007971C5 /* WJWebViewController.h */,
+				C4A086651ECD9EF9007971C5 /* WJWebViewController.m */,
+			);
+			name = WJWebview;
 			sourceTree = "<group>";
 		};
 		C4C75F231E9487E10093F723 /* 静态表情 */ = {
@@ -1172,8 +1185,6 @@
 				C4B4475F1EA8FFC000104CFB /* AboutViewController.m */,
 				C41D05591EA9ABBF00C06E34 /* EditInfoViewController.h */,
 				C41D055A1EA9ABBF00C06E34 /* EditInfoViewController.m */,
-				C4A086641ECD9EF9007971C5 /* WJWebViewController.h */,
-				C4A086651ECD9EF9007971C5 /* WJWebViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1263,6 +1274,8 @@
 				C4F472FC1E9332D8001ED39F /* VoiceMessageBody.m */,
 				C4F472FD1E9332D8001ED39F /* FileMessageBody.h */,
 				C4F472FE1E9332D8001ED39F /* FileMessageBody.m */,
+				C4A1A5FD1ECE9528004C053B /* LocationMessageBody.h */,
+				C4A1A5FE1ECE9528004C053B /* LocationMessageBody.m */,
 				C4F472FF1E9332D8001ED39F /* MessageFrame.h */,
 				C4F473001E9332D8001ED39F /* MessageFrame.m */,
 			);
@@ -1754,6 +1767,7 @@
 				C41D05611EAA0A3B00C06E34 /* UIView+NTES.m in Sources */,
 				C4F475811E9398D8001ED39F /* MWGridViewController.m in Sources */,
 				C4870B041E93B104009650B9 /* EMCDDeviceManager+Remind.m in Sources */,
+				C4A1A5FF1ECE9528004C053B /* LocationMessageBody.m in Sources */,
 				C4F475A91E9398D8001ED39F /* MWPhotoBrowser-dummy.m in Sources */,
 				C4F472D51E93312C001ED39F /* ContactsModel.m in Sources */,
 				C4F471021E8D43CB001ED39F /* AppDelegate.m in Sources */,

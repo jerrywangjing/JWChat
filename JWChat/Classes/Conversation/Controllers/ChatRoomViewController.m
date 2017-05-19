@@ -721,7 +721,7 @@ static NSInteger lastMessageCount; // 记录上次已加载的消息数
 
 #pragma mark - 发送地理位置消息
 
-- (void)sendLocationMessageWithAddress:(NSString *)address road:(NSString *)road screenshot:(UIImage *)screenshot coordinate:(AMapGeoPoint *)coordinate{
+- (void)sendLocationMessageWithAddress:(NSString *)address road:(NSString *)road screenshot:(NSString *)screenshot coordinate:(AMapGeoPoint *)coordinate{
 
     Message *message = [WJMessageHelper sendLocationMessageWithAddress:address road:road screenshot:screenshot coordinate:coordinate to:self.conversationId];
     [self sendMessage:message messageDirection:MessageDirectionSend];
@@ -1106,14 +1106,18 @@ static NSInteger lastMessageCount; // 记录上次已加载的消息数
 }
 
 - (void)sendLocation{
-
-    NSLog(@"发送地理位置");
     
     MapViewController * mapVc = [[MapViewController alloc] init];
     WJWeakSelf(weakSelf);
     
     mapVc.completion = ^(UIImage *image, NSString *address, NSString *roadName, AMapGeoPoint *coordinate) {
-        [weakSelf sendLocationMessageWithAddress:address road:roadName screenshot:image coordinate:coordinate];
+        
+        NSData * imageData = UIImageJPEGRepresentation(image, 0.6);
+        NSString * imageName = [NSString stringWithFormat:@"%.10f_%.10f.jpg",coordinate.latitude,coordinate.longitude];
+        
+        NSString * filePath = [[MessageReadManager shareManager] saveMsgAttachWithData:imageData attachType:MessageBodyTypeLocation andAttachName:imageName];
+        
+        [weakSelf sendLocationMessageWithAddress:address road:roadName screenshot:filePath coordinate:coordinate];
     };
     
     MainNavController * nav = [[MainNavController alloc] initWithRootViewController:mapVc];

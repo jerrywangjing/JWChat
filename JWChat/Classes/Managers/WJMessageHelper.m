@@ -8,7 +8,6 @@
 
 #import "WJMessageHelper.h"
 
-
 @implementation WJMessageHelper
 
 #pragma mark - send message 
@@ -54,9 +53,16 @@
     return msg;
 }
 
-+ (Message *)sendLocationMessageWithAddress:(NSString *)address road:(NSString *)road screenshot:(UIImage *)screenshot coordinate:(AMapGeoPoint *)coordinate to:(NSString *)toUser{
++ (Message *)sendLocationMessageWithAddress:(NSString *)address road:(NSString *)road screenshot:(NSString *)screenshot coordinate:(AMapGeoPoint *)coordinate to:(NSString *)toUser{
+    
+    LocationMessageBody * body = [[LocationMessageBody alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude bodyType:MessageBodyTypeLocation];
+    body.address = address;
+    body.roadName = road;
+    body.screenshotPath = screenshot;
+    
+    Message * msg = [[Message alloc] initWithConversationID:toUser from:CurrentUserId to:toUser body:body ext:nil];
 
-    return nil;
+    return msg;
 }
 
 #pragma mark - received message
@@ -93,8 +99,6 @@
     Message * msg = [[Message alloc] initWithConversationID:from from:from to:CurrentUserId body:body ext:nil];
     return msg;
 }
-
-
 
 @end
 

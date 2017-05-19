@@ -54,7 +54,7 @@
  */
 + (Message *)sendLocationMessageWithAddress:(NSString *)address
                                        road:(NSString *)road
-                                 screenshot:(UIImage  *)screenshot
+                                 screenshot:(NSString  *)screenshot
                                  coordinate:(AMapGeoPoint *)coordinate
                                          to:(NSString *)toUser;
 

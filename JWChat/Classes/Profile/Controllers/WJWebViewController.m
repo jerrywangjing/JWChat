@@ -82,23 +82,37 @@ static CGFloat const NAVI_HEIGHT = 64;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    
     if ([keyPath isEqualToString:@"estimatedProgress"]) {
-        _loadingProgressView.progress = [change[@"new"] floatValue];
+        
+        CGFloat progress = [change[NSKeyValueChangeNewKey] floatValue];
+        [_loadingProgressView setProgress:progress animated:YES];
+        
         if (_loadingProgressView.progress == 1.0) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+            [UIView animateWithDuration:0.3 animations:^{
+                self.loadingProgressView.alpha = 0;
+                
+            } completion:^(BOOL finished) {
                 _loadingProgressView.hidden = YES;
-            });
+                _loadingProgressView.progress = 0.0f;
+            }];
         }
     }
 }
 
 - (void)dealloc {
+    
     [_wk_WebView removeObserver:self forKeyPath:@"estimatedProgress"];
     [_wk_WebView stopLoading];
     [_webView stopLoading];
     _wk_WebView.UIDelegate = nil;
     _wk_WebView.navigationDelegate = nil;
     _webView.delegate = nil;
+    
+    if ([UIApplication sharedApplication].isNetworkActivityIndicatorVisible) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    }
 }
 
 
@@ -255,6 +269,9 @@ static CGFloat const NAVI_HEIGHT = 64;
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation{
     webView.hidden = NO;
     _loadingProgressView.hidden = NO;
+    _loadingProgressView.alpha = 1.0;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
     if ([webView.URL.scheme isEqual:@"about"]) {
         webView.hidden = YES;
     }
@@ -268,6 +285,7 @@ static CGFloat const NAVI_HEIGHT = 64;
     }];
     
     [self showLeftBarButtonItem];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     
     [_refreshControl endRefreshing];
 }
@@ -275,6 +293,7 @@ static CGFloat const NAVI_HEIGHT = 64;
 //页面加载失败
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error{
     webView.hidden = YES;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 //HTTPS认证

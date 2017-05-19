@@ -13,6 +13,11 @@
 #import "VoiceMessageBody.h"
 #import "FileMessageBody.h"
 
+static NSString * const kTypeText = @"text";
+static NSString * const kTypeImage = @"image";
+static NSString * const kTypeVoice = @"voice";
+static NSString * const kTypeLocation = @"location";
+static NSString * const kTypeFile = @"file";
 
 @implementation MessageModel
 
@@ -20,7 +25,6 @@
 
     return [[self alloc] initWithModel:message];;
 }
-    
 
 -(instancetype)initWithModel:(Message * )model{
 
@@ -34,22 +38,21 @@
             case MessageBodyTypeText:{
                 
                 TextMessageBody * textBody = (TextMessageBody *)model.body;
-                _type = @"text";
+                _type = kTypeText;
                 _textContent = textBody.text;
             }
                 break;
             case MessageBodyTypeImage:{
                 ImageMessageBody * imageBody = (ImageMessageBody *)model.body;
-                _type = @"image";
+                _type = kTypeImage;
                 _localPath = imageBody.imageLocalPath;
                 
             }
-                
                 break;
             case MessageBodyTypeVoice:{
             
                 VoiceMessageBody * voiceBody = (VoiceMessageBody *)model.body;
-                _type = @"voice";
+                _type = kTypeVoice;
                 //注意： 存入数据库的时候需要把路径转为相对路径
                 // 包装语言消息使用相对路径
                 NSString * voiceRelativePath = [kVoiceRelativePath stringByAppendingPathComponent:voiceBody.voiceLocalPath.lastPathComponent];
@@ -62,10 +65,18 @@
             case MessageBodyTypeFile:{
             
                 FileMessageBody * fileBody = (FileMessageBody *)model.body;
-                _type = @"file";
+                _type = kTypeFile;
                 _localPath = fileBody.localPath;
                 _textContent = fileBody.displayName; // 存放文件名
                 _duration = fileBody.fileId.intValue; // 存放fileId
+            }
+                break;
+            case MessageBodyTypeLocation:{
+            
+                LocationMessageBody * locationBody = (LocationMessageBody *)model.body;
+                _type = kTypeLocation;
+                
+                
             }
                 
                 break;
