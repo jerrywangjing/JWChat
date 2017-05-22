@@ -31,6 +31,7 @@
 #import "ArtboardViewController.h"
 #import "MainNavController.h"
 #import "MapViewController.h"
+#import "LocationViewController.h"
 
 #define CachesDirectory NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject
 #define FILE_PATH [CachesDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",self.conversationId]]
@@ -522,15 +523,14 @@ static NSInteger lastMessageCount; // 记录上次已加载的消息数
             message.isHideTime = YES;
         }
         
-        
-        // 缓存消息到沙盒sqlite 数据库
+        // 缓存消息到数据库消息表
         
         MessageModel * msgModel = [MessageModel modelWithMessage:message];
         BOOL success = [[DBManager shareManager] creatTableOrUpdateMsg:self.conversationId messageModel:msgModel];
         if (!success) {
             NSLog(@"消息缓存数据库失败");
         }
-        // 创建并插入会话到数据库（调用框架接口）
+        // 插入会话到数据库会话表（调用框架接口）
         
         Conversation * cover = [[Conversation alloc] initWithLatestMessage:message];
         ConversationModel * coverModel = [[ConversationModel alloc] initWithConversation:cover];
@@ -595,6 +595,14 @@ static NSInteger lastMessageCount; // 记录上次已加载的消息数
             
         }
             break;
+        case MessageBodyTypeLocation:{ // 发送位置消息
+        
+            LocationMessageBody * body = (LocationMessageBody *)message.body;
+            
+            NIMLocationObject * location = [[NIMLocationObject alloc] initWithLatitude:body.latitude longitude:body.longitude title:body.address];
+            sendMsg.messageObject = location;
+        }
+            break;
         default:
             break;
     }
@@ -610,7 +618,6 @@ static NSInteger lastMessageCount; // 记录上次已加载的消息数
 // 即将要发送消息
 -(void)willSendMessage:(NIMMessage *)message{
 
-    NSLog(@"将要发送消息");
     MessageFrame * msgF = self.messageFrames.lastObject;
     Message * msg = msgF.aMessage;
     
@@ -631,7 +638,6 @@ static NSInteger lastMessageCount; // 记录上次已加载的消息数
 -(void)sendMessage:(NIMMessage *)message didCompleteWithError:(NSError *)error{
 
     if (!error) {
-        NSLog(@"消息发送成功");
         MessageFrame * msgF = self.messageFrames.lastObject;
         Message * msg = msgF.aMessage;
         
@@ -1255,6 +1261,8 @@ static NSInteger lastMessageCount; // 记录上次已加载的消息数
         case MessageBodyTypeFile:
             [self fileMessageCell:messageCell selected:model];
             break;
+        case MessageBodyTypeLocation:
+            [self locationMessageCell:messageCell selected:model];
         default:
             break;
     }
@@ -1493,7 +1501,13 @@ static NSInteger lastMessageCount; // 记录上次已加载的消息数
 -(void)fileMessageCell:(id)cell selected:(MessageFrame *)model{
 
     NSLog(@"功能暂未使用");
+}
+// 位置消息点击
+- (void)locationMessageCell:(id)cell selected:(MessageFrame *)model{
 
+    LocationViewController * locationVc = [[LocationViewController alloc] init];
+    locationVc.locationBody = (LocationMessageBody *)model.aMessage.body;
+    [self.navigationController pushViewController:locationVc animated:YES];
 }
 
 #pragma mark - private helper // 私有的工具方法

@@ -261,7 +261,7 @@
 
 - (void)changeAvatar{
     
-    [WJAlertSheetView showAlertSheetViewWithTips:nil items:@[@"拍摄",@"从手机相册选择"] completion:^(NSInteger index) {
+    [WJAlertSheetView showAlertSheetViewWithTips:nil items:@[@"拍摄",@"从手机相册选择"] completion:^(NSInteger index,UIButton *item) {
         switch (index) {
             case 0:
                 // 取消按钮点击

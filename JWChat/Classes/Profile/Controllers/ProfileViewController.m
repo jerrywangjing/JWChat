@@ -311,7 +311,7 @@ static NSString * const GitHub_WJ = @"https://github.com/jerrywangjing";
 
 - (void)logout{
 
-    [WJAlertSheetView showAlertSheetViewWithTips:@"退出当前账号？" items:@[@"确定"] completion:^(NSInteger index) {
+    [WJAlertSheetView showAlertSheetViewWithTips:@"退出当前账号？" items:@[@"确定"] completion:^(NSInteger index,UIButton *item) {
         if (index == 1) {
             
             [MBProgressHUD showHUD];
@@ -331,7 +331,7 @@ static NSString * const GitHub_WJ = @"https://github.com/jerrywangjing";
 
 - (void)clearAllChatRecord{
 
-    [WJAlertSheetView showAlertSheetViewWithTips:@"确认清空所有聊天记录？清空后将无法恢复" items:@[@"确定"] completion:^(NSInteger index) {
+    [WJAlertSheetView showAlertSheetViewWithTips:@"确认清空所有聊天记录？清空后将无法恢复" items:@[@"确定"] completion:^(NSInteger index,UIButton *item) {
         if (index == 1) {
             BOOL success = [[DBManager shareManager] deleteAllMessageRecord];
             [MBProgressHUD hideHUD];
@@ -361,7 +361,7 @@ static NSString * const GitHub_WJ = @"https://github.com/jerrywangjing";
 
 - (void)openNoborder{
  
-    [WJAlertSheetView showAlertSheetViewWithTips:nil items:@[@"开启",@"从00:00到12:00"] completion:^(NSInteger index) {
+    [WJAlertSheetView showAlertSheetViewWithTips:nil items:@[@"开启",@"从00:00到12:00"] completion:^(NSInteger index,UIButton *item) {
         NSLog(@"selected index :%ld",index);
     }];
 }

@@ -58,6 +58,9 @@
             case MessageBodyTypeFile:
                 _latestMessage.text = @"[文件]";
                 break;
+            case MessageBodyTypeLocation:
+                _latestMessage.text = @"[位置]";
+                break;
             default:
                 break;
         }

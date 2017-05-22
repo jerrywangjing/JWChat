@@ -32,7 +32,6 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
 
 @property (nonatomic,weak) UILabel * timeView;
 @property (nonatomic,weak) UIImageView * iconView;
-//@property (nonatomic,weak) UIButton * contentBtn; // 已移到外部接口
 
 @property (nonatomic,weak) UIImageView * voiceView;
 @property (nonatomic,weak) UILabel * secLabel;
@@ -44,14 +43,12 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
 @property (nonatomic,strong) NSArray * sendMessageVoiceAnimationImages;
 @property (nonatomic,strong) NSArray * recvMessageVoiceAnimationImages;
 @property (nonatomic,strong) UIButton *statusButton; // 消息发送状态指示
-@property (nonatomic, strong) UIActivityIndicatorView *activity; // 发送网络状态显示
+@property (nonatomic,strong) UIActivityIndicatorView *activity; // 发送网络状态显示
 
-//
-//@property (strong, nonatomic) UILabel *nameLabel; // 好友姓名/昵称
-//
-//@property (strong, nonatomic) UILabel *hasRead; // 是否已读
-//
-//@property (strong, nonatomic) EaseBubbleView *bubbleView; //不同消息类型的显示视图（语言、图片、文件）
+@property (nonatomic,strong) UILabel * addressLabel;
+@property (nonatomic,strong) UILabel * roadLabel;
+@property (nonatomic,strong) UIImageView * screenshotView;
+@property (nonatomic,strong) UIView * locationView;
 
 @end
 
@@ -103,6 +100,8 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     }
     return _fileSize;
 }
+
+
 + (instancetype)messageCellWithTabelView:(UITableView *)tableView andModel:(MessageFrame *)model{
     
     NSString * cellIdentifier = [self cellIdentifierWithModel:model];
@@ -145,7 +144,7 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     timeViwe.textColor = [UIColor whiteColor];
     [self.contentView addSubview:timeViwe];
     self.timeView = timeViwe;
-    // 设置lable的文字居中(Alignment译为：位置)
+
     timeViwe.textAlignment = NSTextAlignmentCenter;
     // 头像
     UIImageView *iconView = [[UIImageView alloc] init];
@@ -179,6 +178,28 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     self.redDot = redDot;
     redDot.backgroundColor = [UIColor redColor];
     
+    // 地理位置view
+    
+    _locationView = [[UIView alloc] init];
+    _locationView.backgroundColor = [UIColor whiteColor];
+    UITapGestureRecognizer * locationTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(locationViewClick:)];
+    [_locationView addGestureRecognizer:locationTap];
+    
+    // addressLabel
+    _addressLabel = [[UILabel alloc] init];
+    _addressLabel.font = [UIFont systemFontOfSize:15];
+    [_locationView addSubview:_addressLabel];
+    // roadNameLabel
+    _roadLabel = [[UILabel alloc] init];
+    _roadLabel.textColor = [UIColor lightGrayColor];
+    _roadLabel.font = [UIFont systemFontOfSize:12];
+    [_locationView addSubview:_roadLabel];
+    // screenshotView
+
+    _screenshotView = [[UIImageView alloc] init];
+
+    [_locationView addSubview:_screenshotView];
+    
     // 发送状态显示
     self.activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     
@@ -191,7 +212,6 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     [_contentBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     _contentBtn.titleLabel.numberOfLines = 0;
     _contentBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
-    
     
 }
 
@@ -257,7 +277,6 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
         }];
     }
     
-    
     // 设置消息状态
     
     switch (msg.status) {
@@ -302,6 +321,10 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
         case MessageBodyTypeFile:
             // 设置文件消息
             [self setFileMessageCell:message];
+            break;
+        case MessageBodyTypeLocation:
+            // 设置位置消息
+            [self setLocationMessageCell:message];
             break;
         default:
             break;
@@ -433,6 +456,30 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     
 }
 
+- (void)setLocationMessageCell:(Message *)message{
+
+    LocationMessageBody * body = (LocationMessageBody *)message.body;
+    
+    _contentBtn.layer.cornerRadius = 5;
+    _contentBtn.layer.masksToBounds = YES;
+    
+    NSData * data = [NSData dataWithContentsOfFile:[NSHomeDirectory() stringByAppendingString:body.screenshotPath]];
+    UIImage * screenshot = [UIImage imageWithData:data];
+    //设置尺寸
+    
+    _locationView.frame = CGRectMake(0, 0, _contentBtn.width, _contentBtn.height);
+    _addressLabel.frame = CGRectMake(5, 5, _locationView.width-10, 20);
+    _roadLabel.frame = CGRectMake(5, CGRectGetMaxY(_addressLabel.frame), _locationView.width, 20);
+    CGFloat screenshotY = CGRectGetMaxY(_roadLabel.frame)+3;
+    _screenshotView.frame = CGRectMake(0,screenshotY , _locationView.width, _locationView.height-screenshotY);
+    //  赋值
+    _screenshotView.image = screenshot;
+    _addressLabel.text = body.address;
+    _roadLabel.text = body.roadName;
+    
+    [_contentBtn addSubview:_locationView];
+}
+
 #pragma mark - 消息内容点击/长按事件
 
 -(void)cellContentClick:(UIButton *)btn{
@@ -454,12 +501,14 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     if (recognizer.state == UIGestureRecognizerStateBegan) {// 一旦识别到手势后就只执行一次处理
         if ([_delegate respondsToSelector:@selector(messageCell:didLongPress:WithModel:)]) {
             [_delegate messageCell:_contentBtn didLongPress:recognizer WithModel:_messageFrame.aMessage];
-        }else{
-            NSLog(@"未响应代理方法");
-            
         }
     }
     
+}
+
+// 位置消息点击
+- (void)locationViewClick:(id)sender{
+    [self cellContentClick:nil];
 }
 
 #pragma mark - public 
@@ -482,12 +531,15 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
             case MessageBodyTypeFile:
                 cellIdentifier = EaseMessageCellIdentifierSendFile;
                 break;
+            case MessageBodyTypeLocation:
+                cellIdentifier = EaseMessageCellIdentifierSendLocation;
+                break;
             default:
                 break;
         }
     }
     else{
-        switch (model.aMessage.body.type) {
+        switch (model.aMessage.body.type) {         // 接收
             case MessageBodyTypeText:
                 cellIdentifier = EaseMessageCellIdentifierRecvText;
                 break;
@@ -499,6 +551,9 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
                 break;
             case MessageBodyTypeFile:
                 cellIdentifier = EaseMessageCellIdentifierRecvFile;
+                break;
+            case MessageBodyTypeLocation:
+                cellIdentifier = EaseMessageCellIdentifierRecvLocation;
                 break;
             default:
                 break;
@@ -532,5 +587,6 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     }
     return [UIImage imageNamed:@"default_icon"];
 }
+
 
 @end

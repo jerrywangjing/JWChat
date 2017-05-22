@@ -76,7 +76,8 @@ CGFloat margin = 10;
         case MessageBodyTypeFile:
             [self setFileContentCellFrame:message];
             break;
-            
+        case MessageBodyTypeLocation:
+            [self setLocationContentCellFrame:message];
         default:
             break;
     }
@@ -175,6 +176,23 @@ CGFloat margin = 10;
     }
     _contentFrame = CGRectMake(textX, textY, fileContentSize.width,fileContentSize.height);
     
+}
+
+- (void)setLocationContentCellFrame:(Message *)message{
+
+    CGSize fileContentSize = CGSizeMake(220, 150);
+    
+    CGFloat textY = _iconFrame.origin.y;
+    CGFloat textX = 0;
+    
+    if (message.direction == MessageDirectionSend) {
+        
+        textX = _iconFrame.origin.x - margin/2 - fileContentSize.width;
+    }else{
+        
+        textX = CGRectGetMaxX(_iconFrame) +margin/2;
+    }
+    _contentFrame = CGRectMake(textX, textY, fileContentSize.width,fileContentSize.height);
 }
 #pragma mark - pravite 
 

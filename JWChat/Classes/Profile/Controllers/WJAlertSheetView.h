@@ -20,5 +20,5 @@
 
 + (void)showAlertSheetViewWithTips:(NSString *)tips
                              items:(NSArray<NSString *> *)items
-                        completion:(void (^)(NSInteger index))completion;
+                        completion:(void (^)(NSInteger index, UIButton *item))completion;
 @end

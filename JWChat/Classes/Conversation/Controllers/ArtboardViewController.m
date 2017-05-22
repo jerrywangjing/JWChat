@@ -208,7 +208,7 @@
 
     if (_backBtn.isEnabled) { // 只有当前画板有线条时，才提示是否发送
         
-        [WJAlertSheetView showAlertSheetViewWithTips:@"是否将涂鸦发送给对方？" items:@[@"发送"] completion:^(NSInteger index) {
+        [WJAlertSheetView showAlertSheetViewWithTips:@"是否将涂鸦发送给对方？" items:@[@"发送"] completion:^(NSInteger index,UIButton *item) {
             
             if (index == 0) { // 取消按钮点击
                 [self dismissViewControllerAnimated:YES completion:nil];
@@ -243,12 +243,13 @@
 - (void)backBtnClick:(UIButton *)btn{
     [self.artboardView back];
 }
+
 - (void)forwordBtnClick:(UIButton *)btn{
     [self.artboardView forword];
 }
 - (void)saveBtnClick:(UIButton *)btn{
 
-    [WJAlertSheetView showAlertSheetViewWithTips:@"涂鸦将保存到手机相册中,是否继续？" items:@[@"保存到相册"] completion:^(NSInteger index) {
+    [WJAlertSheetView showAlertSheetViewWithTips:@"涂鸦将保存到手机相册中,是否继续？" items:@[@"保存到相册"] completion:^(NSInteger index,UIButton *item) {
 
         if (index == 1) {
             [self.artboardView saveAsImage];

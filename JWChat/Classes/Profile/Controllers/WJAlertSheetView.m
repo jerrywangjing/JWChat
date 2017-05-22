@@ -13,7 +13,7 @@ static const CGFloat GapHeight = 7;
 static const CGFloat GapLineHeight = 0.5;
 static const CGFloat TipsViewHeight = 60;
 
-typedef void(^SelectedBlock)(NSInteger index);
+typedef void(^SelectedBlock)(NSInteger index,UIButton *item);
 
 @interface WJAlertSheetView()
 
@@ -136,19 +136,19 @@ typedef void(^SelectedBlock)(NSInteger index);
 }
 
 - (void)cancelBtnClick:(UIButton *)btn{
-    _callback(0);
+    _callback(0,btn);
     [self hideView];
 }
 
 - (void)itemDidClick:(UIButton *)btn{
 
-    _callback(btn.tag);
+    _callback(btn.tag,btn);
     [self hideView];
 }
 
 #pragma mark - public
 
-+ (void)showAlertSheetViewWithTips:(NSString *)tips items:(NSArray<NSString *> *)items completion:(void (^)(NSInteger))completion{
++ (void)showAlertSheetViewWithTips:(NSString *)tips items:(NSArray<NSString *> *)items completion:(void (^)(NSInteger,UIButton *))completion{
 
     if (!items) {
         if (items.count <= 0) {
@@ -160,8 +160,8 @@ typedef void(^SelectedBlock)(NSInteger index);
     
     WJAlertSheetView * sheetView = [[WJAlertSheetView alloc] initWithFrame:[UIScreen mainScreen].bounds tips:tips items:items];
 
-    sheetView.callback = ^(NSInteger index) {
-        completion(index);
+    sheetView.callback = ^(NSInteger index,UIButton *item) {
+        completion(index,item);
     };
     
     [sheetView showView];

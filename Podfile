@@ -22,7 +22,8 @@ target 'JWChat' do
   pod 'TZImagePickerController'  # 照片选择控件
   pod 'NIMSDK' # NIM即时通讯
   pod 'YYText'
-  pod 'AMap2DMap'  # 高德地图
+  #pod 'AMap2DMap'  # 高德地图
+  pod 'AMap3DMap'   # 3D地图
   pod 'AMapSearch' # 高德位置搜索
   
   # pod 'AMap3DMap' #3D地图SDK

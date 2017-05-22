@@ -54,7 +54,7 @@ static DBManager *_dB = nil;
 -(BOOL)creatTableOrUpdateMsg:(NSString *)tableName messageModel:(MessageModel *)model{
     
     if (![self isExistsTable:DBTableName(tableName)]) { // 注意：如果数据表名是纯数字需要加双引号例如："表名" 才能被sqlite 识别
-        NSString * sql = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS \"%@\"(id integer PRIMARY KEY AUTOINCREMENT,time text NOT NULL,type text NOT NULL,textContent text,localPath text, duration integer,direction text NOT NULL, isRead integer,isHideTime integer);",DBTableName(tableName)];
+        NSString * sql = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS \"%@\"(id integer PRIMARY KEY AUTOINCREMENT,time text NOT NULL,type text NOT NULL,textContent text,extraContent text,localPath text, duration integer,latitude real,longitude real,direction text NOT NULL, isRead integer,isHideTime integer);",DBTableName(tableName)];
         BOOL isSuccess = [_fmdb executeUpdate:sql];
         if (!isSuccess) {
             NSLog(@"创表失败:%@",_fmdb.lastErrorMessage);
@@ -163,8 +163,8 @@ static DBManager *_dB = nil;
     NSNumber * isRead = [NSNumber numberWithInt:model.isRead ? 1:0];
     NSNumber * isHideTime = [NSNumber numberWithInt:model.isHideTime ? 1:0];
     
-    NSString * sql = [NSString stringWithFormat:@"INSERT INTO \"%@\" (time,type,textContent,localPath,duration, direction,isRead,isHideTime) VALUES (?,?,?,?,?,?,?,?);",DBTableName(tableName)];
-    BOOL success = [_fmdb executeUpdate:sql,model.time,model.type,model.textContent,model.localPath,@(model.duration), model.direction,isRead,isHideTime];
+    NSString * sql = [NSString stringWithFormat:@"INSERT INTO \"%@\" (time,type,textContent,extraContent,localPath,duration, latitude,longitude,direction,isRead,isHideTime) VALUES (?,?,?,?,?,?,?,?,?,?,?);",DBTableName(tableName)];
+    BOOL success = [_fmdb executeUpdate:sql,model.time,model.type,model.textContent,model.extraContent, model.localPath,@(model.duration),@(model.latitude),@(model.longitude), model.direction,isRead,isHideTime];
 
     return success;
 }
@@ -289,8 +289,11 @@ static DBManager *_dB = nil;
         model.time = [set stringForColumn:@"time"];
         model.type = [set stringForColumn:@"type"];
         model.textContent = [set stringForColumn:@"textContent"];
+        model.extraContent = [set stringForColumn:@"extraContent"];
         model.localPath = [set stringForColumn:@"localPath"];
         model.duration = [set intForColumn:@"duration"];
+        model.latitude = [set doubleForColumn:@"latitude"];
+        model.longitude = [set doubleForColumn:@"longitude"];
         model.direction = [set stringForColumn:@"direction"];
         model.isRead = [set intForColumn:@"isRead"] == 1 ? YES:NO;
         model.isHideTime = [set intForColumn:@"isHideTime"] == 1 ? YES:NO;
@@ -379,7 +382,9 @@ static DBManager *_dB = nil;
         case MessageBodyTypeVoice:
             lastMsgContent = @"[语音]";
             break;
-            
+        case MessageBodyTypeLocation:
+            lastMsgContent = @"[位置]";
+            break;
         default:
             break;
     }

@@ -18,6 +18,8 @@ static NSString * const kTypeImage = @"image";
 static NSString * const kTypeVoice = @"voice";
 static NSString * const kTypeLocation = @"location";
 static NSString * const kTypeFile = @"file";
+static NSString * const kSend = @"send";
+static NSString * const kReceived = @"received";
 
 @implementation MessageModel
 
@@ -30,7 +32,7 @@ static NSString * const kTypeFile = @"file";
 
     if (self = [super init]) {
         _time = model.timestamp;
-        _direction = model.direction == 0? @"send":@"received";
+        _direction = model.direction == 0 ? kSend : kReceived;
         _isRead = model.isRead;
         _isHideTime = model.isHideTime;
         
@@ -75,7 +77,11 @@ static NSString * const kTypeFile = @"file";
             
                 LocationMessageBody * locationBody = (LocationMessageBody *)model.body;
                 _type = kTypeLocation;
-                
+                _textContent = locationBody.address;
+                _extraContent = locationBody.roadName;
+                _localPath = locationBody.screenshotPath;
+                _latitude = locationBody.latitude;
+                _longitude = locationBody.longitude;
                 
             }
                 
@@ -90,51 +96,27 @@ static NSString * const kTypeFile = @"file";
 
 +(Message *)messageWithMessageModel:(MessageModel *)model convesationId:(NSString *)covId{
     
-    if ([model.type isEqualToString:@"text"]) {
-        TextMessageBody * textBody = [[TextMessageBody alloc] initWithText:model.textContent];
-        Message * message = [[Message alloc] initWithConversationID:covId from:nil to:nil body:textBody ext:nil];
-        message.messageId = model.uid;
-        message.direction = [model.direction isEqualToString:@"send"] ? MessageDirectionSend : MessageDirectionReceive;
-        message.timeStr = model.time;
-        message.timestamp = model.time;
-        message.isRead = model.isRead;
-        message.isHideTime = model.isHideTime;
-        return message;
+    
+    MessageBody * body = nil;
+    
+    if ([model.type isEqualToString:kTypeText]) {
+        body = [[TextMessageBody alloc] initWithText:model.textContent];
         
-    }else if ([model.type isEqualToString:@"image"]){
+    }else if ([model.type isEqualToString:kTypeImage]){
         
-        ImageMessageBody * imageBody = [[ImageMessageBody alloc] initWithData:nil localPath:model.localPath];
+        body = [[ImageMessageBody alloc] initWithData:nil localPath:model.localPath];
         
-        Message * message = [[Message alloc] initWithConversationID:covId from:nil to:nil body:imageBody ext:nil];
-        message.messageId = model.uid;
-        message.direction = [model.direction isEqualToString:@"send"] ? MessageDirectionSend : MessageDirectionReceive;
-        message.timeStr = model.time;
-        message.timestamp = model.time;
-        message.isRead = model.isRead;
-        message.isHideTime = model.isHideTime;
-        
-        return message;
-        
-    }else if ([model.type isEqualToString:@"voice"]){
+    }else if ([model.type isEqualToString:kTypeVoice]){
         
         // 拼装语音文件全路径
         NSString * voiceFullPath = [NSHomeDirectory() stringByAppendingString:model.localPath];
         
-        VoiceMessageBody * voiceBody = [[VoiceMessageBody alloc] initWithLocalPath:voiceFullPath duration:model.duration];
-        Message * message = [[Message alloc] initWithConversationID:covId from:nil to:nil body:voiceBody ext:nil];
-        message.messageId = model.uid;
-        message.direction = [model.direction isEqualToString:@"send"] ? MessageDirectionSend : MessageDirectionReceive;
-        message.timeStr = model.time;
-        message.timestamp = model.time;
-        message.isRead = model.isRead;
-        message.isHideTime = model.isHideTime;
-        return message;
+        body = [[VoiceMessageBody alloc] initWithLocalPath:voiceFullPath duration:model.duration];
         
-    }else if ([model.type isEqualToString:@"file"]){
-        
+    }else if ([model.type isEqualToString:kTypeFile]){
         //解析文件
-       // NSString * filePath = [NSHomeDirectory() stringByAppendingString:model.localPath];
-        
+//        NSString * filePath = [NSHomeDirectory() stringByAppendingString:model.localPath];
+//        
 //        NSMutableDictionary * dic = [NSMutableDictionary dictionary];
 //        dic[@"fileName"] = model.textContent;
 //        dic[@"filePath"] = model.localPath;
@@ -142,19 +124,26 @@ static NSString * const kTypeFile = @"file";
 //        dic[@"fileId"] = [NSString stringWithFormat:@"%d",model.duration];
 //        
 //        FileSelectModel * fileModel = [FileSelectModel modelWithDic:dic];
-//        FileMessageBody * body = [[FileMessageBody alloc] initWithfileModel:fileModel];
-//        
-//        Message * message = [[Message alloc] initWithConversationID:covId from:nil to:nil body:body ext:nil];
-//        message.messageId = model.uid;
-//        message.direction = [model.direction isEqualToString:@"send"] ? MessageDirectionSend : MessageDirectionReceive;
-//        message.timeStr = model.time;
-//        message.timestamp = model.time;
-//        message.isRead = model.isRead;
-//        message.isHideTime = model.isHideTime;
-        return nil;
+//        body = [[FileMessageBody alloc] initWithfileModel:fileModel];
+
+    }else if ([model.type isEqualToString:kTypeLocation]){
+    
+        LocationMessageBody * locationBody = [[LocationMessageBody alloc] initWithLatitude:model.latitude longitude:model.longitude bodyType:MessageBodyTypeLocation];
+        locationBody.address = model.textContent;
+        locationBody.roadName = model.extraContent;
+        locationBody.screenshotPath = model.localPath;
+        body = locationBody;
     }
     
-    return nil;
+    Message * message = [[Message alloc] initWithConversationID:covId from:nil to:nil body:body ext:nil];
+    message.messageId = model.uid;
+    message.direction = [model.direction isEqualToString:kSend] ? MessageDirectionSend : MessageDirectionReceive;
+    message.timeStr = model.time;
+    message.timestamp = model.time;
+    message.isRead = model.isRead;
+    message.isHideTime = model.isHideTime;
+    
+    return message;
 }
 
 @end

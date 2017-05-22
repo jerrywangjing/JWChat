@@ -153,6 +153,7 @@
 		C4EAF2EB1EAFA29100C217E8 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF2EA1EAFA29100C217E8 /* FXBlurView.m */; };
 		C4EAF2EE1EB0D35A00C217E8 /* WJAlertSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF2ED1EB0D35A00C217E8 /* WJAlertSheetView.m */; };
 		C4EAF30C1EB6D1A000C217E8 /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF30B1EB6D19F00C217E8 /* NSString+Hash.m */; };
+		C4EF183F1ECF320200416E14 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EF183E1ECF320200416E14 /* LocationViewController.m */; };
 		C4F470FF1E8D43CB001ED39F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F470FE1E8D43CB001ED39F /* main.m */; };
 		C4F471021E8D43CB001ED39F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F471011E8D43CB001ED39F /* AppDelegate.m */; };
 		C4F4710A1E8D43CB001ED39F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4F471091E8D43CB001ED39F /* Assets.xcassets */; };
@@ -475,6 +476,8 @@
 		C4EAF2ED1EB0D35A00C217E8 /* WJAlertSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WJAlertSheetView.m; path = ../Profile/Controllers/WJAlertSheetView.m; sourceTree = "<group>"; };
 		C4EAF30A1EB6D19F00C217E8 /* NSString+Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hash.h"; sourceTree = "<group>"; };
 		C4EAF30B1EB6D19F00C217E8 /* NSString+Hash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hash.m"; sourceTree = "<group>"; };
+		C4EF183D1ECF320200416E14 /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
+		C4EF183E1ECF320200416E14 /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
 		C4F470FA1E8D43CB001ED39F /* JWChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JWChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4F470FE1E8D43CB001ED39F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C4F471001E8D43CB001ED39F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../../AppDelegate.h; sourceTree = "<group>"; };
@@ -1141,6 +1144,8 @@
 				C43A22921EC0C1600007D642 /* ArtboardViewController.m */,
 				C4EA05641EC9E9F60042073E /* MapViewController.h */,
 				C4EA05651EC9E9F60042073E /* MapViewController.m */,
+				C4EF183D1ECF320200416E14 /* LocationViewController.h */,
+				C4EF183E1ECF320200416E14 /* LocationViewController.m */,
 				C43A22941EC489C10007D642 /* testFiles */,
 			);
 			path = Controllers;
@@ -1851,6 +1856,7 @@
 				C4680F551EA701A600A57104 /* BaseTableViewCell.m in Sources */,
 				C4F473071E9332D8001ED39F /* MessageFrame.m in Sources */,
 				C41D055B1EA9ABBF00C06E34 /* EditInfoViewController.m in Sources */,
+				C4EF183F1ECF320200416E14 /* LocationViewController.m in Sources */,
 				C4680F4F1EA4710300A57104 /* LoginManager.m in Sources */,
 				C46C3A5E1EA7AE2800B97761 /* NTESFileLocationHelper.m in Sources */,
 				C4C764D31E948AB90093F723 /* MessageModel.m in Sources */,

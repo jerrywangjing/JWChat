@@ -11,6 +11,8 @@
 #import <MAMapKit/MAMapKit.h>
 #import <AMapSearchKit/AMapSearchKit.h>
 
+#define MapViewH (SCREEN_HEIGHT - NavBarH)/2
+#define LocationViewH SCREEN_HEIGHT-(NavBarH+CGRectGetHeight(_mapView.frame))
 
 @interface MapViewController ()<MAMapViewDelegate,AMapSearchDelegate,UITableViewDelegate,UITableViewDataSource>
 
@@ -19,12 +21,15 @@
 @property (nonatomic,strong) MAPointAnnotation * centerPin; // 中心大头针
 
 @property (nonatomic,weak) UITableView * locationsView; // 显示当前及周边位置信息
+@property (nonatomic,weak) UIButton * locationBtn;
 @property (nonatomic,strong) NSMutableArray * locations; // 地理位置对象
 
 @property (nonatomic,strong) AMapReGeocode * reGeocode; // 当前反地理编码对象
 @property (nonatomic,getter=isAllowUpdateLocation) BOOL allowUpdateLocation; // 允许更新位置信息
 @property (nonatomic,weak) UIActivityIndicatorView *indicator;
 @property (nonatomic,assign) NSInteger selectedRow; // 记录选中的行（防止cell重用）
+
+@property (nonatomic,assign,getter=isOnTop) BOOL onTop; // tableView 是否向上偏移
 
 @end
 
@@ -40,8 +45,41 @@
     return _locations;
 }
 
+#pragma  mark - setter
+
+- (void)setOnTop:(BOOL)onTop{
+
+    _onTop = onTop;
+    
+    if (onTop) {
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            _mapView.y = NavBarH-75;
+            _locationsView.height = LocationViewH+75*2;
+            _locationsView.y = CGRectGetMaxY(_mapView.frame)-75;
+            _locationBtn.transform = CGAffineTransformMakeTranslation(0, -140);
+            
+        }];
+        
+    }else{
+    
+        [UIView animateWithDuration:0.3 animations:^{
+            _mapView.y = NavBarH;
+            _locationsView.height = LocationViewH;
+            _locationsView.y = CGRectGetMaxY(_mapView.frame);
+            _locationBtn.transform = CGAffineTransformIdentity;
+            
+        }];
+    }
+}
 #pragma mark - init
 
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+    }
+    return self;
+}
 - (void)loadView{
 
     [super loadView];
@@ -59,12 +97,12 @@
     [self configNavBarItem];
     [self setupSubviews];
     
-    
 }
 
 - (void)dealloc{
 
     [_mapView clearDisk];
+    [_locationsView removeObserver:self forKeyPath:@"contentOffset"];
 }
 - (void)configNavBarItem{
 
@@ -87,7 +125,7 @@
 
     // init map
     
-    _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, NavBarH, SCREEN_WIDTH, (SCREEN_HEIGHT - NavBarH)/2)];
+    _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, NavBarH, SCREEN_WIDTH, MapViewH)];
     
     _mapView.showsUserLocation = YES; // 进入立即显示用户定位
     _mapView.userTrackingMode = MAUserTrackingModeFollow; // 跟踪模式 跟随
@@ -108,16 +146,14 @@
 
     // location annotation
     UIButton * location = [UIButton buttonWithType:UIButtonTypeCustom];
+    _locationBtn = location;
     
     [location setImage:[UIImage imageNamed:@"locationIcon"] forState:UIControlStateNormal];
     [location addTarget:self action:@selector(returnToUserLocation) forControlEvents:UIControlEventTouchUpInside];
+    
+    _locationBtn.frame = CGRectMake(10, _mapView.height-55+NavBarH, location.currentImage.size.width, location.currentImage.size.height);
+    
     [self.view addSubview:location];
-    // 布局
-    [location mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_mapView).offset(10);
-        make.bottom.equalTo(_mapView).offset(-20);
-        
-    }];
     
     // moved annotation (可移动标注点)
     
@@ -129,12 +165,14 @@
     
     // location tableView
     
-    UITableView * locationView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_mapView.frame), SCREEN_WIDTH, SCREEN_HEIGHT-(NavBarH+CGRectGetHeight(_mapView.frame))) style:UITableViewStylePlain];
+    UITableView * locationView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_mapView.frame), SCREEN_WIDTH, LocationViewH) style:UITableViewStylePlain];
     _locationsView = locationView;
     _locationsView.dataSource = self;
     _locationsView.delegate = self;
     _locationsView.backgroundColor = [UIColor whiteColor];
     _locationsView.tableFooterView = [UIView new];
+    
+    [_locationsView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     
     UIActivityIndicatorView * indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     _indicator = indicator;
@@ -151,6 +189,28 @@
     
 }
 
+#pragma mark - observer action
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
+    
+    if ([keyPath isEqualToString:@"contentOffset"]) {
+        CGPoint point = [change[NSKeyValueChangeNewKey] CGPointValue];
+        CGFloat offsetY = point.y;
+        
+        if (offsetY > 0.f) {
+            if (!self.isOnTop) {
+                [self setOnTop:YES];
+            }
+        }
+        if (offsetY < -20.f) {
+            if (self.isOnTop) {
+                [self setOnTop:NO];
+            }
+            
+        }
+    }
+}
+
 #pragma mark - actions
 
 - (void)sendBtnClick:(UIButton *)btn{
@@ -159,15 +219,16 @@
     
     WJWeakSelf(weakSelf);
     
-    [_mapView takeSnapshotInRect:rect withCompletionBlock:^(UIImage *resultImage, CGRect rect) {
+    [_mapView takeSnapshotInRect:rect withCompletionBlock:^(UIImage *resultImage, NSInteger state) {
         
+        WJStrongSelf(strongSelf);
         UIImage * image = resultImage;
         
         NSString * address = nil;
         NSString * roadName = nil;
         AMapGeoPoint * geoPoint = nil;
         
-        if (weakSelf.selectedRow == 0) {
+        if (strongSelf.selectedRow == 0) {
             address = _reGeocode.formattedAddress;
             roadName = address;
             geoPoint = [AMapGeoPoint locationWithLatitude:_centerPin.coordinate.latitude longitude:_centerPin.coordinate.longitude];
@@ -180,13 +241,10 @@
         
         // 回调发送一个地理位置消息
         
-        if (weakSelf.completion) {
+        if (strongSelf.completion) {
             
-            weakSelf.completion(image, address, roadName, geoPoint);
-            [weakSelf dismissViewControllerAnimated:YES completion:^{
-                
-            }];
-            
+            strongSelf.completion(image, address, roadName, geoPoint);
+            [strongSelf dismissViewControllerAnimated:YES completion:nil];
         }
     }];
 }
@@ -203,21 +261,29 @@
     
     MAUserLocation * userLocation = _mapView.userLocation;
     
-    [self gotoLocation:userLocation.coordinate];
+    [self gotoLocation:userLocation.coordinate animated:YES];
     
 }
 
 #pragma mark - mapView delegate
 
+- (void)mapInitComplete:(MAMapView *)mapView{
+    [self returnToUserLocation];
+}
+
 - (void)mapViewWillStartLocatingUser:(MAMapView *)mapView{
-    // 即将启动定位
+
+    NSLog(@"将要开始定位");
 }
 
 - (void)mapViewDidStopLocatingUser:(MAMapView *)mapView{
 
+    NSLog(@"停止定位");
 }
-- (void)mapView:(MAMapView *)mapView mapWillMoveByUser:(BOOL)wasUserAction{
 
+- (void)mapView:(MAMapView *)mapView didFailToLocateUserWithError:(NSError *)error{
+
+    NSLog(@"定位失败：%@",error);
 }
 
 - (void)mapView:(MAMapView *)mapView mapDidMoveByUser:(BOOL)wasUserAction{
@@ -230,6 +296,7 @@
     
     // 更新当前位置信息
     if (self.isAllowUpdateLocation) {
+        
         AMapReGeocodeSearchRequest * recodeRequest = [[AMapReGeocodeSearchRequest alloc] init];
         recodeRequest.location = [AMapGeoPoint locationWithLatitude:_centerPin.coordinate.latitude longitude:_centerPin.coordinate.longitude];
         recodeRequest.requireExtension = YES; // 返回扩展信息
@@ -241,7 +308,6 @@
 
 - (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation{
     // 用户位置或设备方向变化后的回调
-    
 }
 
 #pragma mark - searchAPI delegate
@@ -313,21 +379,20 @@
     _allowUpdateLocation = NO;
     
     if (indexPath.row == 0) {
-        [self gotoLocation:_centerPin.coordinate];
+        [self gotoLocation:_centerPin.coordinate animated:YES];
     }else{
     
         AMapPOI * poi = _reGeocode.pois[indexPath.row-1];
-        [self gotoLocation:CLLocationCoordinate2DMake(poi.location.latitude, poi.location.longitude)];
-        
+        [self gotoLocation:CLLocationCoordinate2DMake(poi.location.latitude, poi.location.longitude) animated:YES];
     }
 }
 
 #pragma mark - private
 
 // 移动地图到指定坐标点
-- (void)gotoLocation:(CLLocationCoordinate2D)coordinate{
+- (void)gotoLocation:(CLLocationCoordinate2D)coordinate animated:(BOOL)animated{
 
     [_mapView setZoomLevel:15 animated:YES];
-    [_mapView setCenterCoordinate:coordinate animated:YES];
+    [_mapView setCenterCoordinate:coordinate animated:animated];
 }
 @end

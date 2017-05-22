@@ -16,8 +16,11 @@
 @property (nonatomic,copy) NSString * time;
 @property (nonatomic,copy) NSString * type;
 @property (nonatomic,copy) NSString * textContent;
+@property (nonatomic,copy) NSString * extraContent; // 额外内容
 @property (nonatomic,copy) NSString * localPath;
 @property (nonatomic,assign) int duration; //语音时间（只有语音消息才有）
+@property (nonatomic,assign) double latitude; // 纬度
+@property (nonatomic,assign) double longitude; // 经度 
 @property (nonatomic,copy) NSString * direction;
 @property (nonatomic,assign) BOOL  isRead;
 @property (nonatomic,assign) BOOL  isHideTime;

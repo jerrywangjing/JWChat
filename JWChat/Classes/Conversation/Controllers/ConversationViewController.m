@@ -470,8 +470,7 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
                 ImageMessageBody * imageBody = [[ImageMessageBody alloc] initWithData:nil localPath:nil];
                 imageBody.thumbUrl = image.thumbUrl;
                 imageBody.url = image.url;
-                
-                
+                //recvMsg = [WJMessageHelper receivedImageMessageWithData:nil localPath:image.thumbUrl from:image.message.from];
             }
                 break;
                 
