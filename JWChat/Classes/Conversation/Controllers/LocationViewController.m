@@ -11,6 +11,7 @@
 #import <MAMapKit/MAMapKit.h>
 #import <AMapSearchKit/AMapSearchKit.h>
 #import "WJAlertSheetView.h"
+#import <MapKit/MapKit.h>
 
 @interface LocationViewController ()<MAMapViewDelegate,AMapSearchDelegate>
 
@@ -355,10 +356,48 @@
             }
                 
                 break;
-            case 3:
+            case 3: // 跳转高德地图
+            {
+                CLLocationCoordinate2D sourceCoordinate = _mapView.userLocation.coordinate;
+                CLLocationCoordinate2D destinationCoordinate = CLLocationCoordinate2DMake(self.locationBody.latitude, self.locationBody.longitude);
+                
+                // 导航url
+                NSString * naviUrl = [NSString stringWithFormat:@"iosamap://navi?sourceApplication=%@&backScheme=%@&poiname=&poiid=&lat=%f&lon=%f&dev=0&style=2",@"JWChat",@"JWChat",destinationCoordinate.latitude,destinationCoordinate.longitude];
+                // 路径规划url
+                NSString * pathUrl = [NSString stringWithFormat:@"iosamap://path?sourceApplication=%@&sid=BGVIS1&slat=%f&slon=%f&sname=&did=BGVIS2&dlat=%f&dlon=%f&dname=&dev=0&t=0",@"JWChat",sourceCoordinate.latitude,sourceCoordinate.longitude,destinationCoordinate.latitude,destinationCoordinate.longitude];
+                
+                NSURL *myLocationScheme = [NSURL URLWithString:pathUrl];
+                
+                if (![WJApplication canOpenURL:myLocationScheme]) {
+                    [MBProgressHUD showLabelWithText:@"本机没有安装此应用"];
+                    return;
+                }
+                
+                if (iOS10_OR_LATER) {
+                    
+                    [[UIApplication sharedApplication] openURL:myLocationScheme options:@{} completionHandler:^(BOOL success) {
+                        if (!success) {
+                            NSLog(@"跳转高德地图失败");
+                        }
+                    }];
+                }else{
+                
+                    [[UIApplication sharedApplication] openURL:myLocationScheme];
+                }
+            }
                 
                 break;
-            case 4:
+            case 4: // 跳转苹果地图
+            {
+                MKMapItem * currentLocation = [MKMapItem mapItemForCurrentLocation];
+                MKPlacemark * placemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(self.locationBody.latitude, self.locationBody.longitude)];
+                
+                MKMapItem * toLocation = [[MKMapItem alloc] initWithPlacemark:placemark];
+                BOOL success = [MKMapItem openMapsWithItems:@[currentLocation,toLocation] launchOptions:@{MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDefault}]; // 步行模式
+                if (!success) {
+                    NSLog(@"打开苹果地图失败");
+                }
+            }
                 
                 break;
             default:

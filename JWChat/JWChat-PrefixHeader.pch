@@ -9,7 +9,7 @@
 #ifndef JWChat_PrefixHeader_pch
 #define JWChat_PrefixHeader_pch
 
-//屏幕尺寸
+//屏幕相关
 
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
@@ -17,6 +17,11 @@
 #define TabBarH 44
 #define WIDTH_RATE (SCREEN_WIDTH/375)   // 屏幕宽度系数（以4.7英寸为基准）
 #define HEIGHT_RATE (SCREEN_HEIGHT/667)
+
+#define iOS7_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+#define iOS8_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+#define iOS9_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0)
+#define iOS10_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0)
 
 // 常量字符串
 #define HeaderTitle @"headerTitle"
@@ -75,10 +80,12 @@
 #define kImageRelativePath @"/Library/appdata/imagebuffer"  // 图片消息缓存路径
 #define kVoiceRelativePath @"/Library/appdata/chatbuffer"   // 语音数据缓存路径
 #define kLocationRelativePath @"/Library/appdata/locationbuffer" // 位置消息缓存路径
-#define WJUserDefault [NSUserDefaults standardUserDefaults]
 #define MsgNoticeKey @"msgNoticeState"
 #define ContactsStateNoVerify @"等待验证" // 联系人状态
 #define ContactsStateIsFriend @"我的好友"
+
+#define WJUserDefault [NSUserDefaults standardUserDefaults]
+#define WJApplication [UIApplication sharedApplication]
 
 #define kUserId @"validUserId" // 当前用户id
 #define kIMUserId @"imUserId" //即时通讯当前登录用户

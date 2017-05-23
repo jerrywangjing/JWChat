@@ -206,7 +206,6 @@
             if (self.isOnTop) {
                 [self setOnTop:NO];
             }
-            
         }
     }
 }
