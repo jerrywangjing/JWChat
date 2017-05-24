@@ -22,11 +22,24 @@ logo
 ## 主要功能展示图
 
 - 聊天室
-![chatRoom1](https://github.com/jerrywangjing/JWChat/raw/master/Screenshot/chatRoom1.PNG)
+
+<img src="https://github.com/jerrywangjing/JWChat/raw/master/Screenshot/chatRoom1.PNG" width="30%" height="30%">             <img src="https://github.com/jerrywangjing/JWChat/raw/master/Screenshot/chatRoom2.PNG" width="30%" height="30%">
+
 - 地理位置分享
+
+<img src="https://github.com/jerrywangjing/JWChat/raw/master/Screenshot/locationShare.PNG" width="30%" height="30%">
+
 - 白板涂鸦
+
+<img src="https://github.com/jerrywangjing/JWChat/raw/master/Screenshot/artboard.PNG" width="30%" height="30%">
+
 - 地图导航
+
+<img src="https://github.com/jerrywangjing/JWChat/raw/master/Screenshot/locationNavi.PNG" width="30%" height="30%">
+
 - 个人中心
+
+<img src="https://github.com/jerrywangjing/JWChat/raw/master/Screenshot/profile.PNG" width="30%" height="30%">
 
 ## 使用到的技术（三方组件）
 
