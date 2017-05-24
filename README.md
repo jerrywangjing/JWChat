@@ -1,4 +1,4 @@
-<img src="https://github.com/jerrywangjing/JWChat/raw/master/Screenshot/logo@3x.PNG">
+<img src="https://github.com/jerrywangjing/JWChat/raw/master/Screenshot/logo.png">
 
 ## 前言
 
