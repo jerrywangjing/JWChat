@@ -22,7 +22,7 @@ logo
 ## 主要功能展示图
 
 - 聊天室
-
+![chatRoom1](https://github.com/jerrywangjing/JWChat/raw/master/Screenshot/chatRoom1.PNG)
 - 地理位置分享
 - 白板涂鸦
 - 地图导航
