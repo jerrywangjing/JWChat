@@ -12,6 +12,7 @@
 #import <AMapSearchKit/AMapSearchKit.h>
 #import "WJAlertSheetView.h"
 #import <MapKit/MapKit.h>
+#import <AddressBook/AddressBook.h>
 
 @interface LocationViewController ()<MAMapViewDelegate,AMapSearchDelegate>
 
@@ -21,6 +22,7 @@
 @property (nonatomic,strong) UIView * addressView;
 @property (nonatomic,strong) UILabel * address;
 @property (nonatomic,strong) UILabel * road;
+@property (nonatomic,strong) CLGeocoder * geocoder;
 
 @property (nonatomic,strong) NSMutableArray * overlays; // 存放规划路径对象
 
@@ -37,6 +39,13 @@
     return _overlays;
 }
 
+- (CLGeocoder *)geocoder{
+
+    if (!_geocoder) {
+        _geocoder = [[CLGeocoder alloc] init];
+    }
+    return _geocoder;
+}
 #pragma mark - init
 
 - (void)loadView{
@@ -65,9 +74,12 @@
     self.navigationController.navigationBar.hidden = NO;
 }
 
+-(UIStatusBarStyle)preferredStatusBarStyle{
+
+    return UIStatusBarStyleDefault;
+}
 - (void)dealloc{
-    
-    [_mapView clearDisk];
+
 }
 - (void)configNavBarItem{
     
@@ -362,7 +374,7 @@
                 CLLocationCoordinate2D destinationCoordinate = CLLocationCoordinate2DMake(self.locationBody.latitude, self.locationBody.longitude);
                 
                 // 导航url
-                NSString * naviUrl = [NSString stringWithFormat:@"iosamap://navi?sourceApplication=%@&backScheme=%@&poiname=&poiid=&lat=%f&lon=%f&dev=0&style=2",@"JWChat",@"JWChat",destinationCoordinate.latitude,destinationCoordinate.longitude];
+//                NSString * naviUrl = [NSString stringWithFormat:@"iosamap://navi?sourceApplication=%@&backScheme=%@&poiname=&poiid=&lat=%f&lon=%f&dev=0&style=2",@"JWChat",@"JWChat",destinationCoordinate.latitude,destinationCoordinate.longitude];
                 // 路径规划url
                 NSString * pathUrl = [NSString stringWithFormat:@"iosamap://path?sourceApplication=%@&sid=BGVIS1&slat=%f&slon=%f&sname=&did=BGVIS2&dlat=%f&dlon=%f&dname=&dev=0&t=0",@"JWChat",sourceCoordinate.latitude,sourceCoordinate.longitude,destinationCoordinate.latitude,destinationCoordinate.longitude];
                 
@@ -393,7 +405,8 @@
                 MKPlacemark * placemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(self.locationBody.latitude, self.locationBody.longitude)];
                 
                 MKMapItem * toLocation = [[MKMapItem alloc] initWithPlacemark:placemark];
-                BOOL success = [MKMapItem openMapsWithItems:@[currentLocation,toLocation] launchOptions:@{MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDefault}]; // 步行模式
+
+                BOOL success = [MKMapItem openMapsWithItems:@[currentLocation,toLocation] launchOptions:@{MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking}]; // 步行模式
                 if (!success) {
                     NSLog(@"打开苹果地图失败");
                 }

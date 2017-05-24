@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (instancetype)initWithSourcePath:(NSString *)sourcePath;
 
-
 /**
  *  文件对象初始化方法(根据文件数据)
  *
