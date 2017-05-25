@@ -9,7 +9,6 @@
 #import "LoginManager.h"
 #import <SAMKeychain.h>
 
-
 @implementation LoginManager
 
 +(instancetype)shareManager{
@@ -81,7 +80,6 @@
 
 }
 
-
 - (BOOL)isFirstLogin{
     
     NSString * account = [WJUserDefault objectForKey:kAccount];
@@ -120,8 +118,6 @@
     
     NSLog(@"已清除登录数据");
 }
-
-#pragma mark - private
 
 
 @end

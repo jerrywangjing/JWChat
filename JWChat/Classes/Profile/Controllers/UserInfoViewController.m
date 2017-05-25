@@ -86,7 +86,7 @@
                                         @{
                                     
                                             Title : @"昵称",
-                                            SubTitle : _user.userInfo.nickName,
+                                            SubTitle : [ContactsManager getNickName:_user],
                                     
                                         },
                                         @{
@@ -98,25 +98,25 @@
                                         @{
                                             
                                             Title : @"生日",
-                                            SubTitle : _user.userInfo.birth ? _user.userInfo.birth : @"",
+                                            SubTitle : [ContactsManager getBirthday:_user],
                                             
                                             },
                                         @{
                                             
                                             Title : @"手机",
-                                            SubTitle : _user.userInfo.mobile ? _user.userInfo.mobile : @"",
+                                            SubTitle : [ContactsManager getPhoneNumber:_user],
                                             
                                             },
                                         @{
                                             
                                             Title : @"邮箱",
-                                            SubTitle : _user.userInfo.email ? _user.userInfo.email : @"",
+                                            SubTitle : [ContactsManager getEmail:_user],
                                             
                                             },
                                         @{
                                             
                                             Title : @"签名",
-                                            SubTitle : _user.userInfo.sign ? _user.userInfo.sign : @"",
+                                            SubTitle : [ContactsManager getSign:_user],
                                             
                                             },
                                         
@@ -254,7 +254,7 @@
             return @"其他";
             break;
         default:
-            return @"未知";
+            return @"";
             break;
     }
 }

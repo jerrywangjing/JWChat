@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "MainTabBarController.h"
 #import "LoginManager.h"
+#import "RegisterViewController.h"
 #import "ContactsManager.h"
 
 @interface LoginViewController ()<UITextFieldDelegate>
@@ -167,7 +168,7 @@
     [self.view addSubview: _loginBtn];
     
     _loginIssueBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_loginIssueBtn setTitle:@"登录遇到问题?" forState:UIControlStateNormal];
+    [_loginIssueBtn setTitle:@"注册" forState:UIControlStateNormal];
     [_loginIssueBtn setTitleColor:WJRGBColor(70, 87, 131) forState:UIControlStateNormal];
     _loginIssueBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [_loginIssueBtn addTarget:self action:@selector(loginIssusBtnDidClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -292,11 +293,17 @@
         [UIApplication sharedApplication].keyWindow.rootViewController = tabBarVc;
         
     }];
-    
 }
 
 - (void)loginIssusBtnDidClick:(UIButton *)btn{
-    NSLog(@"问题按钮");
+   // 注册
+    RegisterViewController * registerVc = [[RegisterViewController alloc] init];
+    WJWeakSelf(weakSelf);
+    registerVc.completion = ^(NSString *account, NSString *password) {
+        weakSelf.accountText.text = account;
+        weakSelf.passwordText.text = password;
+    };
+    [self presentViewController:registerVc animated:YES completion:nil];
 }
 
 - (void)moreBtnDidClick:(UIButton *)btn{
