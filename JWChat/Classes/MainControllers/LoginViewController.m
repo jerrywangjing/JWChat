@@ -170,7 +170,7 @@
     _loginIssueBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_loginIssueBtn setTitle:@"注册" forState:UIControlStateNormal];
     [_loginIssueBtn setTitleColor:WJRGBColor(70, 87, 131) forState:UIControlStateNormal];
-    _loginIssueBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    _loginIssueBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [_loginIssueBtn addTarget:self action:@selector(loginIssusBtnDidClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_loginIssueBtn];
 
@@ -216,7 +216,7 @@
     
     NSString * url = [WJUserDefault objectForKey:kAvatarUrl];
     
-    [_avatarView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"avatar"]];
+    [_avatarView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"avatarBoy"]];
     
     _accountText.text = [WJUserDefault objectForKey: kAccount];
     

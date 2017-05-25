@@ -171,7 +171,7 @@
 
 - (void)logonBtnClick:(UIButton *)btn{
 
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
