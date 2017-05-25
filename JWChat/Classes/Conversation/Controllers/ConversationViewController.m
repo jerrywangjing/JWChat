@@ -231,19 +231,7 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
 // 刷新表格
 -(void)refreshTableView:(UIRefreshControl *)refresh{
     
-    if (refresh.isRefreshing) {
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
-            self.dataArr = [[DBManager shareManager] getAllConversationsFromDB];
-            [self.tableView reloadData];
-            [refresh endRefreshing];
-        });
-        
-    }else{
-        
-//        NSString * currentUser = [InitEngine shareEngine].currentUserID;
-//        NSLog(@"当前登录用户id：%@",currentUser);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.dataArr = [[DBManager shareManager] getAllConversationsFromDB];
         for (int i = 0; i<self.dataArr.count; i++) {
             ConversationModel * model = self.dataArr[i];
@@ -252,9 +240,13 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
                 break;
             }
         }
-        [self.tableView reloadData];
-    }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    });
 }
+
 - (void)jumpToContactsVc:(UIButton *)btn{
     
     //[btn clearBadge];
