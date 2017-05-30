@@ -42,12 +42,14 @@
 #import <IQKeyboardManager.h>
 
 // 类扩展（分类）
+#import "Constant.h"
 #import "UIView+WJExtension.h"
 #import "NSString+WJExtension.h"
 #import "UIImageView+PlayGIF.h"
 #import "UIImage+Extension.h"
 #import "NSDate+FormatTime.h"
 #import "UIViewController+WJExtension.h"
+#import "MBProgressHUD+WJ.h"
 
 // 即时通讯相关头文件
 #import <NIMSDK/NIMSDK.h>
@@ -112,7 +114,7 @@
 #define WJRGBAColor(R,G,B,A)  [UIColor colorWithRed:(R)/255.0f green:(G)/255.0f blue:(B)/255.0f alpha:(A)]
 #define SelectedThemeColor WJRGBAColor(162,213,252,0.6)
 #define WJHexRGB(c,a)    [UIColor colorWithRed:((c>>16)&0xFF)/256.0  green:((c>>8)&0xFF)/256.0   blue:((c)&0xFF)/256.0   alpha:a]
-#define RandomColor [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1]
+#define RandomColor [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1]
 
 // 字体
 
@@ -140,15 +142,6 @@
 // 获取bundle 资源 定义
 #define NSEaseLocalizedString(key, comment) [[NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"UIResource" withExtension:@"bundle"]] localizedStringForKey:(key) value:@"" table:nil]
 
-// 通知
 
-static NSString * const NTESNotificationLogout = @"NTESNotificationLogout";
-
-// 常量
-
-static NSString * const kAccount = @"account";
-static NSString * const kPassword = @"password";
-static NSString * const kToken = @"token";
-static NSString * const kAvatarUrl = @"avatarUrl";
 
 #endif /* JWChat_PrefixHeader_pch */

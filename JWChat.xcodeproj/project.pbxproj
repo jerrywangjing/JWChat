@@ -15,6 +15,15 @@
 		C43A228F1EC0BB4A0007D642 /* ArtBoardBezierView.m in Sources */ = {isa = PBXBuildFile; fileRef = C43A228C1EC0BB4A0007D642 /* ArtBoardBezierView.m */; };
 		C43A22931EC0C1600007D642 /* ArtboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C43A22921EC0C1600007D642 /* ArtboardViewController.m */; };
 		C43A22971EC489DB0007D642 /* SubmitRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C43A22961EC489DB0007D642 /* SubmitRecordViewController.m */; };
+		C44686401EDBE1D6000A57F8 /* MBProgressHUD+WJ.m in Sources */ = {isa = PBXBuildFile; fileRef = C446863F1EDBE1D6000A57F8 /* MBProgressHUD+WJ.m */; };
+		C446865B1EDBEC93000A57F8 /* MBHUD_Error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C44686531EDBEC93000A57F8 /* MBHUD_Error@2x.png */; };
+		C446865C1EDBEC93000A57F8 /* MBHUD_Error@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C44686541EDBEC93000A57F8 /* MBHUD_Error@3x.png */; };
+		C446865D1EDBEC93000A57F8 /* MBHUD_Info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C44686551EDBEC93000A57F8 /* MBHUD_Info@2x.png */; };
+		C446865E1EDBEC93000A57F8 /* MBHUD_Info@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C44686561EDBEC93000A57F8 /* MBHUD_Info@3x.png */; };
+		C446865F1EDBEC93000A57F8 /* MBHUD_Success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C44686571EDBEC93000A57F8 /* MBHUD_Success@2x.png */; };
+		C44686601EDBEC93000A57F8 /* MBHUD_Success@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C44686581EDBEC93000A57F8 /* MBHUD_Success@3x.png */; };
+		C44686611EDBEC93000A57F8 /* MBHUD_Warn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C44686591EDBEC93000A57F8 /* MBHUD_Warn@2x.png */; };
+		C44686621EDBEC93000A57F8 /* MBHUD_Warn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C446865A1EDBEC93000A57F8 /* MBHUD_Warn@3x.png */; };
 		C4680F461EA46B9200A57104 /* NTESDemoConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C4680F451EA46B9200A57104 /* NTESDemoConfig.m */; };
 		C4680F491EA46CC700A57104 /* NSDictionary+NTESJson.m in Sources */ = {isa = PBXBuildFile; fileRef = C4680F481EA46CC700A57104 /* NSDictionary+NTESJson.m */; };
 		C4680F4F1EA4710300A57104 /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4680F4E1EA4710300A57104 /* LoginManager.m */; };
@@ -279,6 +288,17 @@
 		C43A22921EC0C1600007D642 /* ArtboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtboardViewController.m; sourceTree = "<group>"; };
 		C43A22951EC489DB0007D642 /* SubmitRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitRecordViewController.h; sourceTree = "<group>"; };
 		C43A22961EC489DB0007D642 /* SubmitRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitRecordViewController.m; sourceTree = "<group>"; };
+		C44685001EDA82CB000A57F8 /* Constant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
+		C446863E1EDBE1D6000A57F8 /* MBProgressHUD+WJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+WJ.h"; sourceTree = "<group>"; };
+		C446863F1EDBE1D6000A57F8 /* MBProgressHUD+WJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+WJ.m"; sourceTree = "<group>"; };
+		C44686531EDBEC93000A57F8 /* MBHUD_Error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MBHUD_Error@2x.png"; sourceTree = "<group>"; };
+		C44686541EDBEC93000A57F8 /* MBHUD_Error@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MBHUD_Error@3x.png"; sourceTree = "<group>"; };
+		C44686551EDBEC93000A57F8 /* MBHUD_Info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MBHUD_Info@2x.png"; sourceTree = "<group>"; };
+		C44686561EDBEC93000A57F8 /* MBHUD_Info@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MBHUD_Info@3x.png"; sourceTree = "<group>"; };
+		C44686571EDBEC93000A57F8 /* MBHUD_Success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MBHUD_Success@2x.png"; sourceTree = "<group>"; };
+		C44686581EDBEC93000A57F8 /* MBHUD_Success@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MBHUD_Success@3x.png"; sourceTree = "<group>"; };
+		C44686591EDBEC93000A57F8 /* MBHUD_Warn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MBHUD_Warn@2x.png"; sourceTree = "<group>"; };
+		C446865A1EDBEC93000A57F8 /* MBHUD_Warn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MBHUD_Warn@3x.png"; sourceTree = "<group>"; };
 		C4680F441EA46B9200A57104 /* NTESDemoConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESDemoConfig.h; sourceTree = "<group>"; };
 		C4680F451EA46B9200A57104 /* NTESDemoConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESDemoConfig.m; sourceTree = "<group>"; };
 		C4680F471EA46CC700A57104 /* NSDictionary+NTESJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NTESJson.h"; sourceTree = "<group>"; };
@@ -727,6 +747,21 @@
 			name = testFiles;
 			sourceTree = "<group>";
 		};
+		C44686521EDBEC93000A57F8 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				C44686531EDBEC93000A57F8 /* MBHUD_Error@2x.png */,
+				C44686541EDBEC93000A57F8 /* MBHUD_Error@3x.png */,
+				C44686551EDBEC93000A57F8 /* MBHUD_Info@2x.png */,
+				C44686561EDBEC93000A57F8 /* MBHUD_Info@3x.png */,
+				C44686571EDBEC93000A57F8 /* MBHUD_Success@2x.png */,
+				C44686581EDBEC93000A57F8 /* MBHUD_Success@3x.png */,
+				C44686591EDBEC93000A57F8 /* MBHUD_Warn@2x.png */,
+				C446865A1EDBEC93000A57F8 /* MBHUD_Warn@3x.png */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
 		C4680F391EA469CF00A57104 /* NIMUtils */ = {
 			isa = PBXGroup;
 			children = (
@@ -1052,6 +1087,7 @@
 				C4F4710B1E8D43CB001ED39F /* LaunchScreen.storyboard */,
 				C4F4710E1E8D43CB001ED39F /* Info.plist */,
 				C4F470FE1E8D43CB001ED39F /* main.m */,
+				C44685001EDA82CB000A57F8 /* Constant.h */,
 				C4F4714F1E8D5A6B001ED39F /* JWChat-PrefixHeader.pch */,
 			);
 			name = "Supporting Files";
@@ -1090,6 +1126,8 @@
 				C4680F481EA46CC700A57104 /* NSDictionary+NTESJson.m */,
 				C4C75F1A1E8F880F0093F723 /* MBProgressHUD+CustomView.h */,
 				C4C75F1B1E8F880F0093F723 /* MBProgressHUD+CustomView.m */,
+				C446863E1EDBE1D6000A57F8 /* MBProgressHUD+WJ.h */,
+				C446863F1EDBE1D6000A57F8 /* MBProgressHUD+WJ.m */,
 				C4F474471E93385F001ED39F /* NSAttributedString+EmojiExtension.h */,
 				C4F474481E93385F001ED39F /* NSAttributedString+EmojiExtension.m */,
 				C4F474491E93385F001ED39F /* NSDate+FormatTime.h */,
@@ -1219,6 +1257,7 @@
 		C4F471411E8D4CC1001ED39F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C44686521EDBEC93000A57F8 /* MBProgressHUD */,
 				C4C764861E94884C0093F723 /* UIResource.bundle */,
 				C4C75F231E9487E10093F723 /* 静态表情 */,
 				C4F472D61E933222001ED39F /* funKeyboardData.plist */,
@@ -1543,6 +1582,7 @@
 				C4C75FAB1E9487E10093F723 /* [63].png in Resources */,
 				C4C75FA21E9487E10093F723 /* [55].png in Resources */,
 				C4C75FAD1E9487E10093F723 /* [65].png in Resources */,
+				C446865D1EDBEC93000A57F8 /* MBHUD_Info@2x.png in Resources */,
 				C4C75F9B1E9487E10093F723 /* [49].png in Resources */,
 				C4C75FB91E9487E10093F723 /* [76].png in Resources */,
 				C4C75F751E9487E10093F723 /* [14].png in Resources */,
@@ -1561,6 +1601,7 @@
 				C4C75F911E9487E10093F723 /* [3].png in Resources */,
 				C4C75FB31E9487E10093F723 /* [70].png in Resources */,
 				C4C75F8B1E9487E10093F723 /* [34].png in Resources */,
+				C44686601EDBEC93000A57F8 /* MBHUD_Success@3x.png in Resources */,
 				C4C75F721E9487E10093F723 /* [11].png in Resources */,
 				C4C75FA01E9487E10093F723 /* [53].png in Resources */,
 				C4F4759B1E9398D8001ED39F /* PlayButtonOverlayLargeTap@3x.png in Resources */,
@@ -1569,6 +1610,7 @@
 				C4C75F9D1E9487E10093F723 /* [50].png in Resources */,
 				C4C75FBC1E9487E10093F723 /* [8].png in Resources */,
 				C4F4710D1E8D43CB001ED39F /* LaunchScreen.storyboard in Resources */,
+				C446865C1EDBEC93000A57F8 /* MBHUD_Error@3x.png in Resources */,
 				C4C75F881E9487E10093F723 /* [31].png in Resources */,
 				C4C75F971E9487E10093F723 /* [45].png in Resources */,
 				C4F4710A1E8D43CB001ED39F /* Assets.xcassets in Resources */,
@@ -1597,6 +1639,7 @@
 				C4C75FAF1E9487E10093F723 /* [67].png in Resources */,
 				C4C75FA31E9487E10093F723 /* [56].png in Resources */,
 				C4C75F931E9487E10093F723 /* [41].png in Resources */,
+				C446865F1EDBEC93000A57F8 /* MBHUD_Success@2x.png in Resources */,
 				C4C75FA11E9487E10093F723 /* [54].png in Resources */,
 				C4F4759D1E9398D8001ED39F /* UIBarButtonItemArrowLeft@2x.png in Resources */,
 				C4F475901E9398D8001ED39F /* ImageSelectedSmallOff.png in Resources */,
@@ -1612,6 +1655,7 @@
 				C4C75FAA1E9487E10093F723 /* [62].png in Resources */,
 				C4C75F211E9487B80093F723 /* LiuqsEmotionTags.plist in Resources */,
 				C4F475911E9398D8001ED39F /* ImageSelectedSmallOff@2x.png in Resources */,
+				C446865E1EDBEC93000A57F8 /* MBHUD_Info@3x.png in Resources */,
 				C4C75F9A1E9487E10093F723 /* [48].png in Resources */,
 				C4F475931E9398D8001ED39F /* ImageSelectedSmallOn.png in Resources */,
 				C4F475871E9398D8001ED39F /* ImageError.png in Resources */,
@@ -1634,6 +1678,7 @@
 				C4F4758E1E9398D8001ED39F /* ImageSelectedOn@2x.png in Resources */,
 				C4F475A11E9398D8001ED39F /* UIBarButtonItemArrowRight@3x.png in Resources */,
 				C4C75F851E9487E10093F723 /* [29].png in Resources */,
+				C44686611EDBEC93000A57F8 /* MBHUD_Warn@2x.png in Resources */,
 				C4C75FB51E9487E10093F723 /* [72].png in Resources */,
 				C4C75F871E9487E10093F723 /* [30].png in Resources */,
 				C4C75F8F1E9487E10093F723 /* [38].png in Resources */,
@@ -1648,9 +1693,11 @@
 				C4F475A21E9398D8001ED39F /* UIBarButtonItemGrid.png in Resources */,
 				C4C75F781E9487E10093F723 /* [17].png in Resources */,
 				C4C75F761E9487E10093F723 /* [15].png in Resources */,
+				C44686621EDBEC93000A57F8 /* MBHUD_Warn@3x.png in Resources */,
 				C4C75F7B1E9487E10093F723 /* [1].png in Resources */,
 				C4C75FA51E9487E10093F723 /* [58].png in Resources */,
 				C4F4758D1E9398D8001ED39F /* ImageSelectedOn.png in Resources */,
+				C446865B1EDBEC93000A57F8 /* MBHUD_Error@2x.png in Resources */,
 				C4F475961E9398D8001ED39F /* PlayButtonOverlayLarge.png in Resources */,
 				C4C75FBA1E9487E10093F723 /* [77].png in Resources */,
 				C4F472EA1E933268001ED39F /* ApplyNoticeTableViewCell.xib in Resources */,
@@ -1804,6 +1851,7 @@
 				C4680F491EA46CC700A57104 /* NSDictionary+NTESJson.m in Sources */,
 				C4F475841E9398D8001ED39F /* MWTapDetectingImageView.m in Sources */,
 				C4F471521E8EB8CB001ED39F /* DataManager.m in Sources */,
+				C44686401EDBE1D6000A57F8 /* MBProgressHUD+WJ.m in Sources */,
 				C4F472BE1E933001001ED39F /* Conversation.m in Sources */,
 				C4F475AC1E9398D8001ED39F /* UIImage+MWPhotoBrowser.m in Sources */,
 				C4870B011E93B104009650B9 /* EMCDDeviceManager+Media.m in Sources */,

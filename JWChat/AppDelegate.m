@@ -52,6 +52,8 @@
     _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [_window makeKeyAndVisible];
     
+    [UIActivityIndicatorView appearanceWhenContainedIn:[MBProgressHUD class], nil].color = [UIColor whiteColor]; // 修改hud指示器view的的全局颜色
+    
     [self setupMainViewController];
     
     return YES;

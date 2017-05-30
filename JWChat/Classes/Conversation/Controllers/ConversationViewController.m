@@ -160,7 +160,7 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
     [[NIMSDK sharedSDK].loginManager addDelegate:self];
     NSString * cache = NSHomeDirectory();
     NSLog(@"沙盒：%@",cache);
-    //[self testMethod];
+    [self testMethod];
 }
 
 - (void)dealloc{
@@ -184,12 +184,6 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
 
 -(void)testMethod{
     
-    ContactsModel * user = [[ContactsModel alloc] initWithUserId:@"jerry002"];
-    user.userName = @"jerry";
-    user.avatarImageUrl = @"avatarBoy";
-    user.online = @"1";
-    
-    [[DBManager shareManager] creatOrUpdateContactWith:user];
     
 }
 

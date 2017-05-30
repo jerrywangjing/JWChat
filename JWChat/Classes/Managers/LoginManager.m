@@ -9,6 +9,7 @@
 #import "LoginManager.h"
 #import <SAMKeychain.h>
 
+
 @implementation LoginManager
 
 +(instancetype)shareManager{

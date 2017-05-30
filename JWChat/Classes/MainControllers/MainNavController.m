@@ -33,6 +33,15 @@
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
 }
 
+//push时隐藏tabbar
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if (self.viewControllers.count > 0) {
+        viewController.hidesBottomBarWhenPushed = YES;
+    }
+    [super pushViewController:viewController animated:animated];
+}
+
 // 设置状态栏样式
 
 -(UIStatusBarStyle)preferredStatusBarStyle{

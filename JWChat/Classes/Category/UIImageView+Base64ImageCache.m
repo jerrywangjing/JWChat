@@ -22,6 +22,9 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
+        if ([base64 isEqual:[NSNull null]]) {
+            return;
+        }
         if (!base64 || [base64 isEqualToString:@""]) {
             return;
         }

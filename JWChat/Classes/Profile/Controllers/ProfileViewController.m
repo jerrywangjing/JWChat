@@ -363,6 +363,15 @@ static NSString * const GitHub_WJ = @"https://github.com/jerrywangjing";
  
     [WJAlertSheetView showAlertSheetViewWithTips:nil items:@[@"开启",@"从00:00到12:00"] completion:^(NSInteger index,UIButton *item) {
         NSLog(@"selected index :%ld",index);
+        if (index == 1) {
+
+//            [MBProgressHUD showActivityHUD:@"正在加载..."];
+            [MBProgressHUD showSuccessHUD:@"成功了"];
+        }
+        if (index == 2) {
+            [MBProgressHUD hideHUDFromView:self.view];
+        }
+
     }];
 }
 

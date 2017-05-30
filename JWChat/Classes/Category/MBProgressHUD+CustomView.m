@@ -36,13 +36,14 @@
     
     hud.label.text = title;
     hud.mode = MBProgressHUDModeIndeterminate; // 默认指示器样式
-    hud.animationType = MBProgressHUDAnimationFade; // 动画样式
+    hud.animationType = MBProgressHUDAnimationZoomOut; // 动画样式
     
-//    hud.label.textColor = [UIColor whiteColor];  // 设置字体颜色
-//    hud.bezelView.backgroundColor = [UIColor blackColor]; // hud背景颜色
+    hud.label.textColor = [UIColor whiteColor];  // 设置字体颜色
+    hud.bezelView.color = [UIColor colorWithWhite:0 alpha:0.7]; // hud背景颜色
+    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor; // hud背景样式
 //    hud.bezelView.alpha = 0.6;
-    
-    //hud.userInteractionEnabled = NO; // 开启后可点击hud外的其他控件
+      
+    hud.userInteractionEnabled = NO; // 开启后可点击hud外的其他控件
     
 //    hud.contentColor = [UIColor whiteColor]; // 可修改指示器和hud背景的颜色
 //    hud.bezelView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.7];

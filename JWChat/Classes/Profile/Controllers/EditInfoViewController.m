@@ -440,10 +440,10 @@
         [MBProgressHUD hideHUD];
         if (!error) {
             weakSelf.completion();
-            [MBProgressHUD showLabelWithText:@"设置成功"];
+            [MBProgressHUD showTipHUD:@"设置成功"];
             
         }else{
-            [MBProgressHUD showLabelWithText:@"设置失败，请重试"];
+            [MBProgressHUD showTipHUD:@"设置失败"];
         }
         
         [weakSelf.navigationController popViewControllerAnimated:YES];
