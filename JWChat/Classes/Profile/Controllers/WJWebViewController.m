@@ -243,16 +243,11 @@ static CGFloat const NAVI_HEIGHT = 64;
 #pragma mark WebViewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     webView.hidden = NO;
-    
-    // 验证url 正确性
-    BOOL isHTTP = [request.URL.scheme isEqualToString:@"http"] || [request.URL.scheme isEqualToString:@"https"];
-    
     // 不加载空白网址
-    if ([request.URL.scheme isEqualToString:@"about"] || !isHTTP) {
+    if ([request.URL.scheme isEqual:@"about"]) {
         webView.hidden = YES;
         return NO;
     }
-    
     return YES;
 }
 

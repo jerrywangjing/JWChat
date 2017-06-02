@@ -205,6 +205,12 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
             view.backgroundColor = [UIColor clearColor];
         }
     }
+    // 添加下拉刷新
+//    MJRefreshNormalHeader * refresh = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshTableView:)];
+//    refresh.lastUpdatedTimeLabel.hidden = YES;
+//    refresh.stateLabel.hidden = NO;
+//    
+//    _tableView.mj_header = refresh;
 
 }
 

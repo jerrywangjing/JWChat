@@ -94,19 +94,19 @@ BOOL hasApply = NO; // 是否有申请信息
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    // 检查有没有新的联系人请求，有的话就给出红点提示
-    BOOL hasNewApply = [[DBManager shareManager] isExistsRecordInTable:DBContactsListName withColumnName:@"state" andColumnValue:ContactsStateNoVerify];
-    if (hasNewApply) {
-        hasApply = YES;
-    }else{
-    
-        hasApply = NO;
-    }
-    [self.tableView reloadData];
-    
-    if (self.searchController.active) {
-        self.searchController.active = NO;
-    }
+//    // 检查有没有新的联系人请求，有的话就给出红点提示
+//    BOOL hasNewApply = [[DBManager shareManager] isExistsRecordInTable:DBContactsListName withColumnName:@"state" andColumnValue:ContactsStateNoVerify];
+//    if (hasNewApply) {
+//        hasApply = YES;
+//    }else{
+//    
+//        hasApply = NO;
+//    }
+//    [self.tableView reloadData];
+//    
+//    if (self.searchController.active) {
+//        self.searchController.active = NO;
+//    }
 }
 
 -(void)setupTableView{

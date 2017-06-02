@@ -189,47 +189,53 @@ static DBManager *_dB = nil;
 -(NSMutableArray *)getAllConversationsFromDB{
     
     NSString * sql = [NSString stringWithFormat:@"SELECT * FROM \"%@\";",DBConversationListName];
-    FMResultSet *set = [_fmdb executeQuery:sql];
+
     //装数据模型
     NSMutableArray *array = [NSMutableArray array];
-    while (set.next) {
+    FMDatabaseQueue * queue = [FMDatabaseQueue databaseQueueWithPath:DB_PATH];
+    
+    [queue inDatabase:^(FMDatabase *db) {
+        FMResultSet * set = [db executeQuery:sql];
+        
+        while (set.next) {
             // 创建会话对象
             
-        Message * latestMsg = [[Message alloc] init];
-        
-        latestMsg.timeStr = [set stringForColumn:@"lastMsgTime"];
-        latestMsg.timestamp = [set stringForColumn:@"lastMsgTime"];
-        if ([[set stringForColumn:@"lastMsgContent"] isEqualToString:@"图片"]) {
-            latestMsg.body.type = MessageBodyTypeImage;
-        }else if ([[set stringForColumn:@"lastMsgContent"] isEqualToString:@"语音"]){
+            Message * latestMsg = [[Message alloc] init];
             
-            latestMsg.body.type = MessageBodyTypeVoice;
-        }else if ([[set stringForColumn:@"lastMsgContent"] isEqualToString:@"文件"]){
+            latestMsg.timeStr = [set stringForColumn:@"lastMsgTime"];
+            latestMsg.timestamp = [set stringForColumn:@"lastMsgTime"];
+            if ([[set stringForColumn:@"lastMsgContent"] isEqualToString:@"图片"]) {
+                latestMsg.body.type = MessageBodyTypeImage;
+            }else if ([[set stringForColumn:@"lastMsgContent"] isEqualToString:@"语音"]){
+                
+                latestMsg.body.type = MessageBodyTypeVoice;
+            }else if ([[set stringForColumn:@"lastMsgContent"] isEqualToString:@"文件"]){
+                
+                latestMsg.body.type = MessageBodyTypeFile;
+            }else{ // 最近消息是文本消息
+                
+                latestMsg.body.type = MessageBodyTypeText;
+                latestMsg.body = [[TextMessageBody alloc] initWithText:[set stringForColumn:@"lastMsgContent"]];
+            }
             
-            latestMsg.body.type = MessageBodyTypeFile;
-        }else{ // 最近消息是文本消息
+            // 创建会话
+            Conversation * cover = [[Conversation alloc] initWithLatestMessage:latestMsg];
             
-            latestMsg.body.type = MessageBodyTypeText;
-            latestMsg.body = [[TextMessageBody alloc] initWithText:[set stringForColumn:@"lastMsgContent"]];
+            cover.conversationId = [set stringForColumn:@"conversationId"];
+            cover.unreadMessagesCount = [set intForColumn:@"unreadCount"];
+            cover.latestMessage = latestMsg;
+            // 创建联系人模型
+            
+            NIMUser * user = [[NIMSDK sharedSDK].userManager userInfo:cover.conversationId];
+            // 创建会话模型对象
+            ConversationModel * model = [[ConversationModel alloc] initWithConversation:cover];
+            model.user = user;
+            model.uid = [set intForColumn:@"id"];
+            
+            [array addObject:model];
         }
-    
-        // 创建会话
-        Conversation * cover = [[Conversation alloc] initWithLatestMessage:latestMsg];
-        
-        cover.conversationId = [set stringForColumn:@"conversationId"];
-        cover.unreadMessagesCount = [set intForColumn:@"unreadCount"];
-        cover.latestMessage = latestMsg;
-        // 创建联系人模型
-        //ContactsModel * user = [self getUserWithUserId:cover.conversationId];
-    
-        NIMUser * user = [[NIMSDK sharedSDK].userManager userInfo:cover.conversationId];
-        // 创建会话模型对象
-        ConversationModel * model = [[ConversationModel alloc] initWithConversation:cover];
-        model.user = user;
-        model.uid = [set intForColumn:@"id"];
-        
-        [array addObject:model];
-    }
+
+    }];
     
     return array;
 }

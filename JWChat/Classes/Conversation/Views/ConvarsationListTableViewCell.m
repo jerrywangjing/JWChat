@@ -85,39 +85,4 @@
         [self.contentView addSubview:bottomBorder];
     }
 }
-
--(void)setSelected:(BOOL)selected animated:(BOOL)animated{
-    [super setSelected:selected animated:animated];
-    
-    UIColor * backgroundColor = [UIColor clearColor];
-    UIColor * highlightColor = [UIColor grayColor];
-    
-    if (selected) {
-        self.backgroundColor = highlightColor;
-    }else{
-        
-        [UIView animateWithDuration:0.5 animations:^{
-            self.backgroundColor = backgroundColor;
-        }completion:^(BOOL finished) {
-            [self setNeedsLayout];
-        }];
-    }
-}
-
--(void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
-
-    [super setHighlighted:highlighted animated:animated];
-    
-    UIColor * highlightColor = [UIColor grayColor];
-    
-    if (highlighted) {
-        self.backgroundColor = highlightColor;
-    }else{
-    
-        [UIView animateWithDuration:0.1 animations:^{
-            self.backgroundColor = [UIColor clearColor];
-        }];
-    }
-
-}
 @end
