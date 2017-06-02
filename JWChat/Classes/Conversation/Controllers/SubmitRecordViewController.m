@@ -76,6 +76,9 @@ static const CGFloat TextViewH = 300;
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"提交病历";
     
+    UIBarButtonItem * exchange = [[UIBarButtonItem alloc] initWithTitle:@"切换" style:UIBarButtonItemStylePlain target:self action:@selector(exchangeClick:)];
+    self.navigationItem.rightBarButtonItem = exchange;
+    
     // load data
     [self configData];
     
@@ -273,6 +276,15 @@ static const CGFloat TextViewH = 300;
 
 #pragma mark - actions
 
+- (void)exchangeClick:(UIButton *)btn{
+
+    NSMutableAttributedString * att = [[NSMutableAttributedString alloc] initWithString:self.textView.text];
+    [att yy_setAttributes:@{
+                            NSFontAttributeName : [UIFont systemFontOfSize:20],
+                            
+                            }];
+
+}
 - (void)confirmBtnDidClick:(UIButton *)btn{
     
     
@@ -391,6 +403,7 @@ static const CGFloat TextViewH = 300;
         textView.delegate = self;
         textView.font = [UIFont systemFontOfSize:16];
         textView.placeholderFont = [UIFont systemFontOfSize:16];
+        textView.dataDetectorTypes = UIDataDetectorTypeAll;
         [cell.contentView addSubview:textView];
         _textView = textView;
     }
@@ -404,7 +417,7 @@ static const CGFloat TextViewH = 300;
     [pickerVc setDidFinishPickingPhotosWithInfosHandle:^(NSArray<UIImage *> * photos, NSArray * assets, BOOL isSelectOriginalPhoto, NSArray<NSDictionary *> * infos) {
         
         UIImage * originalImage = photos.firstObject;
-        UIImage * scaleImage = [UIImage imageCompressForSourceImage:originalImage targetWidth:100];
+        UIImage * scaleImage = [UIImage imageCompressForSourceImage:originalImage targetWidth:200];
         [self appendAttachImage:scaleImage];
         // 缓存插入的图片
         [self.insertImages addObject:scaleImage];
@@ -431,87 +444,47 @@ static const CGFloat TextViewH = 300;
 
 - (void)cacheRichTextWithOrderModel:(ConsultOrderModel *)model{
 
-    if (!_textView.text) {
-        return;
-    }
-    // 拆分富文本内容，上传服务器
-    NSMutableArray * imagePaths = [NSMutableArray array];
-    
-    for (NSInteger i = 0; i<self.insertImages.count; i++) {
-
-//        NSData * imageData = UIImagePNGRepresentation(self.insertImages[i]);
-        //NSString * imageName = [NSString stringWithFormat:@"%@%ld_%@.png",[NSDate date],i,_userInfo[KEY_PHONENUMBER]];
-        
-//        NSString * relativePath = [[MessageReadManager shareManager] saveMsgAttachWithData:imageData attachType:MessageBodyTypeConsultOrder andAttachName:imageName];
-//        
-//        [imagePaths addObject:relativePath];
-    }
-    
-//    model.richTextString = _textView.text;
-//    model.richTextAttachPaths = imagePaths;
-    
-    // 这里要将富文本内容先上传服务器，然后在缓存本地，再去即时通讯发送咨询消息
-    
-    // 服务器上传完成后，归档富文本到沙盒，ios端显示
-    
-    NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
-    
-    NSString * orderId = [NSString stringWithFormat:@"%.f",timeStamp]; // 服务器返回的订单号
-    NSData *attributData = [_textView.attributedText yy_archiveToData];
-    
-    NSString * dataName = [NSString stringWithFormat:@"%@.order",orderId];
-    
-//    NSString * relativePath = [[MessageReadManager shareManager] saveMsgAttachWithData:attributData attachType:MessageBodyTypeConsultOrder andAttachName:dataName];
-//    
-//    model.richTextDataPath = relativePath;
-    
-    // 转html 文本
-    
-    NSString * html = [NSString attriToStrWithAttri:_textView.attributedText];
-    
+    // 将普通文本转可变字符串，用于插入base64图片
     
     NSMutableString * mutString = [[NSMutableString alloc] initWithString:_textView.text];
-
-    NSMutableArray  * attachmentlocations = [NSMutableArray array]; // 附件的位置
+    
+    // 遍历富文本拿到插入附件的位置 location
+    
+    NSMutableArray  * attachmentlocations = [NSMutableArray array];
     
     [_textView.attributedText enumerateAttributesInRange:NSMakeRange(0, _textView.attributedText.length) options:NSAttributedStringEnumerationReverse usingBlock:^(NSDictionary<NSString *,id> * _Nonnull attrs, NSRange range, BOOL * _Nonnull stop) {
         
         if (range.length == 1) { // 注意：当length == 1，时说明遍历的是富文本字符串的附件位置，故可以精准的得到插入附件的位置index
             [attachmentlocations addObject:@(range.location)];
         }
-        
     }];
-
-    // 将图片转为base64字符串
+    
+    // 将图片附件转为base64字符串
     
     NSMutableArray * base64Strs  = [NSMutableArray array];
     
     for (NSInteger i = self.insertImages.count ; i >0; i--) {
         UIImage * image = self.insertImages[i-1];
-        //NSData * imageData = UIImageJPEGRepresentation(image, 0.6);
         NSString * base64 = [UIImage image2DataURL:image];
         [base64Strs addObject:base64];
     }
     
-    
-    // 替换附件为指定字符串
+    // 将转换好的base64字符串插入到对应的原附件位置
     
     for (NSInteger i = 0; i<attachmentlocations.count; i++) {
         
         NSInteger index = [attachmentlocations[i] integerValue];
         NSString * base64Str = base64Strs[i];
         
-        [mutString insertString:base64Str atIndex:index];
+        [mutString insertString:[NSString stringWithFormat:@"<img src=\"%@\">",base64Str] atIndex:index];
         
     }
-
-    //NSLog(@"插入结果：%@",mutString);
     
-    NSError * error = nil;
-    [mutString writeToFile:@"Users/Jerry/desktop/result.txt" atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    if (error) {
-        NSLog(@"error:%@",error.localizedDescription);
-    }
+    // 将插好图片附件的字符串转为html标准格式
+    
+    NSString * html = [NSString stringWithFormat:@"<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<title>html</title>\n</head>\n<body>\n%@\n</body>\n</html>",mutString];
+    
+    [html writeToFile:@"/Users/jerry/Desktop/result.html" atomically:YES encoding:NSUTF8StringEncoding error:nil];
     
 }
 

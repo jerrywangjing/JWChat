@@ -90,7 +90,7 @@
     [super setSelected:selected animated:animated];
     
     UIColor * backgroundColor = [UIColor clearColor];
-    UIColor * highlightColor = WJHexRGB(0xdbdbdb, 0.6f);
+    UIColor * highlightColor = [UIColor grayColor];
     
     if (selected) {
         self.backgroundColor = highlightColor;
@@ -108,7 +108,8 @@
 
     [super setHighlighted:highlighted animated:animated];
     
-    UIColor * highlightColor = WJHexRGB(0xdbdbdb, 0.6f);
+    UIColor * highlightColor = [UIColor grayColor];
+    
     if (highlighted) {
         self.backgroundColor = highlightColor;
     }else{

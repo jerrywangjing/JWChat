@@ -36,7 +36,7 @@
     
     hud.label.text = title;
     hud.mode = MBProgressHUDModeIndeterminate; // 默认指示器样式
-    hud.animationType = MBProgressHUDAnimationZoomOut; // 动画样式
+    hud.animationType = MBProgressHUDAnimationFade; // 动画样式
     
     hud.label.textColor = [UIColor whiteColor];  // 设置字体颜色
     hud.bezelView.color = [UIColor colorWithWhite:0 alpha:0.7]; // hud背景颜色

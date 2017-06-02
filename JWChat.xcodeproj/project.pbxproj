@@ -319,6 +319,7 @@
 		C46C3A5A1EA795AC00B97761 /* LogoutBtnCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutBtnCell.m; sourceTree = "<group>"; };
 		C46C3A5C1EA7AE2800B97761 /* NTESFileLocationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESFileLocationHelper.h; sourceTree = "<group>"; };
 		C46C3A5D1EA7AE2800B97761 /* NTESFileLocationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESFileLocationHelper.m; sourceTree = "<group>"; };
+		C47759FE1EE0FDE8001A2BD2 /* UtilsMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UtilsMacros.h; sourceTree = "<group>"; };
 		C4870ADC1E93B104009650B9 /* EMCDDeviceManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCDDeviceManagerDelegate.h; sourceTree = "<group>"; };
 		C4870ADD1E93B104009650B9 /* EMCDDeviceManagerProximitySensorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCDDeviceManagerProximitySensorDelegate.h; sourceTree = "<group>"; };
 		C4870ADF1E93B104009650B9 /* DemoErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoErrorCode.h; sourceTree = "<group>"; };
@@ -1087,6 +1088,7 @@
 				C4F4710B1E8D43CB001ED39F /* LaunchScreen.storyboard */,
 				C4F4710E1E8D43CB001ED39F /* Info.plist */,
 				C4F470FE1E8D43CB001ED39F /* main.m */,
+				C47759FE1EE0FDE8001A2BD2 /* UtilsMacros.h */,
 				C44685001EDA82CB000A57F8 /* Constant.h */,
 				C4F4714F1E8D5A6B001ED39F /* JWChat-PrefixHeader.pch */,
 			);
