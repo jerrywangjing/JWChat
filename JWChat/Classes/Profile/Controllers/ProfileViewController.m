@@ -16,6 +16,7 @@
 #import "FXBlurView.h"
 #import "WJAlertSheetView.h"
 #import "WJWebViewController.h"
+#import "AppDelegate.h"
 
 static const CGFloat HeaderHeight = 15;
 static NSString * const GitHub_WJ = @"https://github.com/jerrywangjing";

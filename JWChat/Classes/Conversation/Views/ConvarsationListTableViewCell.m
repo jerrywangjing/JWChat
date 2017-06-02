@@ -85,4 +85,22 @@
         [self.contentView addSubview:bottomBorder];
     }
 }
+
+
+-(void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
+
+    [super setHighlighted:highlighted animated:animated];
+    
+    UIColor * highlightColor = WJRGBColor(217, 217, 217);
+    
+    if (highlighted) {
+        self.backgroundColor = highlightColor;
+    }else{
+    
+        [UIView animateWithDuration:0.1 animations:^{
+            self.backgroundColor = [UIColor clearColor];
+        }];
+    }
+
+}
 @end

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+static NSNotificationName const NTESNotificationLogout = @"NTESNotificationLogout";
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

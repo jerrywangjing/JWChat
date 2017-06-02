@@ -205,12 +205,6 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
             view.backgroundColor = [UIColor clearColor];
         }
     }
-    // 添加下拉刷新
-//    MJRefreshNormalHeader * refresh = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshTableView:)];
-//    refresh.lastUpdatedTimeLabel.hidden = YES;
-//    refresh.stateLabel.hidden = NO;
-//    
-//    _tableView.mj_header = refresh;
 
 }
 
@@ -364,11 +358,6 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
 -(void)updateSearchResultsForSearchController:(UISearchController *)searchController{
     
     // 获取搜索结果数据
-//    NSMutableArray *  contactsArr = [NSMutableArray array];
-//    for (ConversationModel  * model  in self.dataArr) {
-//        NIMUserInfo * userInfo = model.user.userInfo;
-//        [contactsArr addObject:user];
-//    }
     
     NSArray * resultArr = [ZYPinYinSearch searchWithOriginalArray: self.dataArr andSearchText:searchController.searchBar.text andSearchByPropertyName:@"conversationId"];
     
@@ -456,7 +445,7 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
                 ImageMessageBody * imageBody = [[ImageMessageBody alloc] initWithData:nil localPath:nil];
                 imageBody.thumbUrl = image.thumbUrl;
                 imageBody.url = image.url;
-                //recvMsg = [WJMessageHelper receivedImageMessageWithData:nil localPath:image.thumbUrl from:image.message.from];
+
             }
                 break;
                 

@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+static NSString * const kAccount = @"account";
+static NSString * const kPassword = @"password";
+static NSString * const kToken = @"token";
+static NSString * const kAvatarUrl = @"avatarUrl";
+
+
 @interface LoginManager : NSObject
 
 + (instancetype)shareManager;

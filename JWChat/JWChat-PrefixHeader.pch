@@ -10,15 +10,9 @@
 #define JWChat_PrefixHeader_pch
 
 
+// 宏
 #import "UtilsMacros.h"
-
-// 常量字符串
-#define HeaderTitle @"headerTitle"
-#define RowContent @"rowContent"
-#define FooterTitle @"footerTitle"
-#define Title @"title"
-#define SubTitle @"subTitle"
-#define ImageUrl @"imageUrl"
+#import "Constant.h"
 
 //三方类库
 
@@ -31,7 +25,7 @@
 #import <IQKeyboardManager.h>
 
 // 类扩展（分类）
-#import "Constant.h"
+
 #import "UIView+WJExtension.h"
 #import "NSString+WJExtension.h"
 #import "UIImageView+PlayGIF.h"
@@ -41,6 +35,7 @@
 #import "MBProgressHUD+WJ.h"
 
 // 即时通讯相关头文件
+
 #import <NIMSDK/NIMSDK.h>
 #import "DBManager.h"
 #import "WJMessageHelper.h"
@@ -64,28 +59,23 @@
 #import "MBProgressHUD+CustomView.h"
 #import "DataManager.h"
 
-#define kDatabaseName @"conversationDB.sqlite" // 数据库名
-#define kConversationListName @"t_conversation_list"  // 会话表名
-#define kContactsListName @"t_contacts_list" // 联系人表名
-#define kMessagesListName @"t_messages_list" // 好友消息表
-#define kImageRelativePath @"/Library/appdata/imagebuffer"  // 图片消息缓存路径
-#define kVoiceRelativePath @"/Library/appdata/chatbuffer"   // 语音数据缓存路径
-#define kLocationRelativePath @"/Library/appdata/locationbuffer" // 位置消息缓存路径
-#define MsgNoticeKey @"msgNoticeState"
-#define ContactsStateNoVerify @"等待验证" // 联系人状态
-#define ContactsStateIsFriend @"我的好友"
+
+//屏幕相关
+
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+#define NavBarH 64
+#define TabBarH 44
+#define WIDTH_RATE (SCREEN_WIDTH/375)   // 屏幕宽度系数（以4.7英寸为基准）
+#define HEIGHT_RATE (SCREEN_HEIGHT/667)
+
+#define iOS7_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+#define iOS8_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+#define iOS9_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0)
+#define iOS10_OR_LATER   ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0)
 
 #define WJUserDefault [NSUserDefaults standardUserDefaults]
 #define WJApplication [UIApplication sharedApplication]
-
-#define kUserId @"validUserId" // 当前用户id
-#define kIMUserId @"imUserId" //即时通讯当前登录用户
-#define kCurrentUser @"当前联系人" // 当前用户资料键
-
-#define CurrentUserId [[NIMSDK sharedSDK].loginManager currentAccount] // 当前登录用户id
-#define DBTableName(tableName) [NSString stringWithFormat:@"%@_%@",tableName,CurrentUserId] // 消息表名
-#define DBConversationListName [NSString stringWithFormat:@"%@_%@",kConversationListName,CurrentUserId] // 会话表名
-#define DBContactsListName [NSString stringWithFormat:@"%@_%@",kContactsListName,CurrentUserId] // 联系人表名
 
 // 项目主题颜色
 
@@ -130,7 +120,5 @@
 
 // 获取bundle 资源 定义
 #define NSEaseLocalizedString(key, comment) [[NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"UIResource" withExtension:@"bundle"]] localizedStringForKey:(key) value:@"" table:nil]
-
-
 
 #endif /* JWChat_PrefixHeader_pch */
