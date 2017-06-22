@@ -23,4 +23,5 @@
 
 
 - (instancetype)initWithLatitude:(double)latitude longitude:(double)longitude bodyType:(MessageBodyType)type;
+
 @end

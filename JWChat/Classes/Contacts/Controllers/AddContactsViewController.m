@@ -172,7 +172,6 @@
             user.verifyMsg = verifyMsg;
             
         });
-        
     }];
 
     [alertVc addAction:cancel];

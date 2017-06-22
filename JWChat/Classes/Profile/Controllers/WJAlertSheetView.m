@@ -161,7 +161,9 @@ typedef void(^SelectedBlock)(NSInteger index,UIButton *item);
     WJAlertSheetView * sheetView = [[WJAlertSheetView alloc] initWithFrame:[UIScreen mainScreen].bounds tips:tips items:items];
 
     sheetView.callback = ^(NSInteger index,UIButton *item) {
-        completion(index,item);
+        if (completion) {
+            completion(index,item);
+        }
     };
     
     [sheetView showView];

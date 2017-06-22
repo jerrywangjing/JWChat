@@ -319,6 +319,10 @@
 // 反地理编码查询
 - (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response{
 
+    if (response.regeocode.pois == 0) {
+        NSLog(@"兴趣点搜索为空");
+        return;
+    }
     _reGeocode = response.regeocode;
     [_indicator stopAnimating];
     self.selectedRow = 0; // 重新加载地址列表后，恢复选中为0

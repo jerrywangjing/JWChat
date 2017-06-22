@@ -9,9 +9,12 @@
 /* Begin PBXBuildFile section */
 		AE232E87FB61793C8B5E9DD7 /* libPods-JWChatTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69DAE01FC217C91E0E1C1615 /* libPods-JWChatTests.a */; };
 		B6A1C2424D4D5DBA4A9996C3 /* libPods-JWChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C61DF51CCA267BD3C47F968B /* libPods-JWChat.a */; };
+		C40B2FAF1EF2CB450016AA80 /* TestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C40B2FAE1EF2CB450016AA80 /* TestTableViewController.m */; };
 		C41D055B1EA9ABBF00C06E34 /* EditInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D055A1EA9ABBF00C06E34 /* EditInfoViewController.m */; };
 		C41D055E1EAA094400C06E34 /* NTESBirthPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D055D1EAA094400C06E34 /* NTESBirthPickerView.m */; };
 		C41D05611EAA0A3B00C06E34 /* UIView+NTES.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D05601EAA0A3B00C06E34 /* UIView+NTES.m */; };
+		C431DF5D1EF95C3300A17E55 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C431DF5C1EF95C3300A17E55 /* TestViewController.m */; };
+		C431DF6E1EFA06C200A17E55 /* HMMyUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C431DF6D1EFA06C200A17E55 /* HMMyUserTableViewCell.m */; };
 		C43A228F1EC0BB4A0007D642 /* ArtBoardBezierView.m in Sources */ = {isa = PBXBuildFile; fileRef = C43A228C1EC0BB4A0007D642 /* ArtBoardBezierView.m */; };
 		C43A22931EC0C1600007D642 /* ArtboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C43A22921EC0C1600007D642 /* ArtboardViewController.m */; };
 		C43A22971EC489DB0007D642 /* SubmitRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C43A22961EC489DB0007D642 /* SubmitRecordViewController.m */; };
@@ -276,12 +279,18 @@
 		0143081FBF501D23F9F6EE33 /* Pods-JWChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JWChat/Pods-JWChat.debug.xcconfig"; sourceTree = "<group>"; };
 		69DAE01FC217C91E0E1C1615 /* libPods-JWChatTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JWChatTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A02832E3441BC6141CB054C /* Pods-JWChatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWChatTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JWChatTests/Pods-JWChatTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C40B2FAD1EF2CB450016AA80 /* TestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewController.h; sourceTree = "<group>"; };
+		C40B2FAE1EF2CB450016AA80 /* TestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewController.m; sourceTree = "<group>"; };
 		C41D05591EA9ABBF00C06E34 /* EditInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditInfoViewController.h; sourceTree = "<group>"; };
 		C41D055A1EA9ABBF00C06E34 /* EditInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditInfoViewController.m; sourceTree = "<group>"; };
 		C41D055C1EAA094400C06E34 /* NTESBirthPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESBirthPickerView.h; sourceTree = "<group>"; };
 		C41D055D1EAA094400C06E34 /* NTESBirthPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESBirthPickerView.m; sourceTree = "<group>"; };
 		C41D055F1EAA0A3B00C06E34 /* UIView+NTES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+NTES.h"; sourceTree = "<group>"; };
 		C41D05601EAA0A3B00C06E34 /* UIView+NTES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+NTES.m"; sourceTree = "<group>"; };
+		C431DF5B1EF95C3300A17E55 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		C431DF5C1EF95C3300A17E55 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		C431DF6C1EFA06C200A17E55 /* HMMyUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMMyUserTableViewCell.h; sourceTree = "<group>"; };
+		C431DF6D1EFA06C200A17E55 /* HMMyUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMMyUserTableViewCell.m; sourceTree = "<group>"; };
 		C43A228B1EC0BB4A0007D642 /* ArtBoardBezierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtBoardBezierView.h; sourceTree = "<group>"; };
 		C43A228C1EC0BB4A0007D642 /* ArtBoardBezierView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtBoardBezierView.m; sourceTree = "<group>"; };
 		C43A22911EC0C1600007D642 /* ArtboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtboardViewController.h; sourceTree = "<group>"; };
@@ -744,6 +753,10 @@
 			children = (
 				C43A22951EC489DB0007D642 /* SubmitRecordViewController.h */,
 				C43A22961EC489DB0007D642 /* SubmitRecordViewController.m */,
+				C431DF5B1EF95C3300A17E55 /* TestViewController.h */,
+				C431DF5C1EF95C3300A17E55 /* TestViewController.m */,
+				C431DF6C1EFA06C200A17E55 /* HMMyUserTableViewCell.h */,
+				C431DF6D1EFA06C200A17E55 /* HMMyUserTableViewCell.m */,
 			);
 			name = testFiles;
 			sourceTree = "<group>";
@@ -1252,6 +1265,8 @@
 				C4B4475F1EA8FFC000104CFB /* AboutViewController.m */,
 				C41D05591EA9ABBF00C06E34 /* EditInfoViewController.h */,
 				C41D055A1EA9ABBF00C06E34 /* EditInfoViewController.m */,
+				C40B2FAD1EF2CB450016AA80 /* TestTableViewController.h */,
+				C40B2FAE1EF2CB450016AA80 /* TestTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1838,11 +1853,13 @@
 				C4F475831E9398D8001ED39F /* MWPhotoBrowser.m in Sources */,
 				C4C764C91E948A1A0093F723 /* WJMessageHelper.m in Sources */,
 				C4C75F131E8F44000093F723 /* ConversationViewController.m in Sources */,
+				C40B2FAF1EF2CB450016AA80 /* TestTableViewController.m in Sources */,
 				C4F4745F1E93385F001ED39F /* UIImageView+PlayGIF.m in Sources */,
 				C4F474601E93385F001ED39F /* UIView+WJExtension.m in Sources */,
 				C4F4757F1E9398D8001ED39F /* MWCaptionView.m in Sources */,
 				C4A086661ECD9EF9007971C5 /* WJWebViewController.m in Sources */,
 				C4F473161E933372001ED39F /* ApplyAndNoticesViewController.m in Sources */,
+				C431DF6E1EFA06C200A17E55 /* HMMyUserTableViewCell.m in Sources */,
 				C41D05611EAA0A3B00C06E34 /* UIView+NTES.m in Sources */,
 				C4F475811E9398D8001ED39F /* MWGridViewController.m in Sources */,
 				C4870B041E93B104009650B9 /* EMCDDeviceManager+Remind.m in Sources */,
@@ -1930,6 +1947,7 @@
 				C4F474611E93385F001ED39F /* UIViewController+WJExtension.m in Sources */,
 				C4C768C41E9CB0110093F723 /* ChatToolBar.m in Sources */,
 				C46C3A551EA64ED600B97761 /* NTESSDKConfigDelegate.m in Sources */,
+				C431DF5D1EF95C3300A17E55 /* TestViewController.m in Sources */,
 				C4680F551EA701A600A57104 /* BaseTableViewCell.m in Sources */,
 				C4F473071E9332D8001ED39F /* MessageFrame.m in Sources */,
 				C41D055B1EA9ABBF00C06E34 /* EditInfoViewController.m in Sources */,

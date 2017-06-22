@@ -17,6 +17,7 @@
 #import "WJAlertSheetView.h"
 #import "WJWebViewController.h"
 #import "AppDelegate.h"
+#import "TestTableViewController.h"
 
 static const CGFloat HeaderHeight = 15;
 static NSString * const GitHub_WJ = @"https://github.com/jerrywangjing";
@@ -265,7 +266,9 @@ static NSString * const GitHub_WJ = @"https://github.com/jerrywangjing";
     
     if (indexPath.section == 1) {
         // 消息提醒
+        TestTableViewController *testTb = [TestTableViewController new];
         
+        [self.navigationController pushViewController:testTb animated:YES];
     }
     
     if (indexPath.section == 2) {
@@ -366,15 +369,17 @@ static NSString * const GitHub_WJ = @"https://github.com/jerrywangjing";
         NSLog(@"selected index :%ld",index);
         if (index == 1) {
 
-//            [MBProgressHUD showActivityHUD:@"正在加载..."];
-            [MBProgressHUD showSuccessHUD:@"成功了"];
         }
         if (index == 2) {
-            [MBProgressHUD hideHUDFromView:self.view];
+            
         }
 
     }];
 }
 
+- (void)testMethod{
+
+    self.view.layer.transform = CATransform3DMakeRotation(M_PI_4, 1, 0, 0);
+}
 
 @end
