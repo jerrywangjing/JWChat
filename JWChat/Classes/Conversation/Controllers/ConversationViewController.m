@@ -186,10 +186,8 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
 
 -(void)testMethod{
     
-    
     // 核心动画
 
-    
 }
 
 - (void)setupSubviews{
@@ -216,13 +214,12 @@ BOOL canClick = NO; // 连接状态视图是否可以点击
 #pragma mark - barButtonItem actions
 - (void)addBtnClick:(UIButton *)btn{
 
-    //AddContactsViewController * addVc = [[AddContactsViewController alloc] init];
+    AddContactsViewController * addVc = [[AddContactsViewController alloc] init];
+    
 //    SubmitRecordViewController * submit = [SubmitRecordViewController new];
 //    itemsVc.hidesBottomBarWhenPushed = YES;
-    
-    TestViewController *test = [[TestViewController alloc] init];
-    
-    [self.navigationController pushViewController:test animated:YES];
+
+    [self.navigationController pushViewController:addVc animated:YES];
 }
 // 刷新表格
 -(void)refreshTableView:(UIRefreshControl *)refresh{

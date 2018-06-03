@@ -15,6 +15,8 @@
 #import "NTESSDKConfigDelegate.h"
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import <AMapSearchKit/AMapSearchKit.h>
+#import <PgySDK/PgyManager.h>
+#import <PgyUpdate/PgyUpdateManager.h>
 
 @interface AppDelegate ()<NIMLoginManagerDelegate>
 
@@ -33,10 +35,15 @@
     
     //在注册 NIMSDK appKey 之前先进行配置信息的注册，如是否使用新路径,是否要忽略某些通知，是否需要多端同步未读数
     self.sdkConfigDelegate = [[NTESSDKConfigDelegate alloc] init];
+    
     [[NIMSDKConfig sharedConfig] setDelegate:self.sdkConfigDelegate];
     [[NIMSDKConfig sharedConfig] setShouldSyncUnreadCount:YES];
     
     // 初始化NIM(demo appKey)
+    /*
+       Demo账号：jerrytest888,test002
+     */
+    
     NSString *appKey = [[NTESDemoConfig sharedConfig] appKey];
     NSString *cerName = [[NTESDemoConfig sharedConfig] cerName];
     
@@ -55,6 +62,18 @@
     [UIActivityIndicatorView appearanceWhenContainedIn:[MBProgressHUD class], nil].color = [UIColor whiteColor]; // 修改hud指示器view的的全局颜色
     
     [self setupMainViewController];
+    
+    // 初始化蒲公英
+    
+    //启动基本SDK
+    [[PgyManager sharedPgyManager] startManagerWithAppId:@"99a6ee635b4fef48fb73a52d8d6ce802"];
+    //启动更新检查SDK
+    [[PgyUpdateManager sharedPgyManager] startManagerWithAppId:@"99a6ee635b4fef48fb73a52d8d6ce802"];
+    
+    // ios11 适配tableView
+    if (@available(iOS 11, *)) {
+//        [UIScrollView appearance].contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
     
     return YES;
 }
@@ -79,6 +98,9 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    //    // 蒲公英sdk，检查是否有新版本
+    [[PgyUpdateManager sharedPgyManager] checkUpdate];
 }
 
 

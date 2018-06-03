@@ -48,7 +48,7 @@
 #pragma  mark - setter
 
 - (void)setOnTop:(BOOL)onTop{
-
+    
     _onTop = onTop;
     
     if (onTop) {

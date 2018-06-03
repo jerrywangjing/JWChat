@@ -284,15 +284,20 @@
     // 登录
     
     [[LoginManager shareManager] loginWithAccount:self.accountText.text password:self.passwordText.text completionHandler:^{
-        
+
         //处理业务逻辑
-        
+
         //更新UI
-        
+
         MainTabBarController * tabBarVc = [[MainTabBarController alloc] init];
         [UIApplication sharedApplication].keyWindow.rootViewController = tabBarVc;
-        
+
     }];
+    
+    //更新UI
+    
+//    MainTabBarController * tabBarVc = [[MainTabBarController alloc] init];
+//    [UIApplication sharedApplication].keyWindow.rootViewController = tabBarVc;
 }
 
 - (void)loginIssusBtnDidClick:(UIButton *)btn{

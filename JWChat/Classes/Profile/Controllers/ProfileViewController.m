@@ -142,7 +142,12 @@ static NSString * const GitHub_WJ = @"https://github.com/jerrywangjing";
                                 @{
                                     Title : @"关于",
                                     SubTitle : @""
+                                    },
+                                @{
+                                    Title : @"功能测试",
+                                    SubTitle : @""
                                     }
+                                
                                 ],
                         FooterTitle : @""
                         
@@ -266,9 +271,8 @@ static NSString * const GitHub_WJ = @"https://github.com/jerrywangjing";
     
     if (indexPath.section == 1) {
         // 消息提醒
-        TestTableViewController *testTb = [TestTableViewController new];
-        
-        [self.navigationController pushViewController:testTb animated:YES];
+//        TestTableViewController *testTb = [TestTableViewController new];
+//        [self.navigationController pushViewController:testTb animated:YES];
     }
     
     if (indexPath.section == 2) {
@@ -286,6 +290,11 @@ static NSString * const GitHub_WJ = @"https://github.com/jerrywangjing";
             // 开发者网站
             WJWebViewController * webView = [[WJWebViewController alloc] init];
             webView.url = GitHub_WJ;
+            
+//            NSString *path = [[NSBundle mainBundle] pathForResource:@"openApp.html" ofType:nil];
+//            NSURL *fileUrl = [NSURL fileURLWithPath:path];
+//            webView.url = fileUrl;
+            
             webView.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:webView animated:YES];
         }
@@ -294,6 +303,10 @@ static NSString * const GitHub_WJ = @"https://github.com/jerrywangjing";
             AboutViewController * about = [AboutViewController new];
             about.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:about animated:YES];
+        }
+        if (indexPath.row == 3) {   // 功能测试
+            NSString *url = @"cmc20180510114100://test.com";
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
         }
     }
     

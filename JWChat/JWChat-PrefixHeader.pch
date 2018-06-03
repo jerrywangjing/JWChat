@@ -62,10 +62,14 @@
 
 //屏幕相关
 
+// iPhoneX 适配相关代码
+
+#define iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
-#define NavBarH 64
-#define TabBarH 44
+#define NavBarH (iPhoneX ? 88.f : 64.f)
+#define TabBarH (iPhoneX ? (49.f+34.f) : 49.f)
 #define WIDTH_RATE (SCREEN_WIDTH/375)   // 屏幕宽度系数（以4.7英寸为基准）
 #define HEIGHT_RATE (SCREEN_HEIGHT/667)
 

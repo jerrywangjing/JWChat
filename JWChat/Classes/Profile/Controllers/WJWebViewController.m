@@ -230,13 +230,29 @@ static CGFloat const NAVI_HEIGHT = 64;
 
 #pragma mark 加载请求
 - (void)loadRequest {
-    if (![self.url hasPrefix:@"http"]) {//是否具有http前缀
-        self.url = [NSString stringWithFormat:@"http://%@",self.url];
+
+    NSURL *url = nil;
+    if ([_url isKindOfClass:[NSString class]]) {
+        
+        if ([_url hasPrefix:@"http"] || [_url hasPrefix:@"https"]) {
+            url = [NSURL URLWithString:_url];
+        }else if([_url hasPrefix:@"file"]){
+            url = [NSURL fileURLWithPath:_url];
+        }
+        
+    }else if ([_url isKindOfClass:[NSURL class]]){
+        url = self.url;
     }
-    if ([[[UIDevice currentDevice]systemVersion]floatValue] >= 8.0) {
-        [_wk_WebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
+    
+    if (!url) {
+        [MBProgressHUD showLabelWithText:@"打开失败，url无效"];
+        return;
+    }
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+        [_wk_WebView loadRequest:[NSURLRequest requestWithURL:url]];
     } else {
-        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
+        [_webView loadRequest:[NSURLRequest requestWithURL:url]];
     }
 }
 

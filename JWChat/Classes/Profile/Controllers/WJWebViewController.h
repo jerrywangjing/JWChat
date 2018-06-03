@@ -11,7 +11,8 @@
 @interface WJWebViewController : UIViewController
 
 /// URL地址
-@property (nonatomic, copy) NSString *url;
+@property (nonatomic, strong) id url;
+
 /// 是否使用下拉刷新
 @property (nonatomic, assign) BOOL canDownRefresh;
 

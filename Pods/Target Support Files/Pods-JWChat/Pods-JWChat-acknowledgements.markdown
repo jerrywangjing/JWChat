@@ -219,6 +219,16 @@ THE SOFTWARE.
 
 Copyright 2017 Netease 
 
+## PgyUpdate
+
+Copyright 2015 pgyer.com. All rights reserved.
+
+
+## Pgyer
+
+Copyright 2017 pgyer.com. All rights reserved.
+
+
 ## QBImagePickerController
 
 Copyright (c) 2015 Katsuma Tanaka

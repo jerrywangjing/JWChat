@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+            <title>test</title>
+            
+            <style>
+                a {
+                    font-size: 50px;
+                    color: red;
+                    font-family: "微软雅黑";
+                }
+            </style>
+    </head>
+    <body>
+        
+        <a href="https://itunes.apple.com/cn/app/id995195037" id="openApp">打开应用</a>
+        
+        <script type="text/javascript">
+            
+            document.getElementById('openApp').onclick = function(e){
+                
+                // 通过iframe的方式尝试打开APP，如果能正常打开，会直接切换到APP，并自动阻止a标签的默认行为
+                // 否则打开a标签的href链接
+                
+                var ifr = document.createElement('iframe');
+                ifr.src = 'cmc20180510114100://topic/abcdefg';
+                ifr.style.display = 'none';
+                document.body.appendChild(ifr);
+                
+                window.setTimeout(function(){
+                                  document.body.removeChild(ifr);
+                                  },3000)
+            };
+        
+            </script>
+        
+        
+    </body>
+</html>
+

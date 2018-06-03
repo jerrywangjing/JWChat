@@ -67,7 +67,6 @@
                     }
                     
                 }];
-                
             }
             
         }else{
@@ -78,7 +77,6 @@
     } failure:^(NSError *error) {
         [MBProgressHUD showLabelWithText:@"登录失败"];
     }];
-
 }
 
 - (BOOL)isFirstLogin{

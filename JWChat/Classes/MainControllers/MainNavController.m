@@ -30,7 +30,7 @@
     [navBar setBackIndicatorTransitionMaskImage:buttonNormal];
     
     // 去掉导航栏返回按钮文字
-    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
+//    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
 }
 
 //push时隐藏tabbar

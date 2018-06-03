@@ -78,7 +78,7 @@
     
     _lineColor = lineColor;
     
-    [self setNeedsDisplay];
+    [self setNeedsDisplay]; // 重绘
 }
 
 - (void)setPencilType:(ArtboardPencilType)pencilType{

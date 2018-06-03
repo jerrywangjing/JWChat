@@ -152,17 +152,18 @@
     [[NTESDemoService sharedService] registerUser:data
                                        completion:^(NSError *error, NSString *errorMsg) {
                                            [MBProgressHUD hideHUD];
-                                           if (error == nil) {
+                                           if (!error) {
                                                [MBProgressHUD showLabelWithText:@"注册成功"];
                                                if (self.completion) {
                                                    self.completion(_accountField.text, _passwordField.text);
                                                }
                                                [self dismissViewControllerAnimated:YES completion:nil];
-                                               
                                            }
+                                           
                                            else
                                            {
                                                [MBProgressHUD showLabelWithText:@"注册失败"];
+                                               NSLog(@"error:%@",error.localizedDescription);
                                            }
                                            
                                        }];
