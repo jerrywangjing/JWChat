@@ -51,8 +51,7 @@
 
 ## 交流学习
 
-- 简书
-- QQ : 495388884
+- 博客：https://wjerry.com
 - 邮箱 ：wangjing268@163.com
 
 ## 声明
